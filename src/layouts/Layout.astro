@@ -38,6 +38,21 @@ const { language, textDirection } = I18N;
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user && window.location.hash.includes('invite_token')) {
+            window.netlifyIdentity.open('signup');
+          }
+        });
+
+        window.netlifyIdentity.on('login', () => {
+          window.location.href = '/admin/';
+        });
+      }
+    </script>
   </head>
 
   <body class="antialiased text-default bg-page tracking-tight">

@@ -1,8 +1,5 @@
 ---
 import merge from 'lodash.merge';
-import { AstroSeo } from '@astrolib/seo';
-
-import type { Props as AstroSeoProps } from '@astrolib/seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
 import type { MetaData } from '~/types';
@@ -24,7 +21,7 @@ const {
   twitter = {},
 } = Astro.props;
 
-const seoProps: AstroSeoProps = merge(
+const seoProps = merge(
   {
     title: '',
     titleTemplate: '%s',
@@ -63,6 +60,39 @@ const seoProps: AstroSeoProps = merge(
     twitter: twitter,
   }
 );
+
+const openGraphData = await adaptOpenGraphImages(seoProps?.openGraph, Astro.site);
+const titleTemplate = seoProps.titleTemplate || '%s';
+const pageTitle = seoProps.title ? titleTemplate.replace('%s', seoProps.title) : seoProps.title;
+const robotsContent = [seoProps.noindex ? 'noindex' : 'index', seoProps.nofollow ? 'nofollow' : 'follow'].join(', ');
+const twitterImage = openGraphData?.images?.[0]?.url;
 ---
 
-<AstroSeo {...{ ...seoProps, openGraph: await adaptOpenGraphImages(seoProps?.openGraph, Astro.site) }} />
+{pageTitle ? <title>{pageTitle}</title> : null}
+{seoProps.description ? <meta name="description" content={seoProps.description} /> : null}
+{seoProps.canonical ? <link rel="canonical" href={seoProps.canonical} /> : null}
+<meta name="robots" content={robotsContent} />
+
+{pageTitle ? <meta property="og:title" content={pageTitle} /> : null}
+{seoProps.description ? <meta property="og:description" content={seoProps.description} /> : null}
+{openGraphData?.url ? <meta property="og:url" content={openGraphData.url} /> : null}
+{openGraphData?.type ? <meta property="og:type" content={openGraphData.type} /> : null}
+{openGraphData?.site_name ? <meta property="og:site_name" content={openGraphData.site_name} /> : null}
+{openGraphData?.siteName ? <meta property="og:site_name" content={openGraphData.siteName} /> : null}
+{openGraphData?.locale ? <meta property="og:locale" content={openGraphData.locale} /> : null}
+{
+  openGraphData?.images?.map((image) => (
+    <>
+      {image.url ? <meta property="og:image" content={image.url} /> : null}
+      {image.width ? <meta property="og:image:width" content={String(image.width)} /> : null}
+      {image.height ? <meta property="og:image:height" content={String(image.height)} /> : null}
+    </>
+  ))
+}
+
+<meta name="twitter:card" content={twitter.cardType || (twitterImage ? 'summary_large_image' : 'summary')} />
+{twitter.site ? <meta name="twitter:site" content={twitter.site} /> : null}
+{twitter.handle ? <meta name="twitter:creator" content={twitter.handle} /> : null}
+{pageTitle ? <meta name="twitter:title" content={pageTitle} /> : null}
+{seoProps.description ? <meta name="twitter:description" content={seoProps.description} /> : null}
+{twitterImage ? <meta name="twitter:image" content={twitterImage} /> : null}
