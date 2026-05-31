@@ -1,228 +1,136 @@
 ---
-import Features2 from '~/components/widgets/Features2.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Steps2 from '~/components/widgets/Steps2.astro';
-import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
 
 const metadata = {
-  title: 'About us',
+  title: 'About Thought Brands',
+  description: 'Thought Brands helps companies become trusted sources through data, research-led stories, and authority-building campaigns.',
+  ignoreTitleTemplate: true,
 };
+
+const principles = [
+  {
+    title: 'Evidence before opinion',
+    description: 'We look for data, patterns, and proof points before deciding what a brand should say.',
+  },
+  {
+    title: 'Stories people can reference',
+    description: 'We turn research into assets that journalists, customers, partners, and search engines can cite.',
+  },
+  {
+    title: 'Authority that compounds',
+    description: 'We build campaigns that keep earning visibility after the first launch window has passed.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
 
-  <Hero
-    tagline="About us"
-    image={{
-      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Caos Image',
-    }}
-  >
-    <Fragment slot="title">
-      Elevate your online presence with our <br />
-      <span class="text-accent dark:text-white"> Beautiful Website Templates</span>
-    </Fragment>
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-24">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">About</p>
+          <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+            In a world of AI noise, brands need something real to say.
+          </h1>
+          <p class="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-normal text-[#2f5f59] sm:text-4xl">
+            We help you say it.
+          </p>
+        </div>
+        <div class="self-end">
+          <div class="aspect-video rounded-sm border border-[#141414]/10 bg-[#141414] p-4 text-white shadow-[0_24px_80px_rgba(20,20,20,0.10)]">
+            <div class="flex h-full flex-col justify-between rounded-sm border border-white/10 bg-white/5 p-5">
+              <div class="flex items-center justify-between text-sm text-white/60">
+                <span>Brand authority film</span>
+                <Icon name="tabler:video" class="h-5 w-5" />
+              </div>
+              <div class="flex items-center justify-center">
+                <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#141414]">
+                  <Icon name="tabler:player-play-filled" class="h-7 w-7" />
+                </span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <span class="h-2 rounded-sm bg-[#dce8d8]"></span>
+                <span class="h-2 rounded-sm bg-[#f2c36b]"></span>
+                <span class="h-2 rounded-sm bg-[#e2634f]"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <Fragment slot="subtitle">
-      Donec efficitur, ipsum quis congue luctus, mauris magna convallis mauris, eu auctor nisi lectus non augue. Donec
-      quis lorem non massa vulputate efficitur ac at turpis. Sed tincidunt ex a nunc convallis, et lobortis nisi tempus.
-      Suspendisse vitae nisi eget tortor luctus maximus sed non lectus.
-    </Fragment>
-  </Hero>
+    <section class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[1fr_0.85fr] lg:items-center lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">What we do</p>
+          <p class="mt-5 text-xl leading-9 text-[#343434]">
+            Thought Brands exists for companies that want to shape industry conversations, not just publish more
+            content. We uncover data, develop research-led stories, and create campaigns that help brands earn trust
+            across media, search, social, newsletters, and AI-driven discovery.
+          </p>
+          <p class="mt-6 text-lg leading-8 text-[#555]">
+            The work sits between strategy, research, PR, SEO, and thought leadership. The goal is simple: give your
+            market something credible to reference.
+          </p>
+        </div>
+        <div class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5">
+          <div class="aspect-[4/3] rounded-sm bg-white p-5">
+            <div class="grid h-full grid-rows-[1fr_auto] gap-5">
+              <div class="grid grid-cols-3 items-end gap-4">
+                <div class="h-24 rounded-sm bg-[#dce8d8]"></div>
+                <div class="h-40 rounded-sm bg-[#f2c36b]"></div>
+                <div class="h-32 rounded-sm bg-[#e2634f]"></div>
+              </div>
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Placeholder image</p>
+                <p class="mt-2 text-lg font-semibold">Research, story, authority</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Stats Widget ****************** -->
+    <section class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">How we think</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Authority starts with proof.</h2>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            principles.map((item) => (
+              <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+                <h3 class="text-xl font-semibold">{item.title}</h3>
+                <p class="mt-4 leading-7 text-[#555]">{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <Stats
-    title="Statistics about us"
-    stats={[
-      { title: 'Offices', amount: '4' },
-      { title: 'Employees', amount: '248' },
-      { title: 'Templates', amount: '12' },
-      { title: 'Awards', amount: '24' },
-    ]}
-  />
+    <section class="bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Find the story your market should cite.</h2>
+        </div>
+        <a
+          href="/book-a-meeting"
+          class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+        >
+          Book a strategy call
+          <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+        </a>
+      </div>
+    </section>
 
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    title="Our templates"
-    subtitle="Etiam scelerisque, enim eget vestibulum luctus, nibh mauris blandit nulla, nec vestibulum risus justo ut enim. Praesent lacinia diam et ante imperdiet euismod."
-    columns={3}
-    isBeforeContent={true}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'Morbi faucibus luctus quam, sit amet aliquet felis tempor id. Cras augue massa, ornare quis dignissim a, molestie vel nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Vivamus porttitor, tortor convallis aliquam pretium, turpis enim consectetur elit, vitae egestas purus erat ac nunc nulla.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Photography',
-        description:
-          'Duis sed lectus in nisl vehicula porttitor eget quis odio. Aliquam erat volutpat. Nulla eleifend nulla id sem fermentum.',
-        icon: 'tabler:template',
-      },
-    ]}
-  />
-
-  <!-- Features3 Widget ************** -->
-
-  <Features3
-    columns={3}
-    isAfterContent={true}
-    items={[
-      {
-        title: 'E-commerce',
-        description:
-          'Rutrum non odio at vehicula. Proin ipsum justo, dignissim in vehicula sit amet, dignissim id quam. Sed ac tincidunt sapien.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Blog',
-        description:
-          'Nullam efficitur volutpat sem sed fringilla. Suspendisse et enim eu orci volutpat laoreet ac vitae libero.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Business',
-        description:
-          'Morbi et elit finibus, facilisis justo ut, pharetra ipsum. Donec efficitur, ipsum quis congue luctus, mauris magna.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Suspendisse vitae nisi eget tortor luctus maximus sed non lectus. Cras malesuada pretium placerat. Nullam venenatis dolor a ante rhoncus.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Medical',
-        description:
-          'Vestibulum malesuada lacus id nibh posuere feugiat. Nam volutpat nulla a felis ultrices, id suscipit mauris congue. In hac habitasse platea dictumst.',
-        icon: 'tabler:template',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus.',
-        icon: 'tabler:template',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'Colorful Image',
-    }}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Our values"
-    subtitle="Maecenas eu tellus eget est scelerisque lacinia et a diam. Aliquam velit lorem, vehicula id fermentum et, rhoncus et purus. Nulla facilisi. Vestibulum malesuada lacus."
-    items={[
-      {
-        title: 'Customer-centric approach',
-        description:
-          'Donec id nibh neque. Quisque et fermentum tortor. Fusce vitae dolor a mauris dignissim commodo. Ut eleifend luctus condimentum.',
-      },
-      {
-        title: 'Constant Improvement',
-        description:
-          'Phasellus laoreet fermentum venenatis. Vivamus dapibus pulvinar arcu eget mattis. Fusce eget mauris leo.',
-      },
-      {
-        title: 'Ethical Practices',
-        description:
-          'Vestibulum imperdiet libero et lectus molestie, et maximus augue porta. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      },
-    ]}
-  />
-
-  <!-- Steps2 Widget ****************** -->
-
-  <Steps2
-    title="Achievements"
-    subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis, quam nec venenatis lobortis, mi risus tempus nulla, sed porttitor est nibh at nulla."
-    isReversed={true}
-    callToAction={{
-      text: 'See more',
-      href: '/',
-    }}
-    items={[
-      {
-        title: 'Global reach',
-        description: 'Nam malesuada urna in enim imperdiet tincidunt. Phasellus non tincidunt nisi, at elementum mi.',
-        icon: 'tabler:globe',
-      },
-      {
-        title: 'Positive customer feedback and reviews',
-        description:
-          'Cras semper nulla leo, eget laoreet erat cursus sed. Praesent faucibus massa in purus iaculis dictum.',
-        icon: 'tabler:message-star',
-      },
-      {
-        title: 'Awards and recognition as industry experts',
-        description:
-          'Phasellus lacinia cursus velit, eu malesuada magna pretium eu. Etiam aliquet tellus purus, blandit lobortis ex rhoncus vitae.',
-        icon: 'tabler:award',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Our locations"
-    tagline="Find us"
-    columns={4}
-    items={[
-      {
-        title: 'EE.UU',
-        description: '1234 Lorem Ipsum St, 12345, Miami',
-      },
-      {
-        title: 'Spain',
-        description: '5678 Lorem Ipsum St, 56789, Madrid',
-      },
-      {
-        title: 'Australia',
-        description: '9012 Lorem Ipsum St, 90123, Sydney',
-      },
-      {
-        title: 'Brazil',
-        description: '3456 Lorem Ipsum St, 34567, São Paulo',
-      },
-    ]}
-  />
-
-  <!-- Features2 Widget ************** -->
-
-  <Features2
-    title="Technical Support"
-    tagline="Contact us"
-    columns={2}
-    items={[
-      {
-        title: 'Chat with us',
-        description:
-          'Integer luctus laoreet libero, auctor varius purus rutrum sit amet. Ut nec molestie nisi, quis eleifend mi.',
-        icon: 'tabler:messages',
-      },
-      {
-        title: 'Call us',
-        description:
-          'Mauris faucibus finibus orci, in posuere elit viverra non. In hac habitasse platea dictumst. Cras lobortis metus a hendrerit congue.',
-        icon: 'tabler:headset',
-      },
-    ]}
-  />
+    <SiteFooter />
+  </main>
 </Layout>

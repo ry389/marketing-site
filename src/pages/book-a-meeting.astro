@@ -1,0 +1,249 @@
+---
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+
+const metadata = {
+  title: 'Book a strategy call',
+  description: 'Choose a time to discuss research-led PR, SEO, and thought leadership opportunities.',
+  ignoreTitleTemplate: true,
+};
+
+const discussionPoints = [
+  'Where your brand can credibly own a topic',
+  'What data or research angles are worth building',
+  'How campaigns can support PR, search, social, and AI discovery',
+  'Which proof points would make the business case clearer',
+];
+---
+
+<Layout metadata={metadata}>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-20">
+        <aside class="lg:sticky lg:top-8 lg:self-start">
+          <p class="inline-flex rounded-sm border border-[#141414]/15 bg-white/60 px-3 py-1 text-sm font-medium text-[#2f5f59]">
+            30 minute strategy call
+          </p>
+          <h1 class="mt-5 text-4xl font-semibold leading-[1.05] tracking-normal sm:text-6xl">
+            Book a meeting
+          </h1>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-[#454545]">
+            Pick a slot and share a little context. We want to get to know you better and learn more about your
+            challenges.
+          </p>
+
+          <div class="mt-8 rounded-sm border border-[#141414]/10 bg-white p-5">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-sm bg-[#dce8d8] text-[#2f5f59]">
+                <Icon name="tabler:sparkles" class="h-5 w-5" />
+              </span>
+              <h2 class="text-lg font-semibold">What we will cover</h2>
+            </div>
+            <ul class="mt-5 space-y-3">
+              {
+                discussionPoints.map((item) => (
+                  <li class="flex gap-3 text-sm leading-6 text-[#555]">
+                    <Icon name="tabler:circle-check" class="mt-0.5 h-5 w-5 shrink-0 text-[#2f5f59]" />
+                    <span>{item}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </aside>
+
+        <section class="rounded-sm border border-[#141414]/10 bg-white shadow-[0_24px_80px_rgba(20,20,20,0.08)]">
+          <form id="booking-form" action="/booking-confirmed" method="get" class="grid gap-0" data-booking-form>
+            <input type="hidden" name="meeting_type" value="strategy_call" />
+            <input type="hidden" name="meeting_duration" value="30" />
+            <input type="hidden" name="booking_status" value="confirmed" />
+            <input type="hidden" name="meeting_date" data-selected-date />
+            <input type="hidden" name="meeting_date_label" data-selected-date-label />
+            <input type="hidden" name="meeting_time" data-selected-time />
+            <input type="hidden" name="meeting_time_label" data-selected-time-label />
+            <input type="hidden" name="timezone" data-timezone />
+
+            <div class="border-b border-[#141414]/10 p-5 sm:p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 1</p>
+              <h2 class="mt-2 text-2xl font-semibold tracking-normal">Choose a date</h2>
+              <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-date-options aria-label="Available dates"></div>
+            </div>
+
+            <div class="border-b border-[#141414]/10 p-5 sm:p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 2</p>
+              <div class="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <h2 class="text-2xl font-semibold tracking-normal">Choose a time</h2>
+                <p class="text-sm text-[#666]" data-timezone-label>Your local time</p>
+              </div>
+              <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-time-options aria-label="Available times"></div>
+            </div>
+
+            <div class="grid gap-5 p-5 sm:p-6">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 3</p>
+                <h2 class="mt-2 text-2xl font-semibold tracking-normal">Tell us where to send the invite</h2>
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+                  Name
+                  <input
+                    required
+                    type="text"
+                    name="name"
+                    autocomplete="name"
+                    class="h-12 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+                  />
+                </label>
+                <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+                  Work email
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    autocomplete="email"
+                    class="h-12 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+                  />
+                </label>
+              </div>
+
+              <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+                Company
+                <input
+                  required
+                  type="text"
+                  name="company"
+                  autocomplete="organization"
+                  class="h-12 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+                />
+              </label>
+
+              <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+                What should we talk about?
+                <textarea
+                  name="context"
+                  rows="4"
+                  class="rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 py-3 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+                ></textarea>
+              </label>
+
+              <p
+                class="hidden rounded-sm border border-[#e2634f]/30 bg-[#fff4ef] px-4 py-3 text-sm font-medium text-[#9a2f21]"
+                data-booking-error
+                tabindex="-1"
+              >
+                Choose a date and time before confirming.
+              </p>
+
+              <button
+                type="submit"
+                class="inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
+              >
+                Confirm meeting
+                <Icon name="tabler:calendar-check" class="h-5 w-5" />
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+
+  <script is:inline>
+    const dateContainer = document.querySelector('[data-date-options]');
+    const timeContainer = document.querySelector('[data-time-options]');
+    const form = document.querySelector('[data-booking-form]');
+    const dateInput = document.querySelector('[data-selected-date]');
+    const dateLabelInput = document.querySelector('[data-selected-date-label]');
+    const timeInput = document.querySelector('[data-selected-time]');
+    const timeLabelInput = document.querySelector('[data-selected-time-label]');
+    const timezoneInput = document.querySelector('[data-timezone]');
+    const timezoneLabel = document.querySelector('[data-timezone-label]');
+    const errorMessage = document.querySelector('[data-booking-error]');
+    const times = ['09:00', '10:30', '13:00', '14:30', '16:00'];
+    const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
+
+    timezoneInput.value = timezone;
+    timezoneLabel.textContent = `${timezone.replaceAll('_', ' ')} time`;
+
+    const getAvailableDates = () => {
+      const dates = [];
+      const cursor = new Date();
+      cursor.setDate(cursor.getDate() + 1);
+
+      while (dates.length < 9) {
+        const day = cursor.getDay();
+        if (day !== 0 && day !== 6) {
+          dates.push(new Date(cursor));
+        }
+        cursor.setDate(cursor.getDate() + 1);
+      }
+
+      return dates;
+    };
+
+    const setSelectedButton = (container, button) => {
+      container.querySelectorAll('button').forEach((item) => {
+        item.classList.remove('border-[#2f5f59]', 'bg-[#dce8d8]');
+        item.classList.add('border-[#141414]/10', 'bg-[#f7f4ee]');
+        item.setAttribute('aria-pressed', 'false');
+      });
+      button.classList.add('border-[#2f5f59]', 'bg-[#dce8d8]');
+      button.classList.remove('border-[#141414]/10', 'bg-[#f7f4ee]');
+      button.setAttribute('aria-pressed', 'true');
+      errorMessage.classList.add('hidden');
+    };
+
+    getAvailableDates().forEach((date) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className =
+        'rounded-sm border border-[#141414]/10 bg-[#f7f4ee] px-4 py-3 text-left transition hover:border-[#2f5f59] hover:bg-[#dce8d8]';
+      button.setAttribute('aria-pressed', 'false');
+      button.dataset.value = date.toISOString().slice(0, 10);
+      button.dataset.label = dateFormatter.format(date);
+      button.innerHTML = `<span class="block text-sm font-semibold">${button.dataset.label}</span><span class="mt-1 block text-xs text-[#666]">Available</span>`;
+      button.addEventListener('click', () => {
+        dateInput.value = button.dataset.value;
+        dateLabelInput.value = button.dataset.label;
+        setSelectedButton(dateContainer, button);
+      });
+      dateContainer.append(button);
+    });
+
+    times.forEach((time) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className =
+        'rounded-sm border border-[#141414]/10 bg-[#f7f4ee] px-4 py-3 text-left text-sm font-semibold transition hover:border-[#2f5f59] hover:bg-[#dce8d8]';
+      button.setAttribute('aria-pressed', 'false');
+      button.dataset.value = time;
+      button.textContent = time;
+      button.addEventListener('click', () => {
+        timeInput.value = button.dataset.value;
+        timeLabelInput.value = button.textContent;
+        setSelectedButton(timeContainer, button);
+      });
+      timeContainer.append(button);
+    });
+
+    form.addEventListener('submit', (event) => {
+      if (!dateInput.value || !timeInput.value) {
+        event.preventDefault();
+        errorMessage.classList.remove('hidden');
+        errorMessage.focus();
+        return;
+      }
+
+      const bookingDetails = Object.fromEntries(new FormData(form).entries());
+      sessionStorage.setItem('thoughtBrandsBooking', JSON.stringify(bookingDetails));
+    });
+  </script>
+</Layout>

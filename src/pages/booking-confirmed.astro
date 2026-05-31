@@ -1,0 +1,188 @@
+---
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+
+const metadata = {
+  title: 'Booking confirmed',
+  description: 'Your strategy call has been requested.',
+  ignoreTitleTemplate: true,
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <main
+    class="min-h-screen bg-[#f7f4ee] text-[#141414]"
+    data-conversion-page="booking-confirmed"
+    data-conversion-event="strategy_call_booked"
+    data-meeting-type=""
+    data-meeting-date=""
+    data-meeting-time=""
+  >
+    <SiteHeader />
+
+    <section class="mx-auto grid max-w-5xl gap-8 px-5 py-8 sm:px-6 lg:px-8 lg:py-10">
+      <div class="rounded-sm border border-[#141414]/10 bg-white p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-7">
+        <div class="flex h-11 w-11 items-center justify-center rounded-sm bg-[#dce8d8] text-[#2f5f59]">
+          <Icon name="tabler:calendar-check" class="h-6 w-6" />
+        </div>
+        <p class="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Booking requested</p>
+        <h1 class="mt-2 text-4xl font-semibold leading-[1.05] tracking-normal sm:text-5xl">Your meeting is confirmed.</h1>
+        <p class="mt-4 max-w-3xl text-base leading-7 text-[#454545] sm:text-lg">
+          Thanks<span data-confirm-name></span>. We have captured your strategy call request and will use these details
+          to send the calendar invite.
+        </p>
+
+        <dl class="mt-6 grid gap-3 sm:grid-cols-2">
+          <div class="rounded-sm bg-[#f7f4ee] p-3 sm:p-4">
+            <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Date</dt>
+            <dd class="mt-1 font-semibold" data-confirm-date>Selected date</dd>
+          </div>
+          <div class="rounded-sm bg-[#f7f4ee] p-3 sm:p-4">
+            <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Time</dt>
+            <dd class="mt-1 font-semibold" data-confirm-time>Selected time</dd>
+          </div>
+          <div class="rounded-sm bg-[#f7f4ee] p-3 sm:p-4">
+            <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Email</dt>
+            <dd class="mt-1 break-words font-semibold" data-confirm-email>Provided email</dd>
+          </div>
+          <div class="rounded-sm bg-[#f7f4ee] p-3 sm:p-4">
+            <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Company</dt>
+            <dd class="mt-1 font-semibold" data-confirm-company>Provided company</dd>
+          </div>
+        </dl>
+
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 font-semibold text-white transition hover:bg-[#2f5f59]"
+            data-google-calendar-link
+          >
+            Add to Google Calendar
+            <Icon name="tabler:brand-google" class="h-5 w-5" />
+          </a>
+          <a
+            href="/"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f7f4ee]"
+          >
+            Return home
+            <Icon name="tabler:arrow-right" class="h-5 w-5" />
+          </a>
+          <a
+            href="/book-a-meeting"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f7f4ee]"
+          >
+            Change time
+            <Icon name="tabler:calendar-time" class="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+
+  <script is:inline>
+    const params = new URLSearchParams(window.location.search);
+    let storedBooking = {};
+
+    try {
+      storedBooking = JSON.parse(sessionStorage.getItem('thoughtBrandsBooking') || '{}');
+    } catch {
+      storedBooking = {};
+    }
+
+    const getBookingValue = (key, fallback = '') => params.get(key) || storedBooking[key] || fallback;
+    const meetingType = getBookingValue('meeting_type', 'strategy_call');
+    const meetingDate = getBookingValue('meeting_date');
+    const meetingDateLabel = getBookingValue('meeting_date_label');
+    const meetingTime = getBookingValue('meeting_time');
+    const meetingTimeLabel = getBookingValue('meeting_time_label');
+    const timezone = getBookingValue('timezone');
+    const meetingDuration = getBookingValue('meeting_duration', '30');
+    const bookingStatus = getBookingValue('booking_status');
+    const name = getBookingValue('name');
+    const email = getBookingValue('email');
+    const company = getBookingValue('company');
+    const context = getBookingValue('context');
+    const timezoneDisplay = timezone ? timezone.replaceAll('_', ' ') : '';
+    const page = document.querySelector('[data-conversion-page]');
+    const googleCalendarLink = document.querySelector('[data-google-calendar-link]');
+
+    if (page) {
+      page.dataset.meetingType = meetingType;
+      page.dataset.meetingDate = meetingDate;
+      page.dataset.meetingTime = meetingTime;
+    }
+
+    const displayDate = meetingDateLabel || meetingDate;
+    const displayTime = meetingTimeLabel || meetingTime;
+
+    const setText = (selector, value, fallback = 'Not provided') => {
+      const element = document.querySelector(selector);
+      if (element) element.textContent = value || fallback;
+    };
+
+    setText('[data-confirm-name]', name ? `, ${name}` : '', '');
+    setText('[data-confirm-date]', displayDate);
+    setText('[data-confirm-time]', displayTime ? `${displayTime}${timezoneDisplay ? ` (${timezoneDisplay})` : ''}` : '');
+    setText('[data-confirm-email]', email);
+    setText('[data-confirm-company]', company);
+
+    const formatGoogleDate = (date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+
+    if (googleCalendarLink && meetingDate && meetingTime) {
+      const duration = Number.parseInt(meetingDuration, 10) || 30;
+      const startDate = new Date(`${meetingDate}T${meetingTime}:00`);
+      const endDate = new Date(startDate.getTime() + duration * 60 * 1000);
+      const details = [
+        'Strategy call with Thought Brands.',
+        '',
+        `Name: ${name || 'Not provided'}`,
+        `Company: ${company || 'Not provided'}`,
+        `Email: ${email || 'Not provided'}`,
+        context ? `Context: ${context}` : '',
+        '',
+        'Google Meet link to follow.',
+      ]
+        .filter(Boolean)
+        .join('\n');
+      const calendarParams = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: 'Strategy call with Thought Brands',
+        dates: `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`,
+        details,
+        location: 'Google Meet link to follow',
+      });
+
+      if (timezone) {
+        calendarParams.set('ctz', timezone);
+      }
+
+      googleCalendarLink.href = `https://calendar.google.com/calendar/render?${calendarParams.toString()}`;
+      googleCalendarLink.classList.remove('hidden');
+      googleCalendarLink.classList.add('inline-flex');
+    }
+
+    if (bookingStatus === 'confirmed') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'strategy_call_booked',
+        conversion_page: '/booking-confirmed',
+        booking_status: bookingStatus,
+        meeting_type: meetingType,
+        meeting_date: meetingDate,
+        meeting_time: meetingTime,
+        meeting_timezone: timezone,
+        meeting_duration_minutes: meetingDuration,
+      });
+    }
+  </script>
+</Layout>

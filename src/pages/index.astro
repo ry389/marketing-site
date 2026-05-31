@@ -1,399 +1,437 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
 
 const metadata = {
-  title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
+  title: 'Building the world\'s thought-leading brands',
+  description:
+    'We uncover data, create research-led stories, and help brands become trusted sources across media, search, and industry conversations.',
   ignoreTitleTemplate: true,
 };
+
+const whatWeDo = [
+  {
+    title: 'Find the data',
+    description: 'We uncover trends, gaps, and angles your audience cares about.',
+    icon: 'tabler:database-search',
+  },
+  {
+    title: 'Create the story',
+    description: 'We turn research into compelling reports, campaigns, and expert-led insights.',
+    icon: 'tabler:writing-sign',
+  },
+  {
+    title: 'Earn visibility',
+    description: 'We help your brand become a source across media, search, social, and AI-driven discovery.',
+    icon: 'tabler:news',
+  },
+];
+
+const methods = [
+  {
+    title: 'Data-led PR campaigns',
+    description: 'Original research, surveys, reports, indexes, rankings, and data stories.',
+  },
+  {
+    title: 'Authority-building SEO',
+    description: 'Content assets designed to earn mentions, links, and long-term organic visibility.',
+  },
+  {
+    title: 'Thought leadership strategy',
+    description: 'Positioning, messaging, expert commentary, and insight development.',
+  },
+  {
+    title: 'Research and insight production',
+    description: 'Desk research, data analysis, trend reports, and proprietary content.',
+  },
+];
+
+const caseStudies = [
+  {
+    brand: 'Landlord Studio',
+    title: 'Turning government data into national coverage',
+    hasPlaceholderLogo: true,
+    href: '#contact',
+  },
+  {
+    brand: 'PineHurst School',
+    title: 'Turning school research on AI into a national conversation',
+    hasPlaceholderLogo: true,
+    href: '#contact',
+  },
+  {
+    brand: 'Ferg Burger',
+    title: 'Making a local icon part of the national tourism conversation',
+    hasPlaceholderLogo: true,
+    href: '#contact',
+  },
+];
+
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
 
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-      { text: 'Learn more', href: '#features' },
-    ]}
-    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image' }}
-  >
-    <Fragment slot="title">
-      Free template for <span class="hidden xl:inline">creating websites with</span>
-      <span class="text-accent dark:text-white"> Astro 5.0</span> + Tailwind CSS
-    </Fragment>
+    <section class="relative overflow-hidden border-b border-[#141414]/10">
+      <div class="absolute inset-y-0 right-0 hidden w-1/2 bg-[#f7f4ee] lg:block"></div>
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
+        <div class="max-w-3xl">
+          <h1 class="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#141414] sm:text-6xl lg:text-7xl">
+            Building the world's thought-leading brands
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-[#343434] sm:text-xl">
+            We uncover data, create research-led stories, and help brands become trusted sources across media, search,
+            and industry conversations.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/book-a-meeting"
+              class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#2f5f59]"
+            >
+              Book a strategy call
+              <Icon name="tabler:calendar-event" class="h-5 w-5" />
+            </a>
+            <a
+              href="#method"
+              class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 text-base font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
+            >
+              See how it works
+              <Icon name="tabler:arrow-right" class="h-5 w-5" />
+            </a>
+          </div>
+        </div>
 
-    <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">AstroWind</span> is a free, customizable and production-ready template for Astro 5.0
-        + Tailwind CSS.</span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      Suitable for Startups, Small Business, SaaS websites, Professional Portfolios, Marketing websites, Landing Pages &
-      Blogs.
-    </Fragment>
-  </Hero>
+        <div class="self-end">
+          <svg
+            viewBox="0 0 560 420"
+            role="img"
+            aria-label="Brand signal map with Your Brand connected to perception, voice, mentions, citations, traffic, authority, and sentiment"
+            class="brand-signal-map h-auto w-full"
+          >
+            <circle class="brand-core" cx="280" cy="208" r="84" fill="#141414" />
+            <circle class="signal-ring signal-ring-inner" cx="280" cy="208" r="138" fill="none" stroke="#141414" stroke-opacity="0.10" stroke-width="1.5" />
+            <circle class="signal-ring signal-ring-outer" cx="280" cy="208" r="184" fill="none" stroke="#141414" stroke-opacity="0.07" stroke-width="1.5" />
 
-  <!-- Note Widget ******************* -->
+            <g class="signal-connectors" stroke="#141414" stroke-opacity="0.18" stroke-width="2">
+              <path d="M280 124V74" />
+              <path d="M346 156l72-48" />
+              <path d="M363 211h80" />
+              <path d="M341 267l78 62" />
+              <path d="M280 292v58" />
+              <path d="M219 267l-80 62" />
+              <path d="M197 211h-78" />
+              <path d="M215 154l-72-48" />
+            </g>
 
-  <Note title="Philosophy:" description="Simplicity, Best Practices and High Performance" />
+            <g class="signal-node" tabindex="0">
+              <rect x="203" y="42" width="154" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="280" y="75" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                Share of voice
+              </text>
+            </g>
 
-  <!-- Features Widget *************** -->
+            <g class="signal-node" tabindex="0">
+              <rect x="378" y="74" width="154" height="54" rx="3" fill="#dce8d8" stroke="#141414" stroke-opacity="0.12" />
+              <text x="455" y="107" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                Brand sentiment
+              </text>
+            </g>
 
-  <Features
-    id="features"
-    tagline="Features"
-    title="What you get with AstroWind"
-    subtitle="One of the most professional and comprehensive templates currently on the market. Most starred & forked Astro theme in 2022, 2023 and 2024."
-    items={[
-      {
-        title: 'Astro + Tailwind CSS Integration',
-        description:
-          'A seamless integration between two great frameworks that offer high productivity, performance and versatility.',
-        icon: 'tabler:brand-tailwind',
-      },
-      {
-        title: 'Ready-to-use Components',
-        description:
-          'Widgets made with Tailwind CSS ready to be used in Marketing Websites, SaaS, Blogs, Personal Profiles, Small Business...',
-        icon: 'tabler:components',
-      },
-      {
-        title: 'Best Practices',
-        description:
-          'Creating secure, efficient, and user-friendly websites that deliver exceptional experiences and lasting value.',
-        icon: 'tabler:list-check',
-      },
-      {
-        title: 'Excellent Page Speed',
-        description:
-          'Having a good page speed impacts organic search ranking, improves user experience (UI/UX) and increase conversion rates.',
-        icon: 'tabler:rocket',
-      },
-      {
-        title: 'Search Engine Optimization (SEO)',
-        description:
-          "SEO lies in its ability to enhance a website's visibility, driving organic traffic and enabling it to reach a wider audience.",
-        icon: 'tabler:arrows-right-left',
-      },
-      {
-        title: 'Open to new ideas and contributions',
-        description:
-          'Embracing a culture that is open to new ideas and contributions is integral fostering innovation, collaboration, and a dynamic user experience.',
-        icon: 'tabler:bulb',
-      },
-    ]}
-  />
+            <g class="signal-node" tabindex="0">
+              <rect x="407" y="184" width="116" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="465" y="217" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                Authority
+              </text>
+            </g>
 
-  <!-- Content Widget **************** -->
+            <g class="signal-node" tabindex="0">
+              <rect x="365" y="306" width="166" height="54" rx="3" fill="#e2634f" fill-opacity="0.78" stroke="#141414" stroke-opacity="0.12" />
+              <text x="448" y="339" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="15" font-weight="800">
+                Brand mentions
+              </text>
+            </g>
 
-  <Content
-    isReversed
-    tagline="Inside template"
-    title="AstroWind's Blueprint: Fun Meets Functionality!"
-    items={[
-      {
-        title: 'Built on top of Astro 5.0',
-        description:
-          'Benefiting from the performance and developer-friendly features of this modern static site generator.',
-      },
-      {
-        title: 'Styled using Tailwind CSS',
-        description:
-          'Facilitating rapid design and consistent styling with this highly popular utility-first CSS framework.',
-      },
-      {
-        title: 'Cross-browser compatibility',
-        description:
-          'Ensure your website looks and functions consistently across various web browsers, delivering a seamless experience to all users.',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Colorful Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Building on modern foundations</h3>
-      Gain a competitive advantage by incorporating industry leading practices
-    </Fragment>
+            <g class="signal-node" tabindex="0">
+              <rect x="203" y="330" width="154" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="280" y="363" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                Global perception
+              </text>
+            </g>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+            <g class="signal-node" tabindex="0">
+              <rect x="28" y="306" width="172" height="54" rx="3" fill="#f2c36b" fill-opacity="0.82" stroke="#141414" stroke-opacity="0.12" />
+              <text x="114" y="339" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="15" font-weight="800">
+                Local perception
+              </text>
+            </g>
 
-  <!-- Content Widget **************** -->
+            <g class="signal-node" tabindex="0">
+              <rect x="38" y="184" width="128" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="102" y="217" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                AI citations
+              </text>
+            </g>
 
-  <Content
-    isAfterContent
-    items={[
-      {
-        title: 'High level of customization',
-        description: `Tailor the template effortlessly to match your brand's identity and requirements, making your website distinct and saving you time.`,
-      },
-      {
-        title: 'Multiple layout possibilities',
-        description:
-          'Explore various layout options to find the structure that best presents your content, enhancing user engagement and navigation.',
-      },
-      {
-        title: 'Fully responsive design',
-        description:
-          "Ensure your website's optimal performance on various devices and screen sizes, providing a consistent and enjoyable user experience.",
-      },
-      {
-        title: 'Integration of media',
-        description:
-          'Seamlessly incorporate images, videos, and multimedia elements that enhance your content and engage visitors effectively.',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2194&q=80',
-      alt: 'Blueprint Image',
-    }}
-  >
-    <Fragment slot="content">Ensure your online presence truly represents you.</Fragment>
+            <g class="signal-node" tabindex="0">
+              <rect x="28" y="74" width="156" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="106" y="107" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
+                Media reach
+              </text>
+            </g>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+            <text x="280" y="202" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="800">
+              Your
+            </text>
+            <text x="280" y="230" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="800">
+              Brand
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
 
-  <!-- Content Widget **************** -->
+    <section class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">The problem</p>
+          <svg
+            viewBox="0 0 360 320"
+            role="img"
+            aria-label="Generic content becomes a trusted source when it is built from original insights, credible data, and reference-worthy stories"
+            class="mt-8 h-auto w-full max-w-sm"
+          >
+            <rect x="10" y="18" width="132" height="190" rx="4" fill="#f7f4ee" stroke="#141414" stroke-opacity="0.12" />
+            <text x="76" y="49" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
+              Generic
+            </text>
+            <text x="76" y="69" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
+              content
+            </text>
+            <g fill="#d9d2c7">
+              <rect x="34" y="98" width="84" height="10" rx="2" />
+              <rect x="34" y="124" width="84" height="10" rx="2" />
+              <rect x="34" y="150" width="84" height="10" rx="2" />
+              <rect x="34" y="176" width="58" height="10" rx="2" />
+            </g>
 
-  <Content
-    isReversed
-    isAfterContent
-    items={[
-      {
-        title: 'Enhanced user engagement',
-        description:
-          'Captivate your audience with interactive elements, intuitive navigation, and visually appealing layouts, encouraging longer visits.',
-      },
-      {
-        title: 'Continuous improvement',
-        description:
-          'Ensure your website stays aligned with the latest trends and technologies through regular updates and enhancements.',
-      },
-      {
-        title: 'Time and resource efficiency',
-        description:
-          'Skip the time-consuming process of building a website from scratch and launch your online presence sooner with AstroWind.',
-      },
-      {
-        title: 'Community support',
-        description: `Join the growing AstroWind community for insights, resources, and assistance, ensuring you're never alone on your web development journey.`,
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1611462985358-60d3498e0364?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'Astronauts Image',
-    }}
-  >
-    <Fragment slot="content">Designed to foster growth and success.</Fragment>
+            <path d="M151 112h48" stroke="#141414" stroke-opacity="0.22" stroke-width="3" stroke-linecap="round" />
+            <path d="M191 101l16 11-16 11" fill="none" stroke="#141414" stroke-opacity="0.22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+            <rect x="216" y="18" width="132" height="190" rx="4" fill="#141414" />
+            <text x="282" y="48" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="800">
+              The source
+            </text>
+            <circle cx="282" cy="98" r="34" fill="#dce8d8" />
+            <path d="M263 100l13 13 28-32" fill="none" stroke="#2f5f59" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            <g fill="#ffffff" fill-opacity="0.2">
+              <rect x="242" y="152" width="80" height="8" rx="2" />
+              <rect x="252" y="173" width="60" height="8" rx="2" />
+            </g>
 
-  <!-- Steps Widget ****************** -->
+            <g>
+              <rect x="19" y="238" width="96" height="44" rx="3" fill="#dce8d8" />
+              <text x="67" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
+                Original insight
+              </text>
+            </g>
+            <g>
+              <rect x="132" y="238" width="96" height="44" rx="3" fill="#f2c36b" fill-opacity="0.9" />
+              <text x="180" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
+                Credible data
+              </text>
+            </g>
+            <g>
+              <rect x="245" y="238" width="96" height="44" rx="3" fill="#e2634f" fill-opacity="0.78" />
+              <text x="293" y="258" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
+                Stories people
+              </text>
+              <text x="293" y="274" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
+                reference
+              </text>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-3xl font-semibold tracking-normal text-[#141414] sm:text-5xl">
+            Most brands create content. Few become the source.
+          </h2>
+          <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545]">
+            To stand out in search, media, and industry conversations, brands need more than generic content. They need
+            original insights, credible data, and stories people want to reference.
+          </p>
+        </div>
+      </div>
+    </section>
 
-  <Steps
-    title="Get your dream website up and running in no time with AstroWind."
-    items={[
-      {
-        title: 'Step 1: <span class="font-medium">Download</span>',
-        description:
-          "Kickstart with GitHub! Either fork the AstroWind template or simply click 'Use this template'. Your canvas awaits, ready for your digital masterpiece. In just a few clicks, you've already set the foundation.",
-        icon: 'tabler:package',
-      },
-      {
-        title: 'Step 2: <span class="font-medium">Add content</span>',
-        description:
-          "Pour your vision into it. Add images, text, and all that jazz to breathe life into your digital space. Remember, it's the content that tells your story, so make it captivating.",
-        icon: 'tabler:letter-case',
-      },
-      {
-        title: 'Step 3: <span class="font-medium">Customize styles</span>',
-        description:
-          'Give it your personal touch. Tailor colors, fonts, and layouts until it feels just right. Your unique flair, amplified by AstroWind! Precision in design ensures a seamless user experience.',
-        icon: 'tabler:paint',
-      },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
-    }}
-  />
+    <section id="method" class="border-b border-[#141414]/10">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">What we do</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Turn insight into authority.</h2>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            whatWeDo.map((item) => (
+              <article class="rounded-sm border border-[#141414]/10 bg-white p-6">
+                <Icon name={item.icon} class="h-8 w-8 text-[#2f5f59]" />
+                <h3 class="mt-8 text-xl font-semibold">{item.title}</h3>
+                <p class="mt-3 leading-7 text-[#555]">{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <!-- Features2 Widget ************** -->
+    <section class="border-b border-[#141414]/10 bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">How we do it</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">We make your brand worth referencing.</h2>
+        </div>
+        <div class="grid gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-2">
+          {
+            methods.map((item) => (
+              <article class="bg-[#141414] p-6">
+                <h3 class="text-xl font-semibold">{item.title}</h3>
+                <p class="mt-3 leading-7 text-white/68">{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <Features2
-    title="Most used widgets"
-    subtitle="Provides frequently used components for building websites using Tailwind CSS"
-    tagline="Components"
-    items={[
-      {
-        title: 'Headers',
-        description: "Ever tried driving without GPS? Boom! That's why websites need headers for direction.",
-        icon: 'flat-color-icons:template',
-      },
-      {
-        title: 'Heros',
-        description:
-          "Picture a superhero landing – epic, right? That's the job of a Hero section, making grand entrances!",
-        icon: 'flat-color-icons:gallery',
-      },
-      {
-        title: 'Features',
-        description:
-          'Where websites strut their stuff and show off superpowers. No holding back on the bragging rights here!',
-        icon: 'flat-color-icons:approval',
-      },
-      {
-        title: 'Content',
-        description:
-          "Dive into the meat and potatoes of a site; without it, you'd just be window shopping. Content is king.",
-        icon: 'flat-color-icons:document',
-      },
-      {
-        title: 'Call-to-Action',
-        description:
-          'That enthusiastic friend who\'s always urging, "Do it! Do it!"? Yeah, that\'s this button nudging you towards adventure.',
-        icon: 'flat-color-icons:advertising',
-      },
-      {
-        title: 'Pricing',
-        description: 'Behold the dessert menu of the website world. Tempting choices await, can you resist?',
-        icon: 'flat-color-icons:currency-exchange',
-      },
-      {
-        title: 'Testimonial',
-        description: 'Step into the gossip corner! Here, other visitors spill the beans and share the juicy details.',
-        icon: 'flat-color-icons:voice-presentation',
-      },
-      {
-        title: 'Contact',
-        description:
-          'Like a digital mailbox, but faster! Drop a line, ask a question, or send a virtual high-five. Ding! Message in.',
-        icon: 'flat-color-icons:business-contact',
-      },
-      {
-        title: 'Footers',
-        description: "The footer's like the credits of a movie but sprinkled with easter eggs. Time to hunt!",
-        icon: 'flat-color-icons:database',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Features2>
+    <section id="examples" class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Case studies</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Stories we’ve helped brands own</h2>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {
+            caseStudies.map((item) => (
+              <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.brand}</p>
+                {
+                  item.hasPlaceholderLogo && (
+                    <div class="mt-4 flex h-14 w-36 items-center justify-center rounded-sm border border-[#141414]/10 bg-white text-sm font-semibold tracking-normal text-[#777]">
+                      Logo
+                    </div>
+                  )
+                }
+                <h3 class="mt-5 text-xl font-semibold leading-7">{item.title}</h3>
+                {item.description && <p class="mt-4 leading-7 text-[#555]">{item.description}</p>}
+                <a href={item.href} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
+                  Read more
+                  <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <!-- HighlightedPosts Widget ******* -->
+    <section id="contact" class="bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to become the source?</h2>
+          <p class="mt-4 max-w-2xl text-lg leading-8 text-white/70">
+            Let us map the research angles, proof points, and stories your category can own.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <a
+            href="/book-a-meeting"
+            class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+          >
+            Book a strategy call
+            <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+          </a>
+          <a
+            href="#examples"
+            class="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
+          >
+            View case studies
+            <Icon name="tabler:layout-grid" class="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <BlogLatestPosts
-    title="Find out more content in our Blog"
-    information={`The blog is used to display AstroWind documentation.
-                        Each new article will be an important step that you will need to know to be an expert in creating a website using Astro + Tailwind CSS.
-                        Astro is a very interesting technology. Thanks.
-                `}
-  />
-
-  <!-- FAQs Widget ******************* -->
-
-  <FAQs
-    title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
-    classes={{ container: 'max-w-6xl' }}
-    items={[
-      {
-        title: 'Why AstroWind?',
-        description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
-      },
-      {
-        title: 'What do I need to start?',
-        description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
-      },
-      {
-        title: 'How to install the Astro + Tailwind CSS template?',
-        description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
-      },
-      {
-        title: "What's something that you don't understand?",
-        description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
-      },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
-      },
-    ]}
-  />
-
-  <!-- Stats Widget ****************** -->
-
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
-    ]}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-    ]}
-  >
-    <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
-    </Fragment>
-
-    <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
-    </Fragment>
-  </CallToAction>
+    <SiteFooter />
+  </main>
 </Layout>
+
+<style>
+  .brand-signal-map .brand-core,
+  .brand-signal-map .signal-ring,
+  .brand-signal-map .signal-connectors,
+  .brand-signal-map .signal-node,
+  .brand-signal-map .signal-node rect {
+    transition:
+      opacity 220ms ease,
+      stroke-opacity 220ms ease,
+      filter 220ms ease,
+      transform 220ms ease;
+  }
+
+  .brand-signal-map .signal-node {
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    outline: none;
+  }
+
+  .brand-signal-map .signal-node text {
+    pointer-events: none;
+  }
+
+  .brand-signal-map:hover .brand-core,
+  .brand-signal-map:focus-within .brand-core {
+    transform: scale(1.04);
+    transform-origin: 280px 208px;
+    filter: drop-shadow(0 14px 22px rgb(20 20 20 / 0.18));
+  }
+
+  .brand-signal-map:hover .signal-connectors,
+  .brand-signal-map:focus-within .signal-connectors {
+    stroke-opacity: 0.34;
+  }
+
+  .brand-signal-map:hover .signal-ring-inner,
+  .brand-signal-map:focus-within .signal-ring-inner {
+    stroke-opacity: 0.18;
+  }
+
+  .brand-signal-map:hover .signal-ring-outer,
+  .brand-signal-map:focus-within .signal-ring-outer {
+    stroke-opacity: 0.12;
+  }
+
+  .brand-signal-map .signal-node:hover,
+  .brand-signal-map .signal-node:focus-visible {
+    transform: translateY(-5px) scale(1.035);
+  }
+
+  .brand-signal-map .signal-node:hover rect,
+  .brand-signal-map .signal-node:focus-visible rect {
+    stroke-opacity: 0.32;
+    filter: drop-shadow(0 10px 16px rgb(20 20 20 / 0.14));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-signal-map .brand-core,
+    .brand-signal-map .signal-ring,
+    .brand-signal-map .signal-connectors,
+    .brand-signal-map .signal-node,
+    .brand-signal-map .signal-node rect {
+      transition: none;
+    }
+  }
+</style>
