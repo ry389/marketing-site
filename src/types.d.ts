@@ -60,6 +60,8 @@ export interface CaseStudy {
   project: string;
   excerpt?: string;
   image?: ImageMetadata | string;
+  category?: Taxonomy;
+  tags?: Taxonomy[];
 
   metadata?: MetaData;
   draft?: boolean;

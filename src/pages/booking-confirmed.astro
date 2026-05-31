@@ -6,7 +6,7 @@ import Layout from '~/layouts/Layout.astro';
 
 const metadata = {
   title: 'Booking confirmed',
-  description: 'Your strategy call has been requested.',
+  description: 'Your discovery call has been requested.',
   ignoreTitleTemplate: true,
   robots: {
     index: false,
@@ -19,7 +19,7 @@ const metadata = {
   <main
     class="min-h-screen bg-[#f7f4ee] text-[#141414]"
     data-conversion-page="booking-confirmed"
-    data-conversion-event="strategy_call_booked"
+    data-conversion-event="discovery_call_booked"
     data-meeting-type=""
     data-meeting-date=""
     data-meeting-time=""
@@ -34,7 +34,7 @@ const metadata = {
         <p class="mt-5 text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Booking requested</p>
         <h1 class="mt-2 text-4xl font-semibold leading-[1.05] tracking-normal sm:text-5xl">Your meeting is confirmed.</h1>
         <p class="mt-4 max-w-3xl text-base leading-7 text-[#454545] sm:text-lg">
-          Thanks<span data-confirm-name></span>. We have captured your strategy call request and will use these details
+          Thanks<span data-confirm-name></span>. We have captured your discovery call request and will use these details
           to send the calendar invite.
         </p>
 
@@ -100,7 +100,7 @@ const metadata = {
     }
 
     const getBookingValue = (key, fallback = '') => params.get(key) || storedBooking[key] || fallback;
-    const meetingType = getBookingValue('meeting_type', 'strategy_call');
+    const meetingType = getBookingValue('meeting_type', 'discovery_call');
     const meetingDate = getBookingValue('meeting_date');
     const meetingDateLabel = getBookingValue('meeting_date_label');
     const meetingTime = getBookingValue('meeting_time');
@@ -159,7 +159,7 @@ const metadata = {
     if (bookingStatus === 'confirmed') {
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
-        event: 'strategy_call_booked',
+        event: 'discovery_call_booked',
         conversion_page: '/booking-confirmed',
         booking_status: bookingStatus,
         meeting_type: meetingType,

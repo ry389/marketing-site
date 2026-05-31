@@ -7,6 +7,10 @@ campaignType: Research-led storytelling
 outcome: Case study details coming soon.
 project: We identified a story angle that connected a local icon to a broader tourism conversation, helping the brand move from local recognition to wider relevance.
 excerpt: A local icon became part of a broader tourism story with national relevance.
+category: Research-led storytelling
+tags:
+  - Tourism
+  - Local brand
 metadata:
   title: Ferg Burger case study
   description: How Cited Stories connected a local icon to the national tourism conversation.

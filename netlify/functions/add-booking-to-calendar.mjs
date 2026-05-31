@@ -33,7 +33,7 @@ export const handler = async (event) => {
   const endDate = new Date(startDate.getTime() + meetingDuration * 60 * 1000);
 
   const details = [
-    'Strategy call with Cited Stories.',
+    'Discovery call with Cited Stories.',
     meetLink ? `Join: ${meetLink}` : '',
     '',
     `Name: ${name || 'Not provided'}`,
@@ -46,7 +46,7 @@ export const handler = async (event) => {
 
   const calendarParams = new URLSearchParams({
     action: 'TEMPLATE',
-    text: 'Strategy call with Cited Stories',
+    text: 'Discovery call with Cited Stories',
     dates: `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`,
     details,
     location: meetLink || 'Google Meet link to follow',

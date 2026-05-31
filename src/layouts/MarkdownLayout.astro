@@ -1,5 +1,7 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
+import Layout from '~/layouts/Layout.astro';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
 
 import type { MetaData } from '~/types';
 
@@ -17,12 +19,20 @@ const metadata: MetaData = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 py-16 sm:px-6 mx-auto lg:px-8 lg:py-20 max-w-4xl">
-    <h1 class="font-bold font-heading text-4xl md:text-5xl leading-tighter tracking-tighter">{frontmatter.title}</h1>
-    <div
-      class="mx-auto prose prose-lg max-w-4xl dark:prose-invert dark:prose-headings:text-slate-300 prose-md prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8"
-    >
-      <slot />
-    </div>
-  </section>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto max-w-4xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <h1 class="text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">{frontmatter.title}</h1>
+      </div>
+    </section>
+    <section class="bg-white">
+      <div
+        class="prose prose-lg mx-auto max-w-4xl px-5 py-12 prose-headings:tracking-normal prose-a:text-[#2f5f59] prose-strong:text-[#141414] sm:px-6 lg:px-8"
+      >
+        <slot />
+      </div>
+    </section>
+    <SiteFooter />
+  </main>
 </Layout>

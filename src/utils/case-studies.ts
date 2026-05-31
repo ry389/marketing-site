@@ -20,6 +20,8 @@ const getNormalizedCaseStudy = async (caseStudy: CollectionEntry<'caseStudy'>): 
     project,
     excerpt,
     image,
+    tags: rawTags = [],
+    category: rawCategory,
     draft = false,
     metadata = {},
   } = data;
@@ -27,6 +29,16 @@ const getNormalizedCaseStudy = async (caseStudy: CollectionEntry<'caseStudy'>): 
   const slug = cleanSlug(id);
   const publishDate = new Date(rawPublishDate);
   const updateDate = rawUpdateDate ? new Date(rawUpdateDate) : undefined;
+  const category = rawCategory
+    ? {
+        slug: cleanSlug(rawCategory),
+        title: rawCategory,
+      }
+    : undefined;
+  const tags = rawTags.map((tag: string) => ({
+    slug: cleanSlug(tag),
+    title: tag,
+  }));
 
   return {
     id,
@@ -42,6 +54,8 @@ const getNormalizedCaseStudy = async (caseStudy: CollectionEntry<'caseStudy'>): 
     project,
     excerpt,
     image,
+    category,
+    tags,
     draft,
     metadata,
     Content,

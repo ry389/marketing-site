@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
+import { fetchCaseStudies } from '~/utils/case-studies';
 
 const metadata = {
   title: 'Building the world\'s thought-leading brands',
@@ -48,27 +49,7 @@ const methods = [
   },
 ];
 
-const caseStudies = [
-  {
-    brand: 'Landlord Studio',
-    title: 'Turning government data into national coverage',
-    hasPlaceholderLogo: true,
-    href: '/case-studies/landlord-studio',
-  },
-  {
-    brand: 'PineHurst School',
-    title: 'Turning school research on AI into a national conversation',
-    hasPlaceholderLogo: true,
-    href: '/case-studies/pinehurst-school',
-  },
-  {
-    brand: 'Ferg Burger',
-    title: 'Making a local icon part of the national tourism conversation',
-    hasPlaceholderLogo: true,
-    href: '/case-studies/ferg-burger',
-  },
-];
-
+const caseStudies = (await fetchCaseStudies()).slice(0, 3);
 ---
 
 <Layout metadata={metadata}>
@@ -91,7 +72,7 @@ const caseStudies = [
               href="/book-a-meeting"
               class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#2f5f59]"
             >
-              Book a strategy call
+              Book a discovery call
               <Icon name="tabler:calendar-event" class="h-5 w-5" />
             </a>
             <a
@@ -317,17 +298,13 @@ const caseStudies = [
           {
             caseStudies.map((item) => (
               <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
-                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.brand}</p>
-                {
-                  item.hasPlaceholderLogo && (
-                    <div class="mt-4 flex h-14 w-36 items-center justify-center rounded-sm border border-[#141414]/10 bg-white text-sm font-semibold tracking-normal text-[#777]">
-                      Logo
-                    </div>
-                  )
-                }
+                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.client}</p>
+                <div class="mt-4 flex h-14 w-36 items-center justify-center rounded-sm border border-[#141414]/10 bg-white text-sm font-semibold tracking-normal text-[#777]">
+                  Logo
+                </div>
                 <h3 class="mt-5 text-xl font-semibold leading-7">{item.title}</h3>
-                {item.description && <p class="mt-4 leading-7 text-[#555]">{item.description}</p>}
-                <a href={item.href} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
+                {item.excerpt && <p class="mt-4 leading-7 text-[#555]">{item.excerpt}</p>}
+                <a href={item.permalink} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
                   Read more
                   <Icon name="tabler:arrow-right" class="h-5 w-5" />
                 </a>
@@ -352,7 +329,7 @@ const caseStudies = [
             href="/book-a-meeting"
             class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
           >
-            Book a strategy call
+            Book a discovery call
             <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
           </a>
           <a

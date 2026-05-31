@@ -7,6 +7,10 @@ campaignType: Data-led PR / research-led storytelling
 outcome: National media coverage, including brand mentions from The Telegraph, X and X.
 project: We used publicly available government data to uncover a story with national relevance, turning a complex dataset into a clear media angle that helped the brand earn attention, credibility, and authority.
 excerpt: Public government data became a national story that helped Landlord Studio earn media attention, credibility, and authority.
+category: Data-led PR
+tags:
+  - Research-led storytelling
+  - Government data
 metadata:
   title: Landlord Studio case study
   description: How Cited Stories transformed public data into a timely, credible story for Landlord Studio.

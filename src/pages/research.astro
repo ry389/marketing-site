@@ -8,6 +8,14 @@ import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
 
 const posts = await fetchPosts();
+const filterOptions = Array.from(
+  new Map(
+    posts
+      .flatMap((post) => [post.category, ...(post.tags || [])])
+      .filter(Boolean)
+      .map((item) => [item.slug, item.title])
+  )
+);
 
 const metadata = {
   title: 'Research',
@@ -21,7 +29,7 @@ const metadata = {
     <SiteHeader />
 
     <section class="border-b border-[#141414]/10">
-      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_12rem] lg:items-end lg:px-8">
         <div class="max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Research</p>
           <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
@@ -32,16 +40,59 @@ const metadata = {
             trusted sources.
           </p>
         </div>
+        <div class="w-full max-w-48 self-end rounded-sm border border-[#141414]/10 bg-white p-3 shadow-[0_24px_80px_rgba(20,20,20,0.08)]">
+          <div class="aspect-square rounded-sm bg-[#141414] p-4 text-white">
+            <div class="grid h-full grid-rows-[auto_1fr] gap-3">
+              <div class="flex items-center justify-between text-xs text-white/60">
+                <span>Image</span>
+                <Icon name="tabler:chart-bar" class="h-5 w-5" />
+              </div>
+              <div class="grid grid-cols-4 items-end gap-2">
+                <div class="h-8 rounded-sm bg-[#dce8d8]"></div>
+                <div class="h-16 rounded-sm bg-[#f2c36b]"></div>
+                <div class="h-12 rounded-sm bg-[#e2634f]"></div>
+                <div class="h-20 rounded-sm bg-white"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="bg-white">
       <div class="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div class="mb-8 grid gap-3 md:grid-cols-[1fr_18rem]">
+          <label class="relative block">
+            <span class="sr-only">Search research</span>
+            <Icon name="tabler:search" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#777]" />
+            <input
+              type="search"
+              placeholder="Search research"
+              class="h-12 w-full rounded-sm border border-[#141414]/15 bg-[#f7f4ee] pl-11 pr-4 text-base outline-none transition focus:border-[#2f5f59] focus:bg-white"
+              data-list-search
+            />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+            <span class="sr-only">Filter research</span>
+            <select
+              class="h-12 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+              data-list-filter
+            >
+              <option value="">All categories</option>
+              {filterOptions.map(([slug, title]) => <option value={slug}>{title}</option>)}
+            </select>
+          </label>
+        </div>
         {
           posts.length > 0 ? (
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <article class="flex min-h-full flex-col rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white">
+                <article
+                  class="flex min-h-full flex-col rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
+                  data-list-item
+                  data-search-index={`${post.title} ${post.excerpt || ''} ${post.category?.title || ''} ${(post.tags || []).map((tag) => tag.title).join(' ')}`.toLowerCase()}
+                  data-filter-index={[post.category?.slug, ...(post.tags || []).map((tag) => tag.slug)].filter(Boolean).join(' ')}
+                >
                   <div class="flex items-center gap-2 text-sm font-medium text-[#666]">
                     <Icon name="tabler:calendar" class="h-4 w-4 text-[#2f5f59]" />
                     <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
@@ -72,9 +123,39 @@ const metadata = {
             </div>
           )
         }
+        <div class="hidden rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-8 text-center" data-list-empty>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">No matches</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-normal">Try another search or filter.</h2>
+        </div>
       </div>
     </section>
 
     <SiteFooter />
   </main>
+
+  <script is:inline data-astro-rerun>
+    const searchInput = document.querySelector('[data-list-search]');
+    const filterSelect = document.querySelector('[data-list-filter]');
+    const listItems = Array.from(document.querySelectorAll('[data-list-item]'));
+    const emptyState = document.querySelector('[data-list-empty]');
+
+    const updateList = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      const filter = filterSelect.value;
+      let visibleCount = 0;
+
+      listItems.forEach((item) => {
+        const matchesSearch = !query || item.dataset.searchIndex.includes(query);
+        const matchesFilter = !filter || item.dataset.filterIndex.split(' ').includes(filter);
+        const isVisible = matchesSearch && matchesFilter;
+        item.classList.toggle('hidden', !isVisible);
+        if (isVisible) visibleCount += 1;
+      });
+
+      emptyState.classList.toggle('hidden', visibleCount !== 0);
+    };
+
+    searchInput.addEventListener('input', updateList);
+    filterSelect.addEventListener('change', updateList);
+  </script>
 </Layout>
