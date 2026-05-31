@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
+import ryanProfile from '~/assets/images/meeting-booking/ryan-profile.jpeg';
 
 const metadata = {
   title: 'Book a strategy call',
@@ -36,6 +37,39 @@ const discussionPoints = [
             challenges.
           </p>
 
+          <div class="mt-8 flex items-center gap-4 rounded-sm border border-[#141414]/10 bg-white p-4">
+            <img
+              src={ryanProfile.src}
+              width={ryanProfile.width}
+              height={ryanProfile.height}
+              alt="Ryan Green"
+              class="h-20 w-20 shrink-0 rounded-sm object-cover"
+              loading="eager"
+            />
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Your host</p>
+              <p class="mt-1 text-lg font-semibold">Ryan Green</p>
+              <div class="mt-2 flex flex-wrap gap-3 text-sm font-semibold">
+                <a
+                  href="mailto:hello@citedstories.com"
+                  class="inline-flex items-center gap-1.5 text-[#141414] hover:text-[#2f5f59]"
+                >
+                  <Icon name="tabler:mail" class="h-4 w-4" />
+                  Email
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/ryangreenio/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-[#141414] hover:text-[#2f5f59]"
+                >
+                  <Icon name="tabler:brand-linkedin" class="h-4 w-4" />
+                  LI
+                </a>
+              </div>
+            </div>
+          </div>
+
           <div class="mt-8 rounded-sm border border-[#141414]/10 bg-white p-5">
             <div class="flex items-center gap-3">
               <span class="flex h-10 w-10 items-center justify-center rounded-sm bg-[#dce8d8] text-[#2f5f59]">
@@ -57,35 +91,95 @@ const discussionPoints = [
         </aside>
 
         <section class="rounded-sm border border-[#141414]/10 bg-white shadow-[0_24px_80px_rgba(20,20,20,0.08)]">
-          <form id="booking-form" action="/booking-confirmed" method="get" class="grid gap-0" data-booking-form>
+          <form
+            id="booking-form"
+            action="/.netlify/functions/create-booking"
+            method="post"
+            class="grid gap-0"
+            data-booking-form
+          >
             <input type="hidden" name="meeting_type" value="strategy_call" />
             <input type="hidden" name="meeting_duration" value="30" />
             <input type="hidden" name="booking_status" value="confirmed" />
+            <input type="hidden" name="form_started_at" data-form-started-at />
             <input type="hidden" name="meeting_date" data-selected-date />
             <input type="hidden" name="meeting_date_label" data-selected-date-label />
             <input type="hidden" name="meeting_time" data-selected-time />
             <input type="hidden" name="meeting_time_label" data-selected-time-label />
             <input type="hidden" name="timezone" data-timezone />
+            <label class="absolute left-[-10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+              Website
+              <input type="text" name="website" autocomplete="off" tabindex="-1" data-spam-check />
+            </label>
 
-            <div class="border-b border-[#141414]/10 p-5 sm:p-6">
-              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 1</p>
-              <h2 class="mt-2 text-2xl font-semibold tracking-normal">Choose a date</h2>
-              <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-date-options aria-label="Available dates"></div>
+            <div class="border-b border-[#141414]/10 bg-[#f7f4ee] px-5 py-4 sm:px-6" aria-live="polite">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]" data-step-indicator>
+                  Step 1 of 3
+                </p>
+                <p class="text-sm font-medium text-[#555]" data-booking-summary>Start by choosing a date.</p>
+              </div>
             </div>
 
-            <div class="border-b border-[#141414]/10 p-5 sm:p-6">
-              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 2</p>
+            <div class="p-5 sm:p-6" data-step-panel="1">
+              <h2 class="text-2xl font-semibold tracking-normal">Choose a date</h2>
+              <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-date-options aria-label="Available dates"></div>
+              <p
+                class="mt-5 hidden rounded-sm border border-[#e2634f]/30 bg-[#fff4ef] px-4 py-3 text-sm font-medium text-[#9a2f21]"
+                data-step-error="1"
+                tabindex="-1"
+              >
+                Choose a date to continue.
+              </p>
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <span class="hidden sm:block" aria-hidden="true"></span>
+                <button
+                  type="button"
+                  class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
+                  data-next-step
+                >
+                  Continue
+                  <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div class="hidden p-5 sm:p-6" data-step-panel="2">
               <div class="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <h2 class="text-2xl font-semibold tracking-normal">Choose a time</h2>
                 <p class="text-sm text-[#666]" data-timezone-label>Your local time</p>
               </div>
               <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-time-options aria-label="Available times"></div>
+              <p
+                class="mt-5 hidden rounded-sm border border-[#e2634f]/30 bg-[#fff4ef] px-4 py-3 text-sm font-medium text-[#9a2f21]"
+                data-step-error="2"
+                tabindex="-1"
+              >
+                Choose a time to continue.
+              </p>
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-sm border border-[#141414]/20 px-6 font-semibold text-[#141414] transition hover:bg-[#f7f4ee]"
+                  data-prev-step
+                >
+                  <Icon name="tabler:arrow-left" class="h-5 w-5" />
+                  Back
+                </button>
+                <button
+                  type="button"
+                  class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
+                  data-next-step
+                >
+                  Continue
+                  <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
-            <div class="grid gap-5 p-5 sm:p-6">
+            <div class="hidden grid gap-5 p-5 sm:p-6" data-step-panel="3">
               <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Step 3</p>
-                <h2 class="mt-2 text-2xl font-semibold tracking-normal">Tell us where to send the invite</h2>
+                <h2 class="text-2xl font-semibold tracking-normal">Tell us where to send the invite</h2>
               </div>
 
               <div class="grid gap-4 sm:grid-cols-2">
@@ -139,13 +233,23 @@ const discussionPoints = [
                 Choose a date and time before confirming.
               </p>
 
-              <button
-                type="submit"
-                class="inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
-              >
-                Confirm meeting
-                <Icon name="tabler:calendar-check" class="h-5 w-5" />
-              </button>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-sm border border-[#141414]/20 px-6 font-semibold text-[#141414] transition hover:bg-[#f7f4ee]"
+                  data-prev-step
+                >
+                  <Icon name="tabler:arrow-left" class="h-5 w-5" />
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
+                >
+                  Confirm meeting
+                  <Icon name="tabler:calendar-check" class="h-5 w-5" />
+                </button>
+              </div>
             </div>
           </form>
         </section>
@@ -155,7 +259,7 @@ const discussionPoints = [
     <SiteFooter />
   </main>
 
-  <script is:inline>
+  <script is:inline data-astro-rerun>
     const dateContainer = document.querySelector('[data-date-options]');
     const timeContainer = document.querySelector('[data-time-options]');
     const form = document.querySelector('[data-booking-form]');
@@ -165,13 +269,24 @@ const discussionPoints = [
     const timeLabelInput = document.querySelector('[data-selected-time-label]');
     const timezoneInput = document.querySelector('[data-timezone]');
     const timezoneLabel = document.querySelector('[data-timezone-label]');
+    const formStartedAtInput = document.querySelector('[data-form-started-at]');
     const errorMessage = document.querySelector('[data-booking-error]');
+    const spamCheckInput = document.querySelector('[data-spam-check]');
+    const stepIndicator = document.querySelector('[data-step-indicator]');
+    const bookingSummary = document.querySelector('[data-booking-summary]');
+    const stepPanels = Array.from(document.querySelectorAll('[data-step-panel]'));
+    const stepErrors = Array.from(document.querySelectorAll('[data-step-error]'));
+    const nextButtons = Array.from(document.querySelectorAll('[data-next-step]'));
+    const prevButtons = Array.from(document.querySelectorAll('[data-prev-step]'));
     const times = ['09:00', '10:30', '13:00', '14:30', '16:00'];
     const dateFormatter = new Intl.DateTimeFormat(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
+    const formStartedAt = Date.now();
+    let currentStep = 1;
 
     timezoneInput.value = timezone;
     timezoneLabel.textContent = `${timezone.replaceAll('_', ' ')} time`;
+    formStartedAtInput.value = String(formStartedAt);
 
     const getAvailableDates = () => {
       const dates = [];
@@ -201,6 +316,47 @@ const discussionPoints = [
       errorMessage.classList.add('hidden');
     };
 
+    const hideStepErrors = () => {
+      stepErrors.forEach((item) => item.classList.add('hidden'));
+    };
+
+    const getSummaryText = () => {
+      if (dateLabelInput.value && timeLabelInput.value) {
+        return `${dateLabelInput.value} at ${timeLabelInput.value} (${timezone.replaceAll('_', ' ')} time)`;
+      }
+
+      if (dateLabelInput.value) {
+        return `${dateLabelInput.value} selected. Now choose a time.`;
+      }
+
+      return 'Start by choosing a date.';
+    };
+
+    const showStep = (step) => {
+      currentStep = step;
+      stepPanels.forEach((panel) => {
+        panel.classList.toggle('hidden', Number(panel.dataset.stepPanel) !== currentStep);
+      });
+      stepIndicator.textContent = `Step ${currentStep} of 3`;
+      bookingSummary.textContent = getSummaryText();
+      hideStepErrors();
+      errorMessage.classList.add('hidden');
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    const showStepError = (step) => {
+      const stepError = document.querySelector(`[data-step-error="${step}"]`);
+      if (!stepError) return;
+      stepError.classList.remove('hidden');
+      stepError.focus();
+    };
+
+    const canLeaveStep = (step) => {
+      if (step === 1) return Boolean(dateInput.value);
+      if (step === 2) return Boolean(timeInput.value);
+      return true;
+    };
+
     getAvailableDates().forEach((date) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -214,6 +370,7 @@ const discussionPoints = [
         dateInput.value = button.dataset.value;
         dateLabelInput.value = button.dataset.label;
         setSelectedButton(dateContainer, button);
+        bookingSummary.textContent = getSummaryText();
       });
       dateContainer.append(button);
     });
@@ -230,20 +387,44 @@ const discussionPoints = [
         timeInput.value = button.dataset.value;
         timeLabelInput.value = button.textContent;
         setSelectedButton(timeContainer, button);
+        bookingSummary.textContent = getSummaryText();
       });
       timeContainer.append(button);
     });
 
+    nextButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (!canLeaveStep(currentStep)) {
+          showStepError(currentStep);
+          return;
+        }
+
+        showStep(Math.min(currentStep + 1, 3));
+      });
+    });
+
+    prevButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        showStep(Math.max(currentStep - 1, 1));
+      });
+    });
+
     form.addEventListener('submit', (event) => {
+      if (spamCheckInput.value || Date.now() - formStartedAt < 2500) {
+        event.preventDefault();
+        return;
+      }
+
       if (!dateInput.value || !timeInput.value) {
         event.preventDefault();
+        showStep(!dateInput.value ? 1 : 2);
         errorMessage.classList.remove('hidden');
         errorMessage.focus();
         return;
       }
 
       const bookingDetails = Object.fromEntries(new FormData(form).entries());
-      sessionStorage.setItem('thoughtBrandsBooking', JSON.stringify(bookingDetails));
+      sessionStorage.setItem('citedStoriesBooking', JSON.stringify(bookingDetails));
     });
   </script>
 </Layout>

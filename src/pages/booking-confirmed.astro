@@ -89,12 +89,12 @@ const metadata = {
     <SiteFooter />
   </main>
 
-  <script is:inline>
+  <script is:inline data-astro-rerun>
     const params = new URLSearchParams(window.location.search);
     let storedBooking = {};
 
     try {
-      storedBooking = JSON.parse(sessionStorage.getItem('thoughtBrandsBooking') || '{}');
+      storedBooking = JSON.parse(sessionStorage.getItem('citedStoriesBooking') || '{}');
     } catch {
       storedBooking = {};
     }
@@ -136,37 +136,22 @@ const metadata = {
     setText('[data-confirm-email]', email);
     setText('[data-confirm-company]', company);
 
-    const formatGoogleDate = (date) => date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-
     if (googleCalendarLink && meetingDate && meetingTime) {
-      const duration = Number.parseInt(meetingDuration, 10) || 30;
-      const startDate = new Date(`${meetingDate}T${meetingTime}:00`);
-      const endDate = new Date(startDate.getTime() + duration * 60 * 1000);
-      const details = [
-        'Strategy call with Thought Brands.',
-        '',
-        `Name: ${name || 'Not provided'}`,
-        `Company: ${company || 'Not provided'}`,
-        `Email: ${email || 'Not provided'}`,
-        context ? `Context: ${context}` : '',
-        '',
-        'Google Meet link to follow.',
-      ]
-        .filter(Boolean)
-        .join('\n');
       const calendarParams = new URLSearchParams({
-        action: 'TEMPLATE',
-        text: 'Strategy call with Thought Brands',
-        dates: `${formatGoogleDate(startDate)}/${formatGoogleDate(endDate)}`,
-        details,
-        location: 'Google Meet link to follow',
+        meeting_type: meetingType,
+        meeting_duration: meetingDuration,
+        meeting_date: meetingDate,
+        meeting_date_label: meetingDateLabel,
+        meeting_time: meetingTime,
+        meeting_time_label: meetingTimeLabel,
+        timezone,
+        name,
+        email,
+        company,
+        context,
       });
 
-      if (timezone) {
-        calendarParams.set('ctz', timezone);
-      }
-
-      googleCalendarLink.href = `https://calendar.google.com/calendar/render?${calendarParams.toString()}`;
+      googleCalendarLink.href = `/.netlify/functions/add-booking-to-calendar?${calendarParams.toString()}`;
       googleCalendarLink.classList.remove('hidden');
       googleCalendarLink.classList.add('inline-flex');
     }

@@ -1,0 +1,72 @@
+---
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+import { fetchCaseStudies } from '~/utils/case-studies';
+
+const caseStudies = await fetchCaseStudies();
+
+const metadata = {
+  title: 'Case Studies',
+  description: 'Research-led stories, data-led PR campaigns, and citation-worthy work from Cited Stories.',
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="max-w-4xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Case studies</p>
+          <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+            Stories we have helped brands own.
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545] sm:text-xl">
+            In a world full of AI noise, generic content, and recycled opinions, the brands that stand out are the ones
+            with something original to say. We help them find it, shape it, and share it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            caseStudies.map((caseStudy) => (
+              <article class="flex min-h-full flex-col rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white">
+                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{caseStudy.client}</p>
+                <h2 class="mt-5 text-2xl font-semibold leading-tight tracking-normal">
+                  <a href={caseStudy.permalink} class="hover:text-[#2f5f59]">
+                    {caseStudy.title}
+                  </a>
+                </h2>
+                <p class="mt-4 leading-7 text-[#555]">{caseStudy.excerpt || caseStudy.subtitle}</p>
+                <dl class="mt-6 grid gap-3 border-t border-[#141414]/10 pt-5 text-sm">
+                  <div>
+                    <dt class="font-semibold uppercase tracking-[0.14em] text-[#777]">Campaign type</dt>
+                    <dd class="mt-1 font-semibold text-[#141414]">{caseStudy.campaignType}</dd>
+                  </div>
+                  <div>
+                    <dt class="font-semibold uppercase tracking-[0.14em] text-[#777]">Outcome</dt>
+                    <dd class="mt-1 text-[#555]">{caseStudy.outcome}</dd>
+                  </div>
+                </dl>
+                <a href={caseStudy.permalink} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
+                  Read case study
+                  <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</Layout>

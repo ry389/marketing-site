@@ -1,0 +1,100 @@
+---
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+import { getStaticPathsCaseStudy } from '~/utils/case-studies';
+import type { CaseStudy } from '~/types';
+
+export const getStaticPaths = getStaticPathsCaseStudy;
+
+interface Props {
+  caseStudy: CaseStudy;
+}
+
+const { caseStudy } = Astro.props;
+const { Content } = caseStudy;
+
+const metadata = {
+  title: caseStudy.metadata?.title || `${caseStudy.client} case study`,
+  description: caseStudy.metadata?.description || caseStudy.subtitle,
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <a href="/case-studies" class="inline-flex items-center gap-2 text-sm font-semibold text-[#2f5f59] hover:text-[#141414]">
+          <Icon name="tabler:arrow-left" class="h-4 w-4" />
+          Case studies
+        </a>
+        <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_0.42fr] lg:items-start">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">{caseStudy.client}</p>
+            <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+              {caseStudy.title}
+            </h1>
+            <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545] sm:text-xl">{caseStudy.subtitle}</p>
+          </div>
+
+          <aside class="rounded-sm border border-[#141414]/10 bg-white p-6">
+            <dl class="grid gap-5">
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Client</dt>
+                <dd class="mt-1 text-lg font-semibold">{caseStudy.client}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Campaign type</dt>
+                <dd class="mt-1 text-lg font-semibold">{caseStudy.campaignType}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.14em] text-[#777]">Outcome</dt>
+                <dd class="mt-1 leading-7 text-[#555]">{caseStudy.outcome}</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.32fr_1fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Project</p>
+        </div>
+        <div>
+          <p class="text-2xl font-semibold leading-10 tracking-normal text-[#141414]">{caseStudy.project}</p>
+          {
+            Content && (
+              <div class="prose prose-lg mt-10 max-w-none prose-headings:tracking-normal prose-a:text-[#2f5f59] prose-strong:text-[#141414]">
+                <Content />
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to get cited?</h2>
+        </div>
+        <a
+          href="/book-a-meeting"
+          class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+        >
+          Book a strategy call
+          <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+        </a>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+</Layout>

@@ -6,6 +6,38 @@ media_folder: 'src/assets/images/uploads'
 public_folder: '~/assets/images/uploads'
 
 collections:
+  - name: 'caseStudy'
+    label: 'Case Studies'
+    label_singular: 'Case Study'
+    folder: 'src/data/case-study'
+    create: true
+    slug: '{{slug}}'
+    extension: 'md'
+    format: 'frontmatter'
+    summary: '{{client}}: {{title}}'
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Subtitle', name: 'subtitle', widget: 'text' }
+      - { label: 'Client', name: 'client', widget: 'string' }
+      - { label: 'Campaign Type', name: 'campaignType', widget: 'string' }
+      - { label: 'Outcome', name: 'outcome', widget: 'text' }
+      - { label: 'Project', name: 'project', widget: 'text' }
+      - { label: 'Excerpt', name: 'excerpt', widget: 'text', required: false }
+      - { label: 'Featured Image', name: 'image', widget: 'image', required: false }
+      - { label: 'Publish Date', name: 'publishDate', widget: 'datetime', required: false }
+      - { label: 'Updated Date', name: 'updateDate', widget: 'datetime', required: false }
+      - { label: 'Draft', name: 'draft', widget: 'boolean', default: false, required: false }
+      - label: 'SEO'
+        name: 'metadata'
+        widget: 'object'
+        required: false
+        collapsed: true
+        fields:
+          - { label: 'SEO Title', name: 'title', widget: 'string', required: false }
+          - { label: 'SEO Description', name: 'description', widget: 'text', required: false }
+          - { label: 'Canonical URL', name: 'canonical', widget: 'string', required: false }
+      - { label: 'Content', name: 'body', widget: 'markdown', required: false }
+
   - name: 'post'
     label: 'Blog Posts'
     label_singular: 'Blog Post'

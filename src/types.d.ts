@@ -44,6 +44,30 @@ export interface Post {
   readingTime?: number;
 }
 
+export interface CaseStudy {
+  id: string;
+  slug: string;
+  permalink: string;
+
+  publishDate: Date;
+  updateDate?: Date;
+
+  title: string;
+  subtitle: string;
+  client: string;
+  campaignType: string;
+  outcome: string;
+  project: string;
+  excerpt?: string;
+  image?: ImageMetadata | string;
+
+  metadata?: MetaData;
+  draft?: boolean;
+
+  Content?: AstroComponentFactory;
+  content?: string;
+}
+
 export interface Taxonomy {
   slug: string;
   title: string;

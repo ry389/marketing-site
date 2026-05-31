@@ -65,6 +65,27 @@ const postCollection = defineCollection({
   }),
 });
 
+const caseStudyCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/case-study' }),
+  schema: z.object({
+    publishDate: z.date().optional(),
+    updateDate: z.date().optional(),
+    draft: z.boolean().optional(),
+
+    title: z.string(),
+    subtitle: z.string(),
+    client: z.string(),
+    campaignType: z.string(),
+    outcome: z.string(),
+    project: z.string(),
+    excerpt: z.string().optional(),
+    image: z.string().optional(),
+
+    metadata: metadataDefinition(),
+  }),
+});
+
 export const collections = {
   post: postCollection,
+  caseStudy: caseStudyCollection,
 };
