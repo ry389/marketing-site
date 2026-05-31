@@ -9,6 +9,15 @@ const redirect = (location, statusCode = 303) => ({
   body: '',
 });
 
+const json = (body, statusCode = 200) => ({
+  statusCode,
+  headers: {
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-store',
+  },
+  body: JSON.stringify(body),
+});
+
 const getField = (formData, key) => String(formData.get(key) || '').trim();
 
 const escapeHtml = (value = '') =>
@@ -113,13 +122,15 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
   const recipients = [booking.email, hostEmail].filter(Boolean);
 
-  if (!resendApiKey || !fromEmail || recipients.length === 0) {
-    console.info('Booking invite email skipped', {
+  if (!resendApiKey || !fromEmail || !hostEmail || !meetLink || recipients.length === 0) {
+    console.error('Booking invite email missing configuration', {
       resendConfigured: Boolean(resendApiKey),
       fromEmailConfigured: Boolean(fromEmail),
+      hostEmailConfigured: Boolean(hostEmail),
+      meetLinkConfigured: Boolean(meetLink),
       recipientCount: recipients.length,
     });
-    return;
+    throw new Error('Booking invite email is not fully configured.');
   }
 
   const invite = getInvite({ booking, hostEmail, meetLink });
@@ -164,7 +175,10 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
 };
 
 export const handler = async (event) => {
+  const wantsJson = event.headers.accept?.includes('application/json');
+
   if (event.httpMethod !== 'POST') {
+    if (wantsJson) return json({ ok: false, error: 'Method not allowed' }, 405);
     return redirect('/book-a-meeting', 303);
   }
 
@@ -174,6 +188,7 @@ export const handler = async (event) => {
   const honeypot = getField(formData, 'website');
 
   if (honeypot || submittedTooQuickly) {
+    if (wantsJson) return json({ ok: false, error: 'Spam check failed' }, 400);
     return redirect('/book-a-meeting', 303);
   }
 
@@ -193,6 +208,7 @@ export const handler = async (event) => {
   };
 
   if (!booking.meeting_date || !booking.meeting_time || !booking.email) {
+    if (wantsJson) return json({ ok: false, error: 'Missing booking details' }, 400);
     return redirect('/book-a-meeting', 303);
   }
 
@@ -203,6 +219,15 @@ export const handler = async (event) => {
     await sendBookingInvite({ booking, hostEmail, meetLink });
   } catch (error) {
     console.error('Booking invite email failed', error);
+    if (wantsJson) {
+      return json(
+        {
+          ok: false,
+          error: 'The booking was received, but the calendar invite email could not be sent.',
+        },
+        502
+      );
+    }
   }
 
   console.info('Booking requested', {
@@ -214,5 +239,11 @@ export const handler = async (event) => {
     company: booking.company,
   });
 
-  return redirect(getConfirmationUrl(event, booking));
+  const confirmationPath = getConfirmationUrl(event, booking);
+
+  if (wantsJson) {
+    return json({ ok: true, confirmationPath });
+  }
+
+  return redirect(confirmationPath);
 };
