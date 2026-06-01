@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.cs-preview {
+  min-height: 100vh;
+  background: #f7f4ee;
+  color: #141414;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.cs-preview * {
+  box-sizing: border-box;
+}
+
+.cs-preview a {
+  color: inherit;
+}
+
+.cs-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.1);
+  padding: 16px 32px;
+}
+
+.cs-preview-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cs-preview-mark {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #141414;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.cs-preview-mark span {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cs-preview-nav {
+  display: flex;
+  gap: 20px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cs-preview-container {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 64px 32px;
+}
+
+.cs-preview-eyebrow {
+  margin: 0;
+  color: #e2634f;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cs-preview-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 48px;
+  align-items: start;
+}
+
+.cs-preview h1 {
+  max-width: 820px;
+  margin: 20px 0 0;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.cs-preview-subtitle {
+  max-width: 760px;
+  margin: 24px 0 0;
+  color: #454545;
+  font-size: 21px;
+  line-height: 1.6;
+}
+
+.cs-preview-card {
+  border: 1px solid rgba(20, 20, 20, 0.1);
+  border-radius: 4px;
+  background: #fff;
+  padding: 24px;
+}
+
+.cs-preview-card dl {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+}
+
+.cs-preview-card dt,
+.cs-preview-section-label {
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cs-preview-card dd {
+  margin: 6px 0 0;
+  color: #141414;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cs-preview-card dd.cs-preview-muted {
+  color: #555;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.cs-preview-project-section {
+  background: #fff;
+}
+
+.cs-preview-project {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 48px;
+}
+
+.cs-preview-project-text {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cs-preview-body {
+  margin-top: 40px;
+  color: #343434;
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.cs-preview-body h2,
+.cs-preview-body h3 {
+  color: #141414;
+  letter-spacing: 0;
+}
+
+.cs-preview-cta {
+  background: #141414;
+  color: #fff;
+}
+
+.cs-preview-cta .cs-preview-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.cs-preview-cta p {
+  margin: 0;
+  color: #f2c36b;
+}
+
+.cs-preview-cta h2 {
+  margin: 14px 0 0;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.cs-preview-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #fff;
+  color: #141414;
+  padding: 14px 22px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cs-preview-post {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.cs-preview-post .cs-preview-body {
+  margin-top: 32px;
+}
+
+@media (max-width: 900px) {
+  .cs-preview-header,
+  .cs-preview-container {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .cs-preview-hero,
+  .cs-preview-project {
+    grid-template-columns: 1fr;
+  }
+
+  .cs-preview-cta .cs-preview-container {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
