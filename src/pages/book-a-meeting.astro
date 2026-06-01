@@ -123,7 +123,9 @@ const discussionPoints = [
             </div>
 
             <div class="p-5 sm:p-6" data-step-panel="1">
-              <h2 class="text-2xl font-semibold tracking-normal">Choose a date</h2>
+              <h2 class="text-2xl font-semibold tracking-normal">
+                Choose a date <span class="text-[#e2634f]" aria-hidden="true">*</span>
+              </h2>
               <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-date-options aria-label="Available dates"></div>
               <p
                 class="mt-5 hidden rounded-sm border border-[#e2634f]/30 bg-[#fff4ef] px-4 py-3 text-sm font-medium text-[#9a2f21]"
@@ -147,7 +149,9 @@ const discussionPoints = [
 
             <div class="hidden p-5 sm:p-6" data-step-panel="2">
               <div class="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                <h2 class="text-2xl font-semibold tracking-normal">Choose a time</h2>
+                <h2 class="text-2xl font-semibold tracking-normal">
+                  Choose a time <span class="text-[#e2634f]" aria-hidden="true">*</span>
+                </h2>
                 <p class="text-sm text-[#666]" data-timezone-label>Your local time</p>
               </div>
               <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-time-options aria-label="Available times"></div>
@@ -185,9 +189,10 @@ const discussionPoints = [
 
               <div class="grid gap-4 sm:grid-cols-2">
                 <label class="grid gap-2 text-sm font-semibold text-[#343434]">
-                  Name
+                  <span>Name <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
                   <input
                     required
+                    aria-required="true"
                     type="text"
                     name="name"
                     autocomplete="name"
@@ -195,9 +200,10 @@ const discussionPoints = [
                   />
                 </label>
                 <label class="grid gap-2 text-sm font-semibold text-[#343434]">
-                  Work email
+                  <span>Work email <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
                   <input
                     required
+                    aria-required="true"
                     type="email"
                     name="email"
                     autocomplete="email"
@@ -207,9 +213,10 @@ const discussionPoints = [
               </div>
 
               <label class="grid gap-2 text-sm font-semibold text-[#343434]">
-                Company
+                <span>Company <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
                 <input
                   required
+                  aria-required="true"
                   type="text"
                   name="company"
                   autocomplete="organization"
@@ -218,7 +225,7 @@ const discussionPoints = [
               </label>
 
               <label class="grid gap-2 text-sm font-semibold text-[#343434]">
-                What should we talk about?
+                <span>What should we talk about? <span class="font-normal text-[#777]">(optional)</span></span>
                 <textarea
                   name="context"
                   rows="4"
@@ -289,6 +296,22 @@ const discussionPoints = [
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
     const formStartedAt = Date.now();
     let currentStep = 1;
+
+    form.querySelector('[name="name"]').setCustomValidity('');
+    form.querySelector('[name="email"]').setCustomValidity('');
+    form.querySelector('[name="company"]').setCustomValidity('');
+    form.querySelector('[name="name"]').addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter your name.');
+    });
+    form.querySelector('[name="email"]').addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter a valid work email.');
+    });
+    form.querySelector('[name="company"]').addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter your company.');
+    });
+    form.querySelectorAll('[required]').forEach((field) => {
+      field.addEventListener('input', () => field.setCustomValidity(''));
+    });
 
     timezoneInput.value = timezone;
     timezoneLabel.textContent = `${timezone.replaceAll('_', ' ')} time`;

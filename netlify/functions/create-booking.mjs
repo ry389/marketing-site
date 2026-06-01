@@ -64,15 +64,46 @@ const getConfirmationUrl = (event, fields) => {
   return `${url.pathname}${url.search}`;
 };
 
+const getMailtoUrl = ({ to, subject, body }) => {
+  const params = new URLSearchParams({ subject, body });
+  return `mailto:${to}?${params.toString()}`;
+};
+
+const getActionLinks = ({ booking, hostEmail }) => {
+  const meetingDetails = `${booking.meeting_date_label || booking.meeting_date} at ${
+    booking.meeting_time_label || booking.meeting_time
+  }${booking.timezone ? ` (${booking.timezone.replaceAll('_', ' ')})` : ''}`;
+
+  return {
+    cancel: getMailtoUrl({
+      to: hostEmail,
+      subject: 'Cancel discovery call',
+      body: `Hi Ryan,\n\nI can no longer make our discovery call booked for ${meetingDetails}.\n\nName: ${
+        booking.name || ''
+      }\nCompany: ${booking.company || ''}\nEmail: ${booking.email || ''}`,
+    }),
+    reschedule: getMailtoUrl({
+      to: hostEmail,
+      subject: 'Propose a new discovery call time',
+      body: `Hi Ryan,\n\nI need to propose a new time for our discovery call currently booked for ${meetingDetails}.\n\nSuggested times:\n1. \n2. \n3. \n\nName: ${
+        booking.name || ''
+      }\nCompany: ${booking.company || ''}\nEmail: ${booking.email || ''}`,
+    }),
+  };
+};
+
 const getInvite = ({ booking, hostEmail, meetLink }) => {
   const duration = Number.parseInt(booking.meeting_duration, 10) || 30;
   const timezone = booking.timezone || 'UTC';
   const start = formatLocalIcsDateTime({ date: booking.meeting_date, time: booking.meeting_time });
   const end = formatLocalIcsDateTime({ date: booking.meeting_date, time: booking.meeting_time, durationMinutes: duration });
   const uid = `booking-${booking.meeting_date}-${booking.meeting_time}-${Date.now()}@citedstories.com`;
+  const actionLinks = hostEmail ? getActionLinks({ booking, hostEmail }) : {};
   const description = [
     'Discovery call with Cited Stories.',
     meetLink ? `Join: ${meetLink}` : '',
+    actionLinks.cancel ? `Cancel: ${actionLinks.cancel}` : '',
+    actionLinks.reschedule ? `Propose a new time: ${actionLinks.reschedule}` : '',
     '',
     `Name: ${booking.name || 'Not provided'}`,
     `Company: ${booking.company || 'Not provided'}`,
@@ -117,61 +148,96 @@ const getInvite = ({ booking, hostEmail, meetLink }) => {
   };
 };
 
-const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
-  const resendApiKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.BOOKING_FROM_EMAIL;
-  const recipients = [booking.email, hostEmail].filter(Boolean);
-
-  if (!resendApiKey || !fromEmail || !hostEmail || !meetLink || recipients.length === 0) {
-    console.error('Booking invite email missing configuration', {
-      resendConfigured: Boolean(resendApiKey),
-      fromEmailConfigured: Boolean(fromEmail),
-      hostEmailConfigured: Boolean(hostEmail),
-      meetLinkConfigured: Boolean(meetLink),
-      recipientCount: recipients.length,
-    });
-    throw new Error('Booking invite email is not fully configured.');
-  }
-
-  const invite = getInvite({ booking, hostEmail, meetLink });
-  const safeName = escapeHtml(booking.name || 'there');
-  const safeDate = escapeHtml(booking.meeting_date_label || booking.meeting_date);
-  const safeTime = escapeHtml(booking.meeting_time_label || booking.meeting_time);
-  const safeTimezone = escapeHtml((booking.timezone || '').replaceAll('_', ' '));
-  const safeMeetLink = escapeHtml(meetLink);
-  const html = `
-    <p>Hi ${safeName},</p>
-    <p>Your discovery call with Cited Stories is booked for <strong>${safeDate} at ${safeTime}</strong>${
-      safeTimezone ? ` (${safeTimezone})` : ''
-    }.</p>
-    ${meetLink ? `<p><a href="${safeMeetLink}">Join the Google Meet</a></p>` : ''}
-    <p>A calendar invite is attached.</p>
-  `;
-
+const sendResendEmail = async ({ resendApiKey, payload }) => {
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${resendApiKey}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      from: fromEmail,
-      to: recipients,
-      subject: 'Discovery call with Cited Stories',
-      html,
-      attachments: [
-        {
-          filename: 'cited-stories-discovery-call.ics',
-          content: Buffer.from(invite.ics).toString('base64'),
-        },
-      ],
-    }),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(`Resend invite email failed: ${response.status} ${errorText}`);
   }
+};
+
+const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const fromEmail = process.env.BOOKING_FROM_EMAIL;
+
+  if (!resendApiKey || !fromEmail || !hostEmail || !meetLink || !booking.email) {
+    console.error('Booking invite email missing configuration', {
+      resendConfigured: Boolean(resendApiKey),
+      fromEmailConfigured: Boolean(fromEmail),
+      hostEmailConfigured: Boolean(hostEmail),
+      meetLinkConfigured: Boolean(meetLink),
+      bookerEmailConfigured: Boolean(booking.email),
+    });
+    throw new Error('Booking invite email is not fully configured.');
+  }
+
+  const invite = getInvite({ booking, hostEmail, meetLink });
+  const safeName = escapeHtml(booking.name || 'there');
+  const safeCompany = escapeHtml(booking.company || 'Not provided');
+  const safeBookerEmail = escapeHtml(booking.email);
+  const safeContext = escapeHtml(booking.context || 'Not provided');
+  const safeDate = escapeHtml(booking.meeting_date_label || booking.meeting_date);
+  const safeTime = escapeHtml(booking.meeting_time_label || booking.meeting_time);
+  const safeTimezone = escapeHtml((booking.timezone || '').replaceAll('_', ' '));
+  const safeMeetLink = escapeHtml(meetLink);
+  const actionLinks = getActionLinks({ booking, hostEmail });
+  const safeCancelLink = escapeHtml(actionLinks.cancel);
+  const safeRescheduleLink = escapeHtml(actionLinks.reschedule);
+  const attachment = {
+    filename: 'cited-stories-discovery-call.ics',
+    content: Buffer.from(invite.ics).toString('base64'),
+  };
+  const bookerHtml = `
+    <p>Hi ${safeName},</p>
+    <p>Your discovery call with Cited Stories is booked for <strong>${safeDate} at ${safeTime}</strong>${
+      safeTimezone ? ` (${safeTimezone})` : ''
+    }.</p>
+    ${meetLink ? `<p><a href="${safeMeetLink}">Join the Google Meet</a></p>` : ''}
+    <p>If you can no longer make it, you can <a href="${safeCancelLink}">cancel the meeting</a> or <a href="${safeRescheduleLink}">propose a new time</a>.</p>
+    <p>A calendar invite is attached.</p>
+  `;
+  const hostHtml = `
+    <p>New discovery call booked.</p>
+    <p><strong>${safeName}</strong> from <strong>${safeCompany}</strong> booked for <strong>${safeDate} at ${safeTime}</strong>${
+      safeTimezone ? ` (${safeTimezone})` : ''
+    }.</p>
+    <p>Email: <a href="mailto:${safeBookerEmail}">${safeBookerEmail}</a></p>
+    <p>Context: ${safeContext}</p>
+    ${meetLink ? `<p><a href="${safeMeetLink}">Join the Google Meet</a></p>` : ''}
+    <p>A calendar invite is attached.</p>
+  `;
+
+  await Promise.all([
+    sendResendEmail({
+      resendApiKey,
+      payload: {
+        from: fromEmail,
+        to: [booking.email],
+        subject: 'Discovery call with Cited Stories',
+        html: bookerHtml,
+        attachments: [attachment],
+      },
+    }),
+    sendResendEmail({
+      resendApiKey,
+      payload: {
+        from: fromEmail,
+        to: [hostEmail],
+        reply_to: booking.email,
+        subject: `Discovery call booked: ${booking.company || booking.name || booking.email}`,
+        html: hostHtml,
+        attachments: [attachment],
+      },
+    }),
+  ]);
 };
 
 export const handler = async (event) => {
