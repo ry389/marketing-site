@@ -17,10 +17,6 @@
             window.location.hash = identityHash;
             window.netlifyIdentity.open();
           }
-
-          window.netlifyIdentity.on('login', () => {
-            window.location.href = '/admin/';
-          });
         });
       }
     </script>
