@@ -6,6 +6,24 @@
     <meta name="robots" content="noindex" />
     <title>Content Manager</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      const identityHash = window.location.hash;
+      const identityHashPatterns = ['invite_token=', 'recovery_token=', 'confirmation_token=', 'email_change_token='];
+      const hasIdentityHash = identityHashPatterns.some((pattern) => identityHash.includes(pattern));
+
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user && hasIdentityHash) {
+            window.location.hash = identityHash;
+            window.netlifyIdentity.open();
+          }
+
+          window.netlifyIdentity.on('login', () => {
+            window.location.href = '/admin/';
+          });
+        });
+      }
+    </script>
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
