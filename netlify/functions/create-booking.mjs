@@ -65,8 +65,7 @@ const getConfirmationUrl = (event, fields) => {
 };
 
 const getMailtoUrl = ({ to, subject, body }) => {
-  const params = new URLSearchParams({ subject, body });
-  return `mailto:${to}?${params.toString()}`;
+  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 };
 
 const getActionLinks = ({ booking, hostEmail }) => {
@@ -203,6 +202,7 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
     ${meetLink ? `<p><a href="${safeMeetLink}">Join the Google Meet</a></p>` : ''}
     <p>If you can no longer make it, you can <a href="${safeCancelLink}">cancel the meeting</a> or <a href="${safeRescheduleLink}">propose a new time</a>.</p>
     <p>A calendar invite is attached.</p>
+    <p>We look forward to meeting with you,<br />Cited Stories</p>
   `;
   const hostHtml = `
     <p>New discovery call booked.</p>

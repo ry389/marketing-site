@@ -13,13 +13,55 @@ import { Icon } from 'astro-icon/components';
     <nav class="hidden items-center gap-8 text-sm font-medium text-[#141414]/70 md:flex" aria-label="Main navigation">
       <a class="hover:text-[#141414]" href="/case-studies">Case Studies</a>
       <a class="hover:text-[#141414]" href="/research">Research</a>
+      <a class="hover:text-[#141414]" href="/contact">Contact</a>
     </nav>
-    <a
-      href="/book-a-meeting"
-      class="hidden items-center gap-2 rounded-sm bg-[#141414] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2f5f59] sm:inline-flex"
-    >
-      Book a discovery call
-      <Icon name="tabler:arrow-up-right" class="h-4 w-4" />
-    </a>
+    <div class="flex items-center gap-3">
+      <a
+        href="/book-a-meeting"
+        class="hidden items-center gap-2 rounded-sm bg-[#141414] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#2f5f59] sm:inline-flex"
+      >
+        Book a discovery call
+        <Icon name="tabler:arrow-up-right" class="h-4 w-4" />
+      </a>
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-[#141414]/15 bg-white/60 text-[#141414] md:hidden"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-mobile-menu-toggle
+      >
+        <Icon name="tabler:menu-2" class="h-5 w-5" data-menu-icon />
+        <Icon name="tabler:x" class="hidden h-5 w-5" data-close-icon />
+      </button>
+    </div>
   </div>
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-[#141414]/10 px-5 py-4 text-sm font-semibold text-[#141414] md:hidden"
+    aria-label="Mobile navigation"
+    data-mobile-menu
+  >
+    <div class="grid gap-3">
+      <a class="py-2 hover:text-[#2f5f59]" href="/case-studies">Case Studies</a>
+      <a class="py-2 hover:text-[#2f5f59]" href="/research">Research</a>
+      <a class="py-2 hover:text-[#2f5f59]" href="/contact">Contact</a>
+      <a class="py-2 hover:text-[#2f5f59]" href="/book-a-meeting">Book a discovery call</a>
+    </div>
+  </nav>
 </header>
+
+<script is:inline data-astro-rerun>
+  const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  const mobileMenu = document.querySelector('[data-mobile-menu]');
+  const menuIcon = document.querySelector('[data-menu-icon]');
+  const closeIcon = document.querySelector('[data-close-icon]');
+
+  mobileMenuToggle?.addEventListener('click', () => {
+    const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+    mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+    mobileMenu?.classList.toggle('hidden', isOpen);
+    menuIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+  });
+</script>

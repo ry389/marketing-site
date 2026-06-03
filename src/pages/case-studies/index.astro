@@ -4,13 +4,14 @@ import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
 import { fetchCaseStudies } from '~/utils/case-studies';
+import type { Taxonomy } from '~/types';
 
 const caseStudies = await fetchCaseStudies();
 const filterOptions = Array.from(
   new Map(
     caseStudies
       .flatMap((caseStudy) => [caseStudy.category, ...(caseStudy.tags || [])])
-      .filter(Boolean)
+      .filter((item): item is Taxonomy => Boolean(item))
       .map((item) => [item.slug, item.title])
   )
 );
@@ -31,7 +32,7 @@ const metadata = {
         <div class="max-w-4xl">
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Case studies</p>
           <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
-            Stories we have helped brands own.
+            Clients we've helped.
           </h1>
           <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545] sm:text-xl">
             In a world full of AI noise, generic content, and recycled opinions, the brands that stand out are the ones

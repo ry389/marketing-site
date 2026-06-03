@@ -6,13 +6,14 @@ import Layout from '~/layouts/Layout.astro';
 import { fetchPosts } from '~/utils/blog';
 import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
+import type { Taxonomy } from '~/types';
 
 const posts = await fetchPosts();
 const filterOptions = Array.from(
   new Map(
     posts
       .flatMap((post) => [post.category, ...(post.tags || [])])
-      .filter(Boolean)
+      .filter((item): item is Taxonomy => Boolean(item))
       .map((item) => [item.slug, item.title])
   )
 );
@@ -61,8 +62,8 @@ const metadata = {
 
     <section class="bg-white">
       <div class="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div class="mb-8 grid gap-3 md:grid-cols-[1fr_18rem]">
-          <label class="relative block">
+        <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-center">
+          <label class="relative block w-full md:max-w-md">
             <span class="sr-only">Search research</span>
             <Icon name="tabler:search" class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#777]" />
             <input
@@ -72,7 +73,7 @@ const metadata = {
               data-list-search
             />
           </label>
-          <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+          <label class="grid w-full gap-2 text-sm font-semibold text-[#343434] md:w-72">
             <span class="sr-only">Filter research</span>
             <select
               class="h-12 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"

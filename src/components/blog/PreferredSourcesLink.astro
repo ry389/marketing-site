@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const preferredSourcesUrl = 'https://google.com/preferences/source?q=citedstories.com';
+const {
+  class: className = '',
+  label = 'Add Cited Stories as a preferred source',
+} = Astro.props;
+---
+
+<div class={`flex justify-center ${className}`}>
+  <a
+    href={preferredSourcesUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center justify-center gap-2 rounded-full border border-[#d8d1c6] bg-[#f6f3ee] px-5 py-3 text-sm font-bold text-[#111] transition hover:border-[#2f5f59] hover:text-[#2f5f59] focus:outline-none focus:ring-2 focus:ring-[#2f5f59] focus:ring-offset-2"
+  >
+    <Icon name="tabler:star" class="h-5 w-5" />
+    <span>{label}</span>
+    <Icon name="tabler:external-link" class="h-4 w-4" />
+  </a>
+</div>

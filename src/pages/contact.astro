@@ -1,79 +1,178 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+import contactEmailImage from '~/assets/images/contact/contact-email.png';
 
 const metadata = {
   title: 'Contact',
+  description: 'Send Cited Stories a message about research-led content, digital PR, and authority-building campaigns.',
+  ignoreTitleTemplate: true,
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
 
-  <HeroText tagline="Contact" title="Let's Connect!" />
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-6 sm:py-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8 lg:py-14">
+        <div class="max-w-2xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Contact</p>
+          <h1 class="mt-4 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+            Have a question? Let’s talk.
+          </h1>
+          <p class="mt-5 text-lg leading-8 text-[#454545] sm:text-xl">
+            Tell us what you need help with, and we’ll come back to you within 2 working days with a reply.
+          </p>
+          <a
+            href="mailto:hello@citedstories.com"
+            class="mt-6 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]"
+          >
+            hello@citedstories.com
+            <Icon name="tabler:mail" class="h-5 w-5" />
+          </a>
+          <img
+            src={contactEmailImage.src}
+            width={contactEmailImage.width}
+            height={contactEmailImage.height}
+            alt=""
+            loading="eager"
+            class="mx-auto mt-6 h-auto w-full max-w-60 rounded-sm lg:max-w-64"
+          />
+        </div>
 
-  <ContactUs
-    id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
-    }}
-    description="Our support team typically responds within 24 business hours."
-  />
+        <div class="rounded-sm border border-[#141414]/10 bg-white p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-6">
+          <div
+            class="mb-6 hidden rounded-sm border border-[#2f5f59]/20 bg-[#dce8d8] px-4 py-3 text-sm font-medium text-[#21443f]"
+            data-contact-success
+          >
+            Thanks. Your message has been sent.
+          </div>
 
-  <!-- Features2 Widget ************** -->
+          <form
+            name="contact"
+            method="POST"
+            action="/contact/?submitted=true"
+            netlify
+            data-netlify="true"
+            netlify-honeypot="company"
+            data-contact-form
+            class="grid gap-4"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="hidden" name="recipient" value="hello@citedstories.com" />
+            <p class="hidden">
+              <label>
+                Do not fill this out if you are human:
+                <input name="company" tabindex="-1" autocomplete="off" />
+              </label>
+            </p>
 
-  <Features2
-    title="We are here to help!"
-    items={[
-      {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+            <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+              <span>Name <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
+              <input
+                type="text"
+                name="name"
+                autocomplete="name"
+                required
+                aria-required="true"
+                class="h-11 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+              />
+            </label>
+
+            <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+              <span>Email <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                class="h-11 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
+              />
+            </label>
+
+            <label class="grid gap-2 text-sm font-semibold text-[#343434]">
+              <span>Your Message <span class="text-[#e2634f]" aria-hidden="true">*</span></span>
+              <textarea
+                name="message"
+                rows="5"
+                required
+                aria-required="true"
+                class="resize-y rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 py-3 text-base font-normal leading-7 outline-none transition focus:border-[#2f5f59] focus:bg-white"
+              ></textarea>
+            </label>
+
+            <button
+              type="submit"
+              class="inline-flex h-11 items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 font-semibold text-white transition hover:bg-[#2f5f59]"
+            >
+              Send message
+              <Icon name="tabler:send" class="h-5 w-5" />
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+
+  <script is:inline data-astro-rerun>
+    const contactForm = document.querySelector('[data-contact-form]');
+    const successMessage = document.querySelector('[data-contact-success]');
+
+    if (successMessage && new URLSearchParams(window.location.search).get('submitted') === 'true') {
+      successMessage.classList.remove('hidden');
+    }
+
+    contactForm?.querySelector('[name="name"]')?.addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter your name.');
+    });
+    contactForm?.querySelector('[name="email"]')?.addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter a valid email address.');
+    });
+    contactForm?.querySelector('[name="message"]')?.addEventListener('invalid', (event) => {
+      event.target.setCustomValidity('Please enter your message.');
+    });
+    contactForm?.querySelectorAll('[required]').forEach((field) => {
+      field.addEventListener('input', () => field.setCustomValidity(''));
+    });
+
+    contactForm?.addEventListener('submit', (event) => {
+      if (contactForm.dataset.conversionSent === 'true') return;
+
+      if (!contactForm.reportValidity()) {
+        return;
+      }
+
+      event.preventDefault();
+      contactForm.dataset.conversionSent = 'true';
+
+      let hasSubmitted = false;
+      const submitForm = () => {
+        if (hasSubmitted) return;
+        hasSubmitted = true;
+        HTMLFormElement.prototype.submit.call(contactForm);
+      };
+      const fallback = window.setTimeout(submitForm, 900);
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'contact_form_submit', {
+          event_category: 'lead',
+          event_label: 'Contact form',
+          form_destination: 'hello@citedstories.com',
+          event_callback: () => {
+            window.clearTimeout(fallback);
+            submitForm();
+          },
+        });
+      } else {
+        window.clearTimeout(fallback);
+        submitForm();
+      }
+    });
+  </script>
 </Layout>

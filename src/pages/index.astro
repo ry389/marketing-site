@@ -58,7 +58,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
 
     <section class="relative overflow-hidden border-b border-[#141414]/10">
       <div class="absolute inset-y-0 right-0 hidden w-1/2 bg-[#f7f4ee] lg:block"></div>
-      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-24">
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:px-8 lg:py-24">
         <div class="max-w-3xl">
           <h1 class="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#141414] sm:text-6xl lg:text-7xl">
             Building the world's thought-leading brands
@@ -92,7 +92,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             aria-label="Brand signal map with Your Brand connected to perception, voice, mentions, citations, traffic, authority, and sentiment"
             class="brand-signal-map h-auto w-full"
           >
-            <circle class="brand-core" cx="280" cy="208" r="84" fill="#141414" />
+            <circle class="brand-core" cx="280" cy="208" r="72" fill="#141414" />
             <circle class="signal-ring signal-ring-inner" cx="280" cy="208" r="138" fill="none" stroke="#141414" stroke-opacity="0.10" stroke-width="1.5" />
             <circle class="signal-ring signal-ring-outer" cx="280" cy="208" r="184" fill="none" stroke="#141414" stroke-opacity="0.07" stroke-width="1.5" />
 
@@ -145,7 +145,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             <g class="signal-node" tabindex="0">
               <rect x="28" y="306" width="172" height="54" rx="3" fill="#f2c36b" fill-opacity="0.82" stroke="#141414" stroke-opacity="0.12" />
               <text x="114" y="339" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="15" font-weight="800">
-                Local perception
+                Local Perception
               </text>
             </g>
 
@@ -163,10 +163,10 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
               </text>
             </g>
 
-            <text x="280" y="202" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="800">
+            <text x="280" y="200" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="27" font-weight="800">
               Your
             </text>
-            <text x="280" y="230" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="21" font-weight="800">
+            <text x="280" y="232" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="27" font-weight="800">
               Brand
             </text>
           </svg>
@@ -177,16 +177,15 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
     <section class="border-b border-[#141414]/10 bg-white">
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-20">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">The problem</p>
-          <svg
-            viewBox="0 0 360 320"
-            role="img"
-            aria-label="Generic content becomes a trusted source when it is built from original insights, credible data, and reference-worthy stories"
-            class="mt-8 h-auto w-full max-w-sm"
-          >
+            <svg
+              viewBox="0 0 360 320"
+              role="img"
+            aria-label="Brands become more visible when original insights are cited across search, media, and AI"
+              class="h-auto w-full max-w-sm"
+            >
             <rect x="10" y="18" width="132" height="190" rx="4" fill="#f7f4ee" stroke="#141414" stroke-opacity="0.12" />
             <text x="76" y="49" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
-              Generic
+              Uncited
             </text>
             <text x="76" y="69" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
               content
@@ -203,10 +202,14 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
 
             <rect x="216" y="18" width="132" height="190" rx="4" fill="#141414" />
             <text x="282" y="48" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="800">
-              The source
+              Cited
             </text>
-            <circle cx="282" cy="98" r="34" fill="#dce8d8" />
-            <path d="M263 100l13 13 28-32" fill="none" stroke="#2f5f59" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            <text x="282" y="68" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="800">
+              and seen
+            </text>
+            <circle cx="282" cy="110" r="34" fill="#dce8d8" />
+            <path d="M253 110c8-14 18-21 29-21s21 7 29 21c-8 14-18 21-29 21s-21-7-29-21z" fill="none" stroke="#2f5f59" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="282" cy="110" r="8" fill="#2f5f59" />
             <g fill="#ffffff" fill-opacity="0.2">
               <rect x="242" y="152" width="80" height="8" rx="2" />
               <rect x="252" y="173" width="60" height="8" rx="2" />
@@ -215,34 +218,36 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             <g>
               <rect x="19" y="238" width="96" height="44" rx="3" fill="#dce8d8" />
               <text x="67" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                Original insight
+                Search
               </text>
             </g>
             <g>
               <rect x="132" y="238" width="96" height="44" rx="3" fill="#f2c36b" fill-opacity="0.9" />
               <text x="180" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                Credible data
+                Media
               </text>
             </g>
             <g>
               <rect x="245" y="238" width="96" height="44" rx="3" fill="#e2634f" fill-opacity="0.78" />
-              <text x="293" y="258" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                Stories people
-              </text>
-              <text x="293" y="274" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                reference
+              <text x="293" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
+                AI
               </text>
             </g>
           </svg>
         </div>
-        <div>
-          <h2 class="text-3xl font-semibold tracking-normal text-[#141414] sm:text-5xl">
-            Most brands create content. Few become the source.
+        <div class="lg:self-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">THE VISIBILITY SHIFT</p>
+          <h2 class="mt-5 text-3xl font-semibold tracking-normal text-[#141414] sm:text-5xl">
+            Brands that get cited will be the brands that get seen.
           </h2>
           <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545]">
-            To stand out in search, media, and industry conversations, brands need more than generic content. They need
-            original insights, credible data, and stories people want to reference.
+            Organic visibility is changing. To stand out across search, media, AI, and industry conversations, brands
+            need more than generic content. They need original insights, credible data, and stories people want to
+            reference.
           </p>
+          <a href="#" class="mt-6 inline-flex font-semibold text-[#141414] underline decoration-[#e2634f] decoration-2 underline-offset-4 hover:text-[#2f5f59]">
+            See how brand mentions shape visibility
+          </a>
         </div>
       </div>
     </section>
@@ -252,7 +257,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
         <div class="max-w-2xl">
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Why we exist</p>
           <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
-            Brands earn citations by being useful.
+            Content earns mentions by being useful.
           </h2>
         </div>
         <div class="mt-10 grid gap-4 md:grid-cols-3">
@@ -273,7 +278,12 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8 lg:py-20">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">How we do it</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">We make your brand worth referencing.</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
+            We make your knowledge and insights worth referencing.
+          </h2>
+          <a href="/services" class="mt-6 inline-flex font-semibold text-white underline decoration-[#f2c36b] decoration-2 underline-offset-4 hover:text-[#f2c36b]">
+            Learn about our services
+          </a>
         </div>
         <div class="grid gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-2">
           {

@@ -37,7 +37,7 @@ const discussionPoints = [
             challenges.
           </p>
 
-          <div class="mt-8 flex items-center gap-4 rounded-sm border border-[#141414]/10 bg-white p-4">
+          <div class="mt-8 hidden items-center gap-4 rounded-sm border border-[#141414]/10 bg-white p-4 lg:flex">
             <img
               src={ryanProfile.src}
               width={ryanProfile.width}
@@ -71,7 +71,7 @@ const discussionPoints = [
             </div>
           </div>
 
-          <div class="mt-8 rounded-sm border border-[#141414]/10 bg-white p-5">
+          <div class="mt-8 hidden rounded-sm border border-[#141414]/10 bg-white p-5 lg:block">
             <div class="flex items-center gap-3">
               <span class="flex h-10 w-10 items-center justify-center rounded-sm bg-[#dce8d8] text-[#2f5f59]">
                 <Icon name="tabler:sparkles" class="h-5 w-5" />
@@ -127,6 +127,25 @@ const discussionPoints = [
                 Choose a date <span class="text-[#e2634f]" aria-hidden="true">*</span>
               </h2>
               <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-date-options aria-label="Available dates"></div>
+              <div class="mt-4 flex items-center justify-between gap-3" data-date-pagination>
+                <button
+                  type="button"
+                  class="inline-flex h-10 items-center justify-center gap-2 rounded-sm border border-[#141414]/20 px-4 text-sm font-semibold text-[#141414] transition hover:bg-[#f7f4ee] disabled:cursor-not-allowed disabled:opacity-40"
+                  data-prev-date-page
+                >
+                  <Icon name="tabler:arrow-left" class="h-4 w-4" />
+                  Previous
+                </button>
+                <p class="text-sm font-medium text-[#666]" data-date-page-label></p>
+                <button
+                  type="button"
+                  class="inline-flex h-10 items-center justify-center gap-2 rounded-sm border border-[#141414]/20 px-4 text-sm font-semibold text-[#141414] transition hover:bg-[#f7f4ee] disabled:cursor-not-allowed disabled:opacity-40"
+                  data-next-date-page
+                >
+                  Next
+                  <Icon name="tabler:arrow-right" class="h-4 w-4" />
+                </button>
+              </div>
               <p
                 class="mt-5 hidden rounded-sm border border-[#e2634f]/30 bg-[#fff4ef] px-4 py-3 text-sm font-medium text-[#9a2f21]"
                 data-step-error="1"
@@ -286,6 +305,9 @@ const discussionPoints = [
     const stepErrors = Array.from(document.querySelectorAll('[data-step-error]'));
     const nextButtons = Array.from(document.querySelectorAll('[data-next-step]'));
     const prevButtons = Array.from(document.querySelectorAll('[data-prev-step]'));
+    const prevDatePageButton = document.querySelector('[data-prev-date-page]');
+    const nextDatePageButton = document.querySelector('[data-next-date-page]');
+    const datePageLabel = document.querySelector('[data-date-page-label]');
     const availabilityByDay = {
       1: ['13:00', '19:00', '20:00', '21:00'],
       2: ['13:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'],
@@ -295,6 +317,9 @@ const discussionPoints = [
     const timeFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' });
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'local';
     const formStartedAt = Date.now();
+    const datesPerPage = 6;
+    let availableDates = [];
+    let currentDatePage = 0;
     let currentStep = 1;
 
     form.querySelector('[name="name"]').setCustomValidity('');
@@ -332,6 +357,8 @@ const discussionPoints = [
 
       return dates;
     };
+
+    availableDates = getAvailableDates();
 
     const setSelectedButton = (container, button) => {
       container.querySelectorAll('button').forEach((item) => {
@@ -423,24 +450,56 @@ const discussionPoints = [
       return true;
     };
 
-    getAvailableDates().forEach((date) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className =
-        'rounded-sm border border-[#141414]/10 bg-[#f7f4ee] px-4 py-3 text-left transition hover:border-[#2f5f59] hover:bg-[#dce8d8]';
-      button.setAttribute('aria-pressed', 'false');
-      button.dataset.value = getDateValue(date);
-      button.dataset.label = dateFormatter.format(date);
-      button.innerHTML = `<span class="block text-sm font-semibold">${button.dataset.label}</span><span class="mt-1 block text-xs text-[#666]">Available</span>`;
-      button.addEventListener('click', () => {
-        dateInput.value = button.dataset.value;
-        dateLabelInput.value = button.dataset.label;
-        setSelectedButton(dateContainer, button);
-        renderTimeOptions(date.getDay());
-        bookingSummary.textContent = getSummaryText();
+    const renderDateOptions = () => {
+      dateContainer.replaceChildren();
+
+      const pageCount = Math.ceil(availableDates.length / datesPerPage);
+      const start = currentDatePage * datesPerPage;
+      const visibleDates = availableDates.slice(start, start + datesPerPage);
+
+      visibleDates.forEach((date) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className =
+          'rounded-sm border border-[#141414]/10 bg-[#f7f4ee] px-4 py-3 text-left transition hover:border-[#2f5f59] hover:bg-[#dce8d8]';
+        button.setAttribute('aria-pressed', 'false');
+        button.dataset.value = getDateValue(date);
+        button.dataset.label = dateFormatter.format(date);
+        button.innerHTML = `<span class="block text-sm font-semibold">${button.dataset.label}</span><span class="mt-1 block text-xs text-[#666]">Available</span>`;
+
+        if (button.dataset.value === dateInput.value) {
+          button.classList.add('border-[#2f5f59]', 'bg-[#dce8d8]');
+          button.classList.remove('border-[#141414]/10', 'bg-[#f7f4ee]');
+          button.setAttribute('aria-pressed', 'true');
+        }
+
+        button.addEventListener('click', () => {
+          dateInput.value = button.dataset.value;
+          dateLabelInput.value = button.dataset.label;
+          setSelectedButton(dateContainer, button);
+          renderTimeOptions(date.getDay());
+          bookingSummary.textContent = getSummaryText();
+        });
+        dateContainer.append(button);
       });
-      dateContainer.append(button);
+
+      prevDatePageButton.disabled = currentDatePage === 0;
+      nextDatePageButton.disabled = currentDatePage >= pageCount - 1;
+      datePageLabel.textContent = `${currentDatePage + 1} of ${pageCount}`;
+    };
+
+    prevDatePageButton.addEventListener('click', () => {
+      currentDatePage = Math.max(currentDatePage - 1, 0);
+      renderDateOptions();
     });
+
+    nextDatePageButton.addEventListener('click', () => {
+      const pageCount = Math.ceil(availableDates.length / datesPerPage);
+      currentDatePage = Math.min(currentDatePage + 1, pageCount - 1);
+      renderDateOptions();
+    });
+
+    renderDateOptions();
 
     nextButtons.forEach((button) => {
       button.addEventListener('click', () => {

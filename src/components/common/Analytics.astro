@@ -5,7 +5,7 @@ const id = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.go
 const scriptType = ANALYTICS?.vendors?.googleAnalytics?.partytown ? 'text/partytown' : 'text/javascript';
 ---
 
-{id ? <script type={scriptType} async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} /> : null}
+{id ? <script is:inline type={scriptType} async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} /> : null}
 {
   id ? (
     <script
