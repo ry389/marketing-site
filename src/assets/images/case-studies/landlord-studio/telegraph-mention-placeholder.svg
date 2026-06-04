@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">The Telegraph mention placeholder</title>
+  <desc id="desc">A placeholder for a future screenshot or clipping showing the Landlord Studio mention in The Telegraph.</desc>
+  <rect width="960" height="560" fill="#f7f4ee"/>
+  <rect x="54" y="48" width="852" height="464" rx="8" fill="#ffffff" stroke="#141414" stroke-opacity=".12" stroke-width="2"/>
+  <text x="480" y="132" text-anchor="middle" fill="#141414" font-family="Georgia, serif" font-size="58" font-weight="700">The Telegraph</text>
+  <line x1="110" y1="166" x2="850" y2="166" stroke="#141414" stroke-opacity=".18" stroke-width="2"/>
+  <rect x="110" y="212" width="520" height="26" rx="5" fill="#141414" fill-opacity=".18"/>
+  <rect x="110" y="260" width="700" height="16" rx="4" fill="#141414" fill-opacity=".12"/>
+  <rect x="110" y="292" width="672" height="16" rx="4" fill="#141414" fill-opacity=".12"/>
+  <rect x="110" y="324" width="610" height="16" rx="4" fill="#141414" fill-opacity=".12"/>
+  <rect x="110" y="388" width="202" height="54" rx="27" fill="#e2634f" fill-opacity=".15"/>
+  <text x="211" y="423" text-anchor="middle" fill="#e2634f" font-family="Arial, sans-serif" font-size="20" font-weight="700">Mention placeholder</text>
+  <text x="480" y="486" text-anchor="middle" fill="#555555" font-family="Arial, sans-serif" font-size="18">Replace with the live Telegraph clipping or screenshot</text>
+</svg>

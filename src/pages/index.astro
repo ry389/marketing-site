@@ -3,6 +3,12 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
+import hasbroLogo from '~/assets/images/case-studies/hasbro-monopoly/hasbro-logo.png?url';
+import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.svg?url';
+import createSomethingUsefulIcon from '~/assets/images/home/create-something-useful.png?url';
+import earnTrustedVisibilityIcon from '~/assets/images/home/earn-trusted-visibility.png?url';
+import findWhatMattersIcon from '~/assets/images/home/find-what-matters.png?url';
+import visibilityShiftSticker from '~/assets/images/home/visibility-shift-sticker.png?url';
 import { fetchCaseStudies } from '~/utils/case-studies';
 
 const metadata = {
@@ -15,18 +21,19 @@ const metadata = {
 const whatWeDo = [
   {
     title: 'Find what matters',
-    description: 'We uncover the data, trends, and questions your audience actually cares about.',
-    icon: 'tabler:database-search',
+    description: 'Uncover the data, trends, and questions your audience actually cares about.',
+    icon: findWhatMattersIcon,
   },
   {
     title: 'Create something useful',
-    description: 'We turn research into stories, reports, and insights people want to read, reference, and share.',
-    icon: 'tabler:writing-sign',
+    description: 'Turn research into stories, reports, and insights people want to read, reference, and share.',
+    icon: createSomethingUsefulIcon,
   },
   {
-    title: 'Become the source',
-    description: 'We help your brand earn visibility across media, search, social, and AI-driven discovery.',
-    icon: 'tabler:news',
+    title: 'Earn trusted visibility',
+    description:
+      'Build the kind of presence that helps your brand show up across media, search, social, and AI-driven discovery.',
+    icon: earnTrustedVisibilityIcon,
   },
 ];
 
@@ -50,6 +57,10 @@ const methods = [
 ];
 
 const caseStudies = (await fetchCaseStudies()).slice(0, 3);
+const caseStudyLogoBySlug: Record<string, string> = {
+  'hasbro-monopoly': hasbroLogo,
+  'landlord-studio': landlordStudioLogo,
+};
 ---
 
 <Layout metadata={metadata}>
@@ -58,10 +69,10 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
 
     <section class="relative overflow-hidden border-b border-[#141414]/10">
       <div class="absolute inset-y-0 right-0 hidden w-1/2 bg-[#f7f4ee] lg:block"></div>
-      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:px-8 lg:py-24">
-        <div class="max-w-3xl">
-          <h1 class="max-w-5xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#141414] sm:text-6xl lg:text-7xl">
-            Building the world's thought-leading brands
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.22fr_0.78fr] lg:items-center lg:px-8 lg:py-24 xl:grid-cols-[1.05fr_0.95fr]">
+        <div class="max-w-5xl">
+          <h1 class="max-w-5xl text-5xl font-semibold leading-[1.05] tracking-normal text-[#141414] sm:text-6xl lg:text-[clamp(3.8rem,5vw,5.6rem)]">
+            Get your organisation seen for the work that matters.
           </h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-[#343434] sm:text-xl">
             We create research-led stories that help brands earn trust, visibility, and authority across the channels
@@ -76,7 +87,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
               <Icon name="tabler:calendar-event" class="h-5 w-5" />
             </a>
             <a
-              href="#method"
+              href="/the-value-of-citations"
               class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 text-base font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
             >
               See how it works
@@ -115,7 +126,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             </g>
 
             <g class="signal-node" tabindex="0">
-              <rect x="378" y="74" width="154" height="54" rx="3" fill="#dce8d8" stroke="#141414" stroke-opacity="0.12" />
+              <rect x="378" y="74" width="154" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
               <text x="455" y="107" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">
                 Brand sentiment
               </text>
@@ -129,7 +140,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             </g>
 
             <g class="signal-node" tabindex="0">
-              <rect x="365" y="306" width="166" height="54" rx="3" fill="#e2634f" fill-opacity="0.78" stroke="#141414" stroke-opacity="0.12" />
+              <rect x="365" y="306" width="166" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
               <text x="448" y="339" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="15" font-weight="800">
                 Brand mentions
               </text>
@@ -143,7 +154,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
             </g>
 
             <g class="signal-node" tabindex="0">
-              <rect x="28" y="306" width="172" height="54" rx="3" fill="#f2c36b" fill-opacity="0.82" stroke="#141414" stroke-opacity="0.12" />
+              <rect x="28" y="306" width="172" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
               <text x="114" y="339" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="15" font-weight="800">
                 Local Perception
               </text>
@@ -176,74 +187,22 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
 
     <section class="border-b border-[#141414]/10 bg-white">
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-20">
-        <div>
-            <svg
-              viewBox="0 0 360 320"
-              role="img"
-            aria-label="Brands become more visible when original insights are cited across search, media, and AI"
-              class="h-auto w-full max-w-sm"
-            >
-            <rect x="10" y="18" width="132" height="190" rx="4" fill="#f7f4ee" stroke="#141414" stroke-opacity="0.12" />
-            <text x="76" y="49" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
-              Uncited
-            </text>
-            <text x="76" y="69" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="14" font-weight="800">
-              content
-            </text>
-            <g fill="#d9d2c7">
-              <rect x="34" y="98" width="84" height="10" rx="2" />
-              <rect x="34" y="124" width="84" height="10" rx="2" />
-              <rect x="34" y="150" width="84" height="10" rx="2" />
-              <rect x="34" y="176" width="58" height="10" rx="2" />
-            </g>
-
-            <path d="M151 112h48" stroke="#141414" stroke-opacity="0.22" stroke-width="3" stroke-linecap="round" />
-            <path d="M191 101l16 11-16 11" fill="none" stroke="#141414" stroke-opacity="0.22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-
-            <rect x="216" y="18" width="132" height="190" rx="4" fill="#141414" />
-            <text x="282" y="48" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="800">
-              Cited
-            </text>
-            <text x="282" y="68" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="15" font-weight="800">
-              and seen
-            </text>
-            <circle cx="282" cy="110" r="34" fill="#dce8d8" />
-            <path d="M253 110c8-14 18-21 29-21s21 7 29 21c-8 14-18 21-29 21s-21-7-29-21z" fill="none" stroke="#2f5f59" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="282" cy="110" r="8" fill="#2f5f59" />
-            <g fill="#ffffff" fill-opacity="0.2">
-              <rect x="242" y="152" width="80" height="8" rx="2" />
-              <rect x="252" y="173" width="60" height="8" rx="2" />
-            </g>
-
-            <g>
-              <rect x="19" y="238" width="96" height="44" rx="3" fill="#dce8d8" />
-              <text x="67" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                Search
-              </text>
-            </g>
-            <g>
-              <rect x="132" y="238" width="96" height="44" rx="3" fill="#f2c36b" fill-opacity="0.9" />
-              <text x="180" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                Media
-              </text>
-            </g>
-            <g>
-              <rect x="245" y="238" width="96" height="44" rx="3" fill="#e2634f" fill-opacity="0.78" />
-              <text x="293" y="266" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="12" font-weight="800">
-                AI
-              </text>
-            </g>
-          </svg>
+        <div class="flex items-center justify-center lg:justify-start">
+          <img
+            src={visibilityShiftSticker}
+            alt="Illustration of a person using a laptop"
+            class="h-auto w-full max-w-[18rem] object-contain sm:max-w-sm"
+            loading="lazy"
+          />
         </div>
         <div class="lg:self-center">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">THE VISIBILITY SHIFT</p>
-          <h2 class="mt-5 text-3xl font-semibold tracking-normal text-[#141414] sm:text-5xl">
-            Brands that get cited will be the brands that get seen.
+          <h2 class="mt-5 text-3xl font-bold tracking-normal text-[#141414] sm:text-5xl">
+            AI content is creating noise, but underdelivering.
           </h2>
           <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545]">
             Organic visibility is changing. To stand out across search, media, AI, and industry conversations, brands
             need more than generic content. They need original insights, credible data, and stories people want to
-            reference.
+            share.
           </p>
           <a href="#" class="mt-6 inline-flex font-semibold text-[#141414] underline decoration-[#e2634f] decoration-2 underline-offset-4 hover:text-[#2f5f59]">
             See how brand mentions shape visibility
@@ -255,16 +214,15 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
     <section id="method" class="border-b border-[#141414]/10">
       <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div class="max-w-2xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Why we exist</p>
           <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
-            Content earns mentions by being useful.
+            Brands that get cited are the the brands that get seen.
           </h2>
         </div>
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           {
             whatWeDo.map((item) => (
-              <article class="rounded-sm border border-[#141414]/10 bg-white p-6">
-                <Icon name={item.icon} class="h-8 w-8 text-[#2f5f59]" />
+              <article class="rounded-sm border border-[#141414]/10 bg-white p-6 text-center">
+                <img src={item.icon} alt="" class="mx-auto h-20 w-20 object-contain" loading="lazy" />
                 <h3 class="mt-8 text-xl font-semibold">{item.title}</h3>
                 <p class="mt-3 leading-7 text-[#555]">{item.description}</p>
               </article>
@@ -277,9 +235,8 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
     <section class="border-b border-[#141414]/10 bg-[#141414] text-white">
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8 lg:py-20">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">How we do it</p>
           <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
-            We make your knowledge and insights worth referencing.
+            You bring the expertise. We help your brand be recognised for it.
           </h2>
           <a href="/services" class="mt-6 inline-flex font-semibold text-white underline decoration-[#f2c36b] decoration-2 underline-offset-4 hover:text-[#f2c36b]">
             Learn about our services
@@ -301,19 +258,30 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
     <section id="examples" class="border-b border-[#141414]/10 bg-white">
       <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Case studies</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Stories we’ve helped brands own</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
+            Data-led stories we've helped tell
+          </h2>
         </div>
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           {
             caseStudies.map((item) => (
               <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
                 <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.client}</p>
-                <div class="mt-4 flex h-14 w-36 items-center justify-center rounded-sm border border-[#141414]/10 bg-white text-sm font-semibold tracking-normal text-[#777]">
-                  Logo
+                <div class="mt-5 flex h-24 items-center text-sm font-semibold tracking-normal text-[#777]">
+                  {
+                    caseStudyLogoBySlug[item.slug] ? (
+                      <img
+                        src={caseStudyLogoBySlug[item.slug]}
+                        alt={`${item.client} logo`}
+                        class="max-h-20 max-w-48 object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      'Logo'
+                    )
+                  }
                 </div>
                 <h3 class="mt-5 text-xl font-semibold leading-7">{item.title}</h3>
-                {item.excerpt && <p class="mt-4 leading-7 text-[#555]">{item.excerpt}</p>}
                 <a href={item.permalink} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
                   Read more
                   <Icon name="tabler:arrow-right" class="h-5 w-5" />
@@ -328,8 +296,7 @@ const caseStudies = (await fetchCaseStudies()).slice(0, 3);
     <section id="contact" class="bg-[#141414] text-white">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to get cited?</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to shape the conversation?</h2>
           <p class="mt-4 max-w-2xl text-lg leading-8 text-white/70">
             Let us map the research angles, proof points, and stories your category can own.
           </p>

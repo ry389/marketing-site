@@ -17,33 +17,38 @@ const metadata = {
     <SiteHeader />
 
     <section class="border-b border-[#141414]/10">
-      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-6 sm:py-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8 lg:py-14">
-        <div class="max-w-2xl">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Contact</p>
-          <h1 class="mt-4 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_12rem] lg:items-end lg:px-8">
+        <div class="max-w-3xl">
+          <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
             Have a question? Let’s talk.
           </h1>
-          <p class="mt-5 text-lg leading-8 text-[#454545] sm:text-xl">
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-[#454545] sm:text-xl">
             Tell us what you need help with, and we’ll come back to you within 2 working days with a reply.
           </p>
-          <a
-            href="mailto:hello@citedstories.com"
-            class="mt-6 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]"
-          >
-            hello@citedstories.com
-            <Icon name="tabler:mail" class="h-5 w-5" />
-          </a>
+        </div>
+        <div class="flex items-center justify-center lg:justify-end">
           <img
             src={contactEmailImage.src}
             width={contactEmailImage.width}
             height={contactEmailImage.height}
-            alt=""
+            alt="Illustration of a person sending a message"
             loading="eager"
-            class="mx-auto mt-6 h-auto w-full max-w-60 rounded-sm lg:max-w-64"
+            class="h-auto w-full max-w-48 object-contain"
           />
         </div>
+      </div>
+    </section>
 
-        <div class="rounded-sm border border-[#141414]/10 bg-white p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-6">
+    <section id="contact-form" class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8 lg:py-20">
+        <div>
+          <h2 class="text-3xl font-semibold tracking-normal sm:text-5xl">Send us a message.</h2>
+          <p class="mt-5 max-w-xl text-lg leading-8 text-[#555]">
+            Share a little context about what you need, and we’ll reply within 2 working days.
+          </p>
+        </div>
+
+        <div class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-6">
           <div
             class="mb-6 hidden rounded-sm border border-[#2f5f59]/20 bg-[#dce8d8] px-4 py-3 text-sm font-medium text-[#21443f]"
             data-contact-success
@@ -54,7 +59,7 @@ const metadata = {
           <form
             name="contact"
             method="POST"
-            action="/contact/?submitted=true"
+            action="/contact?submitted=true"
             netlify
             data-netlify="true"
             netlify-honeypot="company"

@@ -1,224 +1,210 @@
 ---
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import Content from '~/components/widgets/Content.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
-import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+import createSomethingUsefulIcon from '~/assets/images/home/create-something-useful.png?url';
+import earnTrustedVisibilityIcon from '~/assets/images/home/earn-trusted-visibility.png?url';
+import findWhatMattersIcon from '~/assets/images/home/find-what-matters.png?url';
+import servicesHeroSticker from '~/assets/images/services/services-hero-sticker.png?url';
 
 const metadata = {
   title: 'Services',
+  description:
+    'Research-led campaigns, data-led PR, authority-building SEO, and thought leadership services from Cited Stories.',
+  ignoreTitleTemplate: true,
 };
+
+const services = [
+  {
+    title: 'Data-led PR campaigns',
+    description:
+      'Original data stories, reports, indexes, rankings, and timely media angles built to earn credible coverage and brand mentions.',
+    icon: findWhatMattersIcon,
+  },
+  {
+    title: 'Research and insight production',
+    description:
+      'Desk research, data analysis, surveys, FOI requests, trend reports, and insight development that give your brand something useful to say.',
+    icon: createSomethingUsefulIcon,
+  },
+  {
+    title: 'Authority-building SEO/AEO',
+    description:
+      'Content assets designed to earn links, citations, mentions, and long-term visibility across search and AI-driven discovery.',
+    icon: earnTrustedVisibilityIcon,
+  },
+  {
+    title: 'Thought leadership strategy',
+    description:
+      'Positioning, messaging, expert commentary, and narrative development that helps your expertise become easier to understand and reference.',
+    icon: createSomethingUsefulIcon,
+  },
+];
+
+const process = [
+  {
+    title: 'Find the angle',
+    description: 'We identify the data, tension, question, or trend your audience already cares about.',
+  },
+  {
+    title: 'Build the evidence',
+    description: 'We turn research into proof points, stories, assets, and commentary that can stand up to scrutiny.',
+  },
+  {
+    title: 'Shape the story',
+    description: 'We make the insight clear, useful, and easy for journalists, searchers, and industry voices to reference.',
+  },
+  {
+    title: 'Earn visibility',
+    description: 'We help the work travel across media, search, newsletters, social, and AI discovery environments.',
+  },
+];
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
 
-  <Hero
-    tagline="Services"
-    title="Elevate your projects with our stunning templates"
-    subtitle="Explore our meticulously crafted templates tailored to various industries and purposes. From captivating presentations to functional website designs, we offer the tools you need to succeed."
-    actions={[{ variant: 'primary', target: '_blank', text: 'Start exploring', href: '/' }]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: 'AstroWind Hero Image',
-    }}
-  />
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8 lg:py-24">
+        <div class="max-w-4xl">
+          <h1 class="text-5xl font-semibold leading-[1.04] tracking-normal sm:text-6xl lg:text-[clamp(4rem,5vw,5.8rem)]">
+            Services for brands with something real to say.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-[#343434] sm:text-xl">
+            We help brands turn expertise, data, and original insight into stories people want to read, reference, and
+            share.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/book-a-meeting"
+              class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#2f5f59]"
+            >
+              Book a discovery call
+              <Icon name="tabler:calendar-event" class="h-5 w-5" />
+            </a>
+            <a
+              href="/case-studies"
+              class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 text-base font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
+            >
+              See our impact
+              <Icon name="tabler:arrow-right" class="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+        <div class="flex items-center justify-center lg:justify-end">
+          <img
+            src={servicesHeroSticker}
+            alt="Illustration representing research-led services"
+            class="h-auto w-full max-w-[18rem] object-contain sm:max-w-sm"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
 
-  <!-- Features2 Widget ************** -->
+    <section class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
+        <div class="max-w-3xl">
+          <h2 class="text-3xl font-semibold tracking-normal sm:text-5xl">
+            Research-led services built for trust, citations, and visibility.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-[#555]">
+            The aim is not more content for the sake of it. It is useful evidence, clearer stories, and assets your
+            market has a reason to mention.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-4 md:grid-cols-2">
+          {
+            services.map((item) => (
+              <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+                <img src={item.icon} alt="" class="h-20 w-20 object-contain" loading="lazy" />
+                <h3 class="mt-7 text-2xl font-semibold leading-tight">{item.title}</h3>
+                <p class="mt-4 leading-7 text-[#555]">{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <Features2
-    title="Explore our diverse templates"
-    subtitle="Discover our selection below to streamline and elevate your projects."
-    columns={3}
-    items={[
-      {
-        title: 'Educational',
-        description:
-          'By harmonizing instructional design and visual appeal, templates streamline content creation for varied materials, expediting development and cultivating engaging educational spaces.',
-        icon: 'tabler:school',
-      },
-      {
-        title: 'Interior Design',
-        description:
-          'Crafting functional, visually appealing spaces for residential and commercial use. Templates emphasize layout, colors, and furniture setups, offering a versatile toolkit for your design vision.',
-        icon: 'tabler:home-star',
-      },
-      {
-        title: 'Photography',
-        description: `Empowering photographers, our templates facilitate captivating storytelling. With a keen focus on layout, galleries, and typography, they cater to both professionals and enthusiasts.`,
-        icon: 'tabler:photo',
-      },
-      {
-        title: 'E-commerce',
-        description:
-          'Developing engaging online stores, our E-commerce templates ensure a dynamic presence to effectively showcase products. Ideal for startups or revamps.',
-        icon: 'tabler:shopping-cart',
-      },
-      {
-        title: 'Blog',
-        description:
-          'With attention to typography, these templates empower effective content presentation for writers at any stage, ensuring visually engaging and user-friendly blogs.',
-        icon: 'tabler:article',
-      },
-      {
-        title: 'Business',
-        description:
-          'Providing polished options for effective visual communication, these templates empower both startups and established companies for a professional brand presence.',
-        icon: 'tabler:building-store',
-      },
-      {
-        title: 'Branding',
-        description:
-          'Offering pre-designed elements for a consistent brand identity, including logos and marketing materials. Ideal for new ventures or revamps.',
-        icon: 'tabler:arrow-big-up-lines',
-      },
-      {
-        title: 'Medical',
-        description: `From presentations to patient forms, these tools enhance communication effectiveness for healthcare professionals. Ideal for medical practices and research pursuits.`,
-        icon: 'tabler:vaccine',
-      },
-      {
-        title: 'Fashion Design',
-        description:
-          'With attention to detail, customization, and contemporary design, they empower designers to showcase ideas cohesively. Ideal for all levels of designers.',
-        icon: 'tabler:tie',
-      },
-    ]}
-  />
+    <section class="border-b border-[#141414]/10 bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8 lg:py-20">
+        <div>
+          <h2 class="text-3xl font-semibold tracking-normal sm:text-5xl">
+            How the work turns expertise into something people can use.
+          </h2>
+          <p class="mt-5 text-lg leading-8 text-white/70">
+            Every project starts with the story your brand can credibly own, then works backwards into the evidence,
+            format, and channels that help it travel.
+          </p>
+        </div>
+        <div class="grid gap-px overflow-hidden rounded-sm border border-white/10 bg-white/10 sm:grid-cols-2">
+          {
+            process.map((item, index) => (
+              <article class="bg-[#141414] p-6">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 class="mt-4 text-xl font-semibold">{item.title}</h3>
+                <p class="mt-3 leading-7 text-white/68">{item.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
 
-  <!-- Content Widget **************** -->
+    <section class="border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:px-8 lg:py-20">
+        <div>
+          <h2 class="text-3xl font-semibold tracking-normal sm:text-5xl">What you get from research-led stories.</h2>
+        </div>
+        <div class="grid gap-4">
+          <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+            <h3 class="text-xl font-semibold">A reason to be cited</h3>
+            <p class="mt-3 leading-7 text-[#555]">
+              Original insight gives journalists, creators, industry voices, and AI systems something more substantial
+              to reference than opinion.
+            </p>
+          </article>
+          <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+            <h3 class="text-xl font-semibold">A clearer market position</h3>
+            <p class="mt-3 leading-7 text-[#555]">
+              Strong stories help people understand what your brand knows, why it matters, and where you belong in the
+              conversation.
+            </p>
+          </article>
+          <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+            <h3 class="text-xl font-semibold">A more durable visibility asset</h3>
+            <p class="mt-3 leading-7 text-[#555]">
+              A good research-led campaign can support PR, SEO, thought leadership, sales conversations, and future
+              content long after launch.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <Content
-    isReversed
-    items={[
-      {
-        title: 'High-Quality Designs',
-        description:
-          'Our templates feature top-tier designs that ensure a professional and polished appearance for your projects.',
-        icon: 'tabler:wand',
-      },
-      {
-        title: 'Customization Tools',
-        description:
-          'Tailor each template to your unique needs with user-friendly customization tools that let you personalize colors, fonts, and content.',
-        icon: 'tabler:settings',
-      },
-      {
-        title: 'Pre-Designed Elements',
-        description:
-          'Save time and effort with our ready-to-use elements, including graphics, icons, and layouts that enhance the visual appeal of your creations.',
-        icon: 'tabler:presentation',
-      },
-      {
-        title: 'Preview and Mockup Views',
-        description:
-          'Visualize the final outcome before making any changes using our preview and mockup views, ensuring your projects meet your expectations.',
-        icon: 'tabler:carousel-horizontal',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1525909002-1b05e0c869d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-      alt: 'Features Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Main Features</h3>
-    </Fragment>
-  </Content>
+    <section class="bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+        <div>
+          <h2 class="text-3xl font-semibold tracking-normal sm:text-5xl">Ready to shape the conversation?</h2>
+          <p class="mt-4 max-w-2xl text-lg leading-8 text-white/70">
+            Let us map the research angles, proof points, and stories your category can own.
+          </p>
+        </div>
+        <a
+          href="/book-a-meeting"
+          class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+        >
+          Book a discovery call
+          <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+        </a>
+      </div>
+    </section>
 
-  <!-- Content Widget **************** -->
-
-  <Content
-    isAfterContent
-    items={[
-      {
-        title: 'Time Savings',
-        description:
-          'Streamline your workflow, enabling you to create stunning materials efficiently and allocate more time to your core tasks.',
-        icon: 'tabler:clock',
-      },
-      {
-        title: 'Professional Appearance',
-        description:
-          'Elevate your projects with the polished and sophisticated look that our templates provide, making a lasting impression on your audience.',
-        icon: 'tabler:school',
-      },
-      {
-        title: 'Cost-Efficiency',
-        description:
-          'Benefit from cost savings by avoiding the need for custom design work, as our templates offer professional-grade designs at a fraction of the cost.',
-        icon: 'tabler:coin',
-      },
-      {
-        title: 'Instant Download',
-        description:
-          'Enjoy immediate access to your chosen templates upon purchase, enabling you to begin working on your projects without delay.',
-        icon: 'tabler:file-download',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1552664688-cf412ec27db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-      alt: 'Benefits Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Benefits</h3>
-    </Fragment>
-  </Content>
-
-  <!-- Testimonials Widget *********** -->
-
-  <Testimonials
-    title="Words from real customers"
-    testimonials={[
-      {
-        testimonial: `The designs are not only visually appealing but also highly professional. The templates have saved me a significant amount of time while helping me make a lasting impression on my clients.`,
-        name: 'Emily Kennedy',
-        job: 'Front-end developer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1618835962148-cf177563c6c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=930&q=80',
-          alt: 'Emily Kennedy Image',
-        },
-      },
-      {
-        testimonial: `It beautifully showcases my work, with its clean and elegant design that lets my photographs shine. Customization was a breeze, even for a non-tech person like me. The result is a professional and immersive portfolio that's garnered numerous compliments.`,
-        name: 'Sarah Hansen',
-        job: 'Photographer',
-        image: {
-          src: 'https://images.unsplash.com/photo-1561406636-b80293969660?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
-          alt: 'Sarah Hansen Image',
-        },
-      },
-      {
-        testimonial: `I discovered these templates and I'm impressed by their variety and quality. They've helped me establish a consistent brand image across my marketing and social platforms, elevating my business's overall appearance.`,
-        name: 'Mark Wilkinson',
-        job: 'Small business owner',
-        image: {
-          src: 'https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=824&q=80',
-          alt: 'Mark Wilkinson Image',
-        },
-      },
-    ]}
-    callToAction={{
-      target: '_blank',
-      text: 'More testimonials...',
-      href: 'https://github.com/onwidget/astrowind',
-      icon: 'tabler:chevron-right',
-    }}
-  />
-
-  <!-- CallToAction Widget *********** -->
-
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Start exploring',
-        href: '/',
-      },
-    ]}
-    title="Dive into our template collection"
-    subtitle="Whether you're in business, design, or education, our templates are here to elevate your projects."
-  />
+    <SiteFooter />
+  </main>
 </Layout>

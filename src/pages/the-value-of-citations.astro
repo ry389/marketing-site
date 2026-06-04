@@ -1,0 +1,227 @@
+---
+import { Icon } from 'astro-icon/components';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import Layout from '~/layouts/Layout.astro';
+
+const metadata = {
+  title: 'The value of citations',
+  description:
+    'Why citations, mentions, and references shape brand visibility across search, media, social, and AI-driven discovery.',
+  ignoreTitleTemplate: true,
+};
+
+const citationSteps = [
+  {
+    eyebrow: '01 / Trust',
+    title: 'Citations turn claims into proof.',
+    description:
+      'A brand can say it is credible, but a citation shows someone else found its thinking useful enough to reference.',
+    metric: 'Proof',
+  },
+  {
+    eyebrow: '02 / Visibility',
+    title: 'References help your ideas travel.',
+    description:
+      'The more your research is mentioned across media, newsletters, search, social, and industry conversations, the more routes people have back to your brand.',
+    metric: 'Reach',
+  },
+  {
+    eyebrow: '03 / Discovery',
+    title: 'Mentions shape what machines can understand.',
+    description:
+      'Search engines and AI systems rely on signals around entities, sources, and context. Clear, cited expertise makes your brand easier to connect to a topic.',
+    metric: 'Context',
+  },
+  {
+    eyebrow: '04 / Demand',
+    title: 'Being cited creates memory.',
+    description:
+      'When people see your brand attached to useful ideas again and again, awareness starts to become recognition, preference, and demand.',
+    metric: 'Recall',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+
+    <section class="relative overflow-hidden border-b border-[#141414]/10">
+      <div class="absolute inset-y-0 right-0 hidden w-1/2 bg-[#f7f4ee] lg:block"></div>
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:px-8 lg:py-24">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">The value of citations</p>
+          <h1 class="mt-5 max-w-5xl text-5xl font-semibold leading-[1.02] tracking-normal text-[#141414] sm:text-6xl lg:text-7xl">
+            The brands people cite become the brands people remember.
+          </h1>
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-[#343434] sm:text-xl">
+            Citations are more than links or mentions. They are signals that your brand has something useful, trusted,
+            and worth returning to.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#citation-story"
+              class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#2f5f59]"
+            >
+              Explore the shift
+              <Icon name="tabler:arrow-down" class="h-5 w-5" />
+            </a>
+            <a
+              href="/book-a-meeting"
+              class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 text-base font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
+            >
+              Book a discovery call
+              <Icon name="tabler:calendar-event" class="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+
+        <div class="self-end">
+          <svg
+            viewBox="0 0 560 420"
+            role="img"
+            aria-label="Citation map showing one brand idea being referenced across media, search, AI, and social"
+            class="citation-hero-map h-auto w-full"
+          >
+            <circle cx="280" cy="208" r="76" fill="#141414" />
+            <circle cx="280" cy="208" r="140" fill="none" stroke="#141414" stroke-opacity="0.10" stroke-width="1.5" />
+            <circle cx="280" cy="208" r="188" fill="none" stroke="#141414" stroke-opacity="0.07" stroke-width="1.5" />
+            <g stroke="#141414" stroke-opacity="0.18" stroke-width="2">
+              <path d="M280 132V72" />
+              <path d="M352 184l92-42" />
+              <path d="M352 232l92 44" />
+              <path d="M280 284v62" />
+              <path d="M208 232l-92 44" />
+              <path d="M208 184l-92-42" />
+            </g>
+            <text x="280" y="198" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="24" font-weight="800">
+              Useful
+            </text>
+            <text x="280" y="229" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="24" font-weight="800">
+              insight
+            </text>
+            <g>
+              <rect x="211" y="42" width="138" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="280" y="75" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">Search</text>
+            </g>
+            <g>
+              <rect x="382" y="116" width="126" height="54" rx="3" fill="#dce8d8" stroke="#141414" stroke-opacity="0.12" />
+              <text x="445" y="149" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">Media</text>
+            </g>
+            <g>
+              <rect x="393" y="252" width="108" height="54" rx="3" fill="#e2634f" fill-opacity="0.78" stroke="#141414" stroke-opacity="0.12" />
+              <text x="447" y="285" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">AI</text>
+            </g>
+            <g>
+              <rect x="211" y="326" width="138" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="280" y="359" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">Recall</text>
+            </g>
+            <g>
+              <rect x="48" y="252" width="126" height="54" rx="3" fill="#f2c36b" fill-opacity="0.86" stroke="#141414" stroke-opacity="0.12" />
+              <text x="111" y="285" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">Social</text>
+            </g>
+            <g>
+              <rect x="48" y="116" width="126" height="54" rx="3" fill="#ffffff" stroke="#141414" stroke-opacity="0.12" />
+              <text x="111" y="149" text-anchor="middle" fill="#141414" font-family="Inter, sans-serif" font-size="16" font-weight="800">Industry</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation-story" class="citation-scroll border-b border-[#141414]/10 bg-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div class="lg:py-24">
+          <div class="sticky-visual rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Citation effect</p>
+            <div class="mt-8 grid gap-3">
+              <div class="rounded-sm bg-[#141414] p-5 text-white">
+                <p class="text-4xl font-semibold leading-none">1</p>
+                <p class="mt-2 font-semibold">Original insight</p>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-sm bg-white p-4">
+                  <p class="text-sm font-semibold text-[#2f5f59]">Referenced</p>
+                </div>
+                <div class="rounded-sm bg-[#dce8d8] p-4">
+                  <p class="text-sm font-semibold text-[#2f5f59]">Remembered</p>
+                </div>
+                <div class="rounded-sm bg-[#f2c36b] p-4">
+                  <p class="text-sm font-semibold">Discovered</p>
+                </div>
+                <div class="rounded-sm bg-[#e2634f]/80 p-4">
+                  <p class="text-sm font-semibold">Trusted</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          {
+            citationSteps.map((step) => (
+              <article class="citation-step flex min-h-[75vh] scroll-mt-20 flex-col justify-center border-b border-[#141414]/10 py-16 last:border-b-0 lg:min-h-screen">
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">{step.eyebrow}</p>
+                <h2 class="mt-5 text-4xl font-semibold leading-tight tracking-normal sm:text-6xl">{step.title}</h2>
+                <p class="mt-6 max-w-2xl text-lg leading-8 text-[#454545] sm:text-xl">{step.description}</p>
+                <p class="mt-8 inline-flex w-fit rounded-sm border border-[#141414]/10 bg-[#f7f4ee] px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#141414]">
+                  {step.metric}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-[#141414] text-white">
+      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to build something worth citing?</h2>
+        </div>
+        <a
+          href="/book-a-meeting"
+          class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+        >
+          Book a discovery call
+          <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+        </a>
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
+
+  <style>
+    .citation-hero-map text {
+      pointer-events: none;
+    }
+
+    @media (min-width: 1024px) {
+      :global(html) {
+        scroll-snap-type: y proximity;
+      }
+
+      .citation-step {
+        scroll-snap-align: start;
+      }
+
+      .sticky-visual {
+        position: sticky;
+        top: 6rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      :global(html) {
+        scroll-snap-type: none;
+      }
+
+      .sticky-visual {
+        position: static;
+      }
+    }
+  </style>
+</Layout>

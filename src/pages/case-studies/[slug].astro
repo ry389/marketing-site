@@ -3,6 +3,10 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
+import guinnessWorldRecordsPlaceholder from '~/assets/images/case-studies/hasbro-monopoly/guinness-world-records-placeholder.svg?url';
+import hasbroLogo from '~/assets/images/case-studies/hasbro-monopoly/hasbro-logo.png?url';
+import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.svg?url';
+import telegraphMentionPlaceholder from '~/assets/images/case-studies/landlord-studio/telegraph-mention-placeholder.svg?url';
 import { getStaticPathsCaseStudy } from '~/utils/case-studies';
 import type { CaseStudy } from '~/types';
 
@@ -14,6 +18,32 @@ interface Props {
 
 const { caseStudy } = Astro.props;
 const { Content } = caseStudy;
+const clientLogoBySlug: Record<string, string> = {
+  'hasbro-monopoly': hasbroLogo,
+  'landlord-studio': landlordStudioLogo,
+};
+const mentionImageBySlug: Record<string, string> = {
+  'hasbro-monopoly': guinnessWorldRecordsPlaceholder,
+  'landlord-studio': telegraphMentionPlaceholder,
+};
+const mentionTextBySlug: Record<string, { alt: string; caption: string }> = {
+  'hasbro-monopoly': {
+    alt: 'Placeholder for the Monopoly mention in Guinness World Records',
+    caption: 'Placeholder for the Monopoly mention in Guinness World Records.',
+  },
+  'landlord-studio': {
+    alt: 'Placeholder for The Telegraph mention',
+    caption: "Placeholder for the Landlord Studio mention in The Telegraph, one of the UK's biggest newspapers.",
+  },
+};
+const resultsMetrics = [
+  { label: 'Branded Mentions', value: 'TBC' },
+  { label: 'Links', value: 'TBC' },
+  { label: 'Impressions', value: 'TBC' },
+];
+const clientLogo = clientLogoBySlug[caseStudy.slug];
+const mentionImage = mentionImageBySlug[caseStudy.slug];
+const mentionText = mentionTextBySlug[caseStudy.slug];
 
 const metadata = {
   title: caseStudy.metadata?.title || `${caseStudy.client} case study`,
@@ -34,7 +64,18 @@ const metadata = {
         </a>
         <div class="mt-8 grid gap-10 lg:grid-cols-[1fr_0.42fr] lg:items-start">
           <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">{caseStudy.client}</p>
+            {
+              clientLogo ? (
+                <img
+                  src={clientLogo}
+                  alt={`${caseStudy.client} logo`}
+                  class="h-10 w-auto max-w-64 object-contain"
+                  loading="eager"
+                />
+              ) : (
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">{caseStudy.client}</p>
+              )
+            }
             <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
               {caseStudy.title}
             </h1>
@@ -79,6 +120,79 @@ const metadata = {
       </div>
     </section>
 
+    <section class="border-y border-[#141414]/10 bg-[#f7f4ee]">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.32fr_1fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Results</p>
+        </div>
+        <div>
+          <div class="grid gap-4 md:grid-cols-3">
+            {
+              resultsMetrics.map((metric) => (
+                <article class="result-metric rounded-sm border border-[#141414]/10 bg-white p-6 opacity-0">
+                  <p class="text-4xl font-semibold tracking-normal text-[#141414] sm:text-5xl">{metric.value}</p>
+                  <p class="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{metric.label}</p>
+                </article>
+              ))
+            }
+          </div>
+          {
+            mentionImage && (
+              <figure class="mt-8 overflow-hidden rounded-sm border border-[#141414]/10 bg-white">
+                <img
+                  src={mentionImage}
+                  alt={mentionText?.alt || 'Placeholder for media mention'}
+                  class="aspect-[12/7] w-full object-cover"
+                  loading="lazy"
+                />
+                <figcaption class="border-t border-[#141414]/10 px-5 py-4 text-sm leading-6 text-[#555]">
+                  {mentionText?.caption || 'Placeholder for media mention.'}
+                </figcaption>
+              </figure>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[#141414]/10 bg-[#f7f4ee]">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.32fr_1fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">
+            What research-led stories give you
+          </p>
+        </div>
+        <div>
+          <h2 class="max-w-3xl text-3xl font-semibold tracking-normal sm:text-5xl">
+            Evidence that turns brand expertise into something people can use.
+          </h2>
+          <div class="mt-10 grid gap-4 md:grid-cols-3">
+            <article class="rounded-sm border border-[#141414]/10 bg-white p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Unique evidence</p>
+              <h3 class="mt-4 text-xl font-semibold">A stronger reason to care</h3>
+              <p class="mt-4 leading-7 text-[#555]">
+                Data gives the story a foundation competitors cannot easily copy or reduce to opinion.
+              </p>
+            </article>
+            <article class="rounded-sm border border-[#141414]/10 bg-white p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Clear angle</p>
+              <h3 class="mt-4 text-xl font-semibold">A story people can understand</h3>
+              <p class="mt-4 leading-7 text-[#555]">
+                Research turns complexity into a timely, media-ready angle with relevance beyond the brand.
+              </p>
+            </article>
+            <article class="rounded-sm border border-[#141414]/10 bg-white p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Visible authority</p>
+              <h3 class="mt-4 text-xl font-semibold">Attention backed by credibility</h3>
+              <p class="mt-4 leading-7 text-[#555]">
+                The output helps the brand earn coverage, mentions, trust, and visibility from something substantive.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="bg-[#141414] text-white">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
@@ -98,3 +212,52 @@ const metadata = {
     <SiteFooter />
   </main>
 </Layout>
+
+<script>
+  const metricCards = document.querySelectorAll('.result-metric');
+
+  const revealMetrics = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(revealMetrics, { threshold: 0.28 });
+    metricCards.forEach((card) => observer.observe(card));
+  } else {
+    metricCards.forEach((card) => card.classList.add('is-visible'));
+  }
+</script>
+
+<style>
+  .result-metric {
+    transform: translateY(18px);
+    transition:
+      opacity 480ms ease,
+      transform 480ms ease;
+  }
+
+  .result-metric:nth-child(2) {
+    transition-delay: 120ms;
+  }
+
+  .result-metric:nth-child(3) {
+    transition-delay: 240ms;
+  }
+
+  .result-metric.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .result-metric {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

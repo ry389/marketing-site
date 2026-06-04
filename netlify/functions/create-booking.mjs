@@ -178,6 +178,7 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
     throw new Error('Booking invite email is not fully configured.');
   }
 
+  const fromAddress = `Cited Stories <${fromEmail}>`;
   const invite = getInvite({ booking, hostEmail, meetLink });
   const safeName = escapeHtml(booking.name || 'there');
   const safeCompany = escapeHtml(booking.company || 'Not provided');
@@ -219,9 +220,9 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
     sendResendEmail({
       resendApiKey,
       payload: {
-        from: fromEmail,
+        from: fromAddress,
         to: [booking.email],
-        subject: 'Discovery call with Cited Stories',
+        subject: 'Discovery call booked with Cited Stories',
         html: bookerHtml,
         attachments: [attachment],
       },
@@ -229,10 +230,10 @@ const sendBookingInvite = async ({ booking, hostEmail, meetLink }) => {
     sendResendEmail({
       resendApiKey,
       payload: {
-        from: fromEmail,
+        from: fromAddress,
         to: [hostEmail],
         reply_to: booking.email,
-        subject: `Discovery call booked: ${booking.company || booking.name || booking.email}`,
+        subject: `Discovery call booked with Cited Stories: ${booking.company || booking.name || booking.email}`,
         html: hostHtml,
         attachments: [attachment],
       },

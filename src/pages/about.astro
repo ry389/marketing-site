@@ -3,28 +3,44 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
+import ryanProfile from '~/assets/images/about/ryan-profile.jpeg';
 
 const metadata = {
   title: 'About Cited Stories',
   description:
-    'Cited Stories helps companies become trusted sources through data, research-led stories, and authority-building campaigns.',
+    'Cited Stories helps brands become known for what they know through research-led campaigns designed to earn trust, visibility, and recognition.',
   ignoreTitleTemplate: true,
 };
 
 const principles = [
   {
-    title: 'Evidence before opinion',
-    description: 'We look for data, patterns, and proof points before deciding what a brand should say.',
+    title: 'We work with you, not just for you',
+    description:
+      'The best stories come from partnership. The more we understand your expertise, market, and audience, the stronger the work becomes.',
   },
   {
-    title: 'Stories people can reference',
-    description: 'We turn research into assets that journalists, customers, partners, and search engines can cite.',
+    title: 'We will say the useful thing',
+    description:
+      'We care more about results than easy agreement. Sometimes that means challenging assumptions, angles, or old ways of working.',
   },
   {
-    title: 'Authority that compounds',
-    description: 'We build campaigns that keep earning visibility after the first launch window has passed.',
+    title: 'We like honest feedback',
+    description:
+      'Clear conversations make the work sharper. Whether something lands or misses, the next version should always get better.',
+  },
+  {
+    title: 'We do not hide behind long contracts',
+    description:
+      'We want clients to keep working with us because the work is useful, not because the paperwork makes it hard to leave.',
+  },
+  {
+    title: 'We are not chasing awards',
+    description:
+      'We would rather spend the time finding stronger evidence, clearer angles, and stories your market can actually use.',
   },
 ];
+
+const youtubeEmbedUrl = '';
 ---
 
 <Layout metadata={metadata}>
@@ -36,30 +52,47 @@ const principles = [
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">About</p>
           <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
-            In a world of AI noise, brands need something real to say.
+            In a world of AI noise, original insight stands out.
           </h1>
-          <p class="mt-6 max-w-2xl text-3xl font-semibold leading-tight tracking-normal text-[#2f5f59] sm:text-4xl">
-            We help you say it.
-          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/case-studies"
+              class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 font-semibold text-white transition hover:bg-[#2f5f59]"
+            >
+              See our impact
+              <Icon name="tabler:arrow-right" class="h-5 w-5" />
+            </a>
+            <a
+              href="/research"
+              class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
+            >
+              Read our research
+              <Icon name="tabler:arrow-right" class="h-5 w-5" />
+            </a>
+          </div>
         </div>
         <div class="self-end">
-          <div class="aspect-video rounded-sm border border-[#141414]/10 bg-[#141414] p-4 text-white shadow-[0_24px_80px_rgba(20,20,20,0.10)]">
-            <div class="flex h-full flex-col justify-between rounded-sm border border-white/10 bg-white/5 p-5">
-              <div class="flex items-center justify-between text-sm text-white/60">
-                <span>Brand authority film</span>
-                <Icon name="tabler:video" class="h-5 w-5" />
-              </div>
-              <div class="flex items-center justify-center">
-                <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#141414]">
-                  <Icon name="tabler:player-play-filled" class="h-7 w-7" />
-                </span>
-              </div>
-              <div class="grid grid-cols-3 gap-2">
-                <span class="h-2 rounded-sm bg-[#dce8d8]"></span>
-                <span class="h-2 rounded-sm bg-[#f2c36b]"></span>
-                <span class="h-2 rounded-sm bg-[#e2634f]"></span>
-              </div>
-            </div>
+          <div class="aspect-video overflow-hidden rounded-sm border border-[#141414]/10 bg-[#141414] text-white shadow-[0_24px_80px_rgba(20,20,20,0.10)]">
+            {
+              youtubeEmbedUrl ? (
+                <iframe
+                  class="h-full w-full"
+                  src={youtubeEmbedUrl}
+                  title="Cited Stories video"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                />
+              ) : (
+                <div class="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
+                  <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#141414]">
+                    <Icon name="tabler:player-play-filled" class="h-7 w-7" />
+                  </span>
+                  <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">YouTube embed</p>
+                  <p class="max-w-sm text-lg font-semibold">Video coming soon.</p>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
@@ -70,29 +103,66 @@ const principles = [
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">What we do</p>
           <p class="mt-5 text-xl leading-9 text-[#343434]">
-            Cited Stories exists for companies that want to shape industry conversations, not just publish more
-            content. We uncover data, develop research-led stories, and create campaigns that help brands earn trust
-            across media, search, social, newsletters, and AI-driven discovery.
+            Cited Stories helps brands become known for what they know.
           </p>
           <p class="mt-6 text-lg leading-8 text-[#555]">
-            The work sits between strategy, research, PR, SEO, and thought leadership. The goal is simple: give your
-            market something credible to reference.
+            We uncover the data, insights, and stories your market cares about, then turn them into research-led
+            campaigns designed to earn trust, visibility, and recognition across media, search, social, newsletters,
+            and AI-driven discovery.
+          </p>
+          <p class="mt-6 text-lg leading-8 text-[#555]">
+            Our work brings together strategy, research, PR, SEO, and thought leadership. The goal is simple: make your
+            expertise easier to find, trust, reference, and share.
           </p>
         </div>
-        <div class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5">
-          <div class="aspect-[4/3] rounded-sm bg-white p-5">
-            <div class="grid h-full grid-rows-[1fr_auto] gap-5">
-              <div class="grid grid-cols-3 items-end gap-4">
-                <div class="h-24 rounded-sm bg-[#dce8d8]"></div>
-                <div class="h-40 rounded-sm bg-[#f2c36b]"></div>
-                <div class="h-32 rounded-sm bg-[#e2634f]"></div>
-              </div>
-              <div>
-                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Placeholder image</p>
-                <p class="mt-2 text-lg font-semibold">Research, story, authority</p>
-              </div>
+        <aside class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5">
+          <div class="rounded-sm bg-white p-6 text-center shadow-[0_24px_80px_rgba(20,20,20,0.06)]">
+            <blockquote class="mx-auto max-w-sm text-2xl font-semibold leading-tight tracking-normal text-[#141414]">
+              “Marketing trends are shifting more towards X,ZY..”
+            </blockquote>
+            <img
+              src={ryanProfile.src}
+              width={ryanProfile.width}
+              height={ryanProfile.height}
+              alt="Ryan Green"
+              loading="lazy"
+              class="mx-auto mt-7 h-32 w-32 rounded-full border-4 border-[#dce8d8] object-cover"
+            />
+            <p class="mt-4 text-lg font-semibold">Ryan Green</p>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Cited Stories</p>
+            <div class="mt-5 flex justify-center gap-3">
+              <a
+                href="mailto:hello@citedstories.com"
+                class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-[#141414]/10 text-[#141414] transition hover:border-[#2f5f59]/40 hover:bg-[#dce8d8] hover:text-[#2f5f59]"
+                aria-label="Email Ryan Green"
+              >
+                <Icon name="tabler:mail" class="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/ryangreenio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-[#141414]/10 text-[#141414] transition hover:border-[#2f5f59]/40 hover:bg-[#dce8d8] hover:text-[#2f5f59]"
+                aria-label="Ryan Green on LinkedIn"
+              >
+                <Icon name="tabler:brand-linkedin" class="h-5 w-5" />
+              </a>
             </div>
           </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="border-b border-[#141414]/10 bg-[#f7f4ee]">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.28fr_1fr] lg:px-8 lg:py-20">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Our why</p>
+        </div>
+        <div>
+          <p class="max-w-4xl text-3xl font-semibold leading-tight tracking-normal text-[#141414] sm:text-5xl">
+            To help the world move beyond noise and tell stories that mean something — stories that inform, connect,
+            and inspire action.
+          </p>
         </div>
       </div>
     </section>
@@ -100,14 +170,19 @@ const principles = [
     <section class="border-b border-[#141414]/10 bg-white">
       <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">How we think</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Authority starts with proof.</h2>
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f5f59]">Values / principles</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
+            Our approach to better stories
+          </h2>
         </div>
-        <div class="mt-10 grid gap-4 md:grid-cols-3">
+        <div class="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {
-            principles.map((item) => (
+            principles.map((item, index) => (
               <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
-                <h3 class="text-xl font-semibold">{item.title}</h3>
+                <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">
+                  {String(index + 1).padStart(2, '0')}
+                </p>
+                <h3 class="mt-4 text-xl font-semibold">{item.title}</h3>
                 <p class="mt-4 leading-7 text-[#555]">{item.description}</p>
               </article>
             ))
@@ -120,7 +195,7 @@ const principles = [
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Find the story your market should cite.</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Find stories to share with the world.</h2>
         </div>
         <a
           href="/book-a-meeting"

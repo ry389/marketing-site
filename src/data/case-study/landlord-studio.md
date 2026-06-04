@@ -5,7 +5,7 @@ subtitle: How we transformed public data into a timely, credible story that earn
 client: Landlord Studio
 campaignType: Data-led PR / research-led storytelling
 outcome: National media coverage, including brand mentions from The Telegraph, X and X.
-project: We used publicly available government data to uncover a story with national relevance, turning a complex dataset into a clear media angle that helped the brand earn attention, credibility, and authority.
+project: We submitted Freedom of Information requests to the Ministry of Housing to uncover unique data not publicly available elsewhere, then turned the findings into a clear media angle with national relevance — helping the brand earn attention, credibility, and visibility.
 excerpt: Public government data became a national story that helped Landlord Studio earn media attention, credibility, and authority.
 category: Data-led PR
 tags:
