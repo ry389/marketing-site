@@ -13,8 +13,8 @@ metadata:
     template: '%s — Cited Stories'
   description: 'Research-led stories that help brands earn trust, visibility, and authority across the channels that matter.'
   robots:
-    index: true
-    follow: true
+    index: false
+    follow: false
   openGraph:
     site_name: Cited Stories
     images:

@@ -1,4 +1,5 @@
 import path from 'path';
+import { copyFile, readFile, writeFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
@@ -20,6 +21,27 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const hasExternalScripts = false;
 const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
+
+const sitemapAlias = (): AstroIntegration => ({
+  name: 'citedstories-sitemap-alias',
+  hooks: {
+    'astro:build:done': async ({ dir }) => {
+      const sitemapIndex = new URL('sitemap-index.xml', dir);
+      const sitemapAliasFile = new URL('sitemap.xml', dir);
+      const robotsFile = new URL('robots.txt', dir);
+
+      await copyFile(sitemapIndex, sitemapAliasFile);
+
+      const robotsTxt = await readFile(robotsFile, 'utf8');
+      const sitemapLine = 'Sitemap: https://citedstories.com/sitemap.xml';
+      const nextRobotsTxt = robotsTxt.match(/^Sitemap: .+$/m)
+        ? robotsTxt.replace(/^Sitemap: .+$/m, sitemapLine)
+        : `${robotsTxt.trimEnd()}\n\n${sitemapLine}`;
+
+      await writeFile(robotsFile, nextRobotsTxt, 'utf8');
+    },
+  },
+});
 
 export default defineConfig({
   output: 'static',
@@ -66,6 +88,8 @@ export default defineConfig({
     astrowind({
       config: './src/config.yaml',
     }),
+
+    sitemapAlias(),
   ],
 
   image: {
