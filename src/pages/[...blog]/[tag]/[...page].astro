@@ -1,11 +1,16 @@
 ---
 import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
+import { Icon } from 'astro-icon/components';
+import Image from '~/components/common/Image.astro';
 import { blogTagRobots, getStaticPathsBlogTag } from '~/utils/blog';
 
-import Layout from '~/layouts/PageLayout.astro';
-import BlogList from '~/components/blog/List.astro';
-import Headline from '~/components/blog/Headline.astro';
+import Layout from '~/layouts/Layout.astro';
 import Pagination from '~/components/blog/Pagination.astro';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+import { getFormattedDate } from '~/utils/utils';
 
 export const prerender = true;
 
@@ -16,6 +21,7 @@ export const getStaticPaths = (async ({ paginate }) => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page, tag } = Astro.props as Props;
+const postsWithImages = await Promise.all(page.data.map(async (post) => ({ post, image: await findImage(post.image) })));
 
 const currentPage = page.currentPage ?? 1;
 
@@ -29,9 +35,70 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="px-4 md:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
-    <Headline>Tag: {tag.title}</Headline>
-    <BlogList posts={page.data} />
-    <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
-  </section>
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+
+    <section class="border-b border-[#141414]/10">
+      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <a href="/research" class="inline-flex items-center gap-2 text-sm font-semibold text-[#2f5f59] hover:text-[#141414]">
+          <Icon name="tabler:arrow-left" class="h-4 w-4" />
+          Research
+        </a>
+        <p class="mt-8 text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Topic</p>
+        <h1 class="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
+          {tag.title}
+        </h1>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545] sm:text-xl">
+          Research, data stories, and evidence-led thinking from Cited Stories.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white">
+      <div class="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {
+            postsWithImages.map(({ post, image }) => (
+              <a
+                href={getPermalink(post.permalink, 'post')}
+                class="flex min-h-full flex-col overflow-hidden rounded-sm border border-[#141414]/10 bg-[#f7f4ee] text-[#141414] no-underline transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
+              >
+                <div class="aspect-[16/10] border-b border-[#141414]/10 bg-[#dce8d8]">
+                  {image && (
+                    <Image
+                      src={image}
+                      class="h-full w-full object-cover"
+                      widths={[400, 800]}
+                      width={800}
+                      sizes="(max-width: 900px) 100vw, 33vw"
+                      alt={post.title}
+                      aspectRatio="16:10"
+                      layout="cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                </div>
+                <div class="flex flex-1 flex-col p-6">
+                  <div class="flex items-center gap-2 text-sm font-medium text-[#666]">
+                    <Icon name="tabler:calendar" class="h-4 w-4 text-[#2f5f59]" />
+                    <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
+                  </div>
+                  <h2 class="mt-5 text-2xl font-semibold leading-tight tracking-normal">{post.title}</h2>
+                  {post.excerpt && <p class="mt-4 leading-7 text-[#555]">{post.excerpt}</p>}
+                  <span class="mt-auto inline-flex items-center gap-2 pt-8 font-semibold text-[#141414]">
+                    Read more
+                    <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                  </span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+        <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} />
+      </div>
+    </section>
+
+    <SiteFooter />
+  </main>
 </Layout>

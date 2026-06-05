@@ -3,16 +3,15 @@ import type { InferGetStaticPropsType, GetStaticPaths } from 'astro';
 
 import merge from 'lodash.merge';
 import type { ImageMetadata } from 'astro';
-import Layout from '~/layouts/PageLayout.astro';
+import Layout from '~/layouts/Layout.astro';
 import SinglePost from '~/components/blog/SinglePost.astro';
-import ToBlogLink from '~/components/blog/ToBlogLink.astro';
-import PreferredSourcesLink from '~/components/blog/PreferredSourcesLink.astro';
+import SiteFooter from '~/components/SiteFooter.astro';
+import SiteHeader from '~/components/SiteHeader.astro';
 
 import { getCanonical, getPermalink } from '~/utils/permalinks';
 import { getStaticPathsBlogPost, blogPostRobots } from '~/utils/blog';
 import { findImage } from '~/utils/images';
 import type { MetaData } from '~/types';
-import RelatedPosts from '~/components/blog/RelatedPosts.astro';
 
 export const prerender = true;
 
@@ -47,10 +46,11 @@ const metadata = merge(
 ---
 
 <Layout metadata={metadata}>
-  <SinglePost post={{ ...post, image: image }} url={url}>
-    {post.Content ? <post.Content /> : <Fragment set:html={post.content || ''} />}
-  </SinglePost>
-  <PreferredSourcesLink class="-mt-8 mb-12" label="Add Cited Stories as a preferred source on Google" />
-  <ToBlogLink />
-  <RelatedPosts post={post} />
+  <main class="min-h-screen bg-[#f7f4ee] text-[#141414]">
+    <SiteHeader />
+    <SinglePost post={{ ...post, image: image }} url={url}>
+      {post.Content ? <post.Content /> : <Fragment set:html={post.content || ''} />}
+    </SinglePost>
+    <SiteFooter />
+  </main>
 </Layout>

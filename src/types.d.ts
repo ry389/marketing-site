@@ -58,6 +58,7 @@ export interface CaseStudy {
   campaignType: string;
   outcome: string;
   project: string;
+  storyWeTold?: string;
   excerpt?: string;
   image?: ImageMetadata | string;
   category?: Taxonomy;

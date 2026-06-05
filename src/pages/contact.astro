@@ -17,10 +17,12 @@ const metadata = {
     <SiteHeader />
 
     <section class="border-b border-[#141414]/10">
-      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_12rem] lg:items-end lg:px-8">
+      <div class="mx-auto grid max-w-5xl gap-8 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,48rem)_12rem] lg:items-end lg:px-8">
         <div class="max-w-3xl">
           <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
-            Have a question? Let’s talk.
+            Have a question?
+            <br />
+            Let’s talk.
           </h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-[#454545] sm:text-xl">
             Tell us what you need help with, and we’ll come back to you within 2 working days with a reply.
@@ -46,14 +48,57 @@ const metadata = {
           <p class="mt-5 max-w-xl text-lg leading-8 text-[#555]">
             Share a little context about what you need, and we’ll reply within 2 working days.
           </p>
+          <div class="mt-6 flex items-center gap-3">
+            <a
+              href="mailto:hello@citedstories.com"
+              class="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-[#141414]/10 bg-[#f7f4ee] text-[#141414] transition hover:border-[#2f5f59]/40 hover:bg-white hover:text-[#2f5f59]"
+              aria-label="Email Cited Stories"
+            >
+              <Icon name="tabler:mail" class="h-5 w-5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ryangreenio/"
+              class="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-[#141414]/10 bg-[#f7f4ee] text-[#141414] transition hover:border-[#2f5f59]/40 hover:bg-white hover:text-[#2f5f59]"
+              aria-label="Ryan Green on LinkedIn"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Icon name="tabler:brand-linkedin" class="h-5 w-5" />
+            </a>
+          </div>
         </div>
 
-        <div class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-6">
+        <div
+          class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-5 shadow-[0_24px_80px_rgba(20,20,20,0.08)] sm:p-6"
+          data-contact-panel
+        >
           <div
-            class="mb-6 hidden rounded-sm border border-[#2f5f59]/20 bg-[#dce8d8] px-4 py-3 text-sm font-medium text-[#21443f]"
+            class="hidden rounded-sm border border-[#2f5f59]/20 bg-[#dce8d8] p-6 text-[#21443f] sm:p-8"
             data-contact-success
           >
-            Thanks. Your message has been sent.
+            <div class="flex h-12 w-12 items-center justify-center rounded-sm bg-white text-[#2f5f59]">
+              <Icon name="tabler:circle-check" class="h-7 w-7" />
+            </div>
+            <h3 class="mt-6 text-2xl font-semibold tracking-normal text-[#141414] sm:text-3xl">Thanks.</h3>
+            <p class="mt-3 text-lg leading-8 text-[#21443f]">
+              Your message has been sent. We'll be in touch!
+            </p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/"
+                class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-5 py-3 font-semibold text-white transition hover:bg-[#2f5f59]"
+              >
+                Back to home
+                <Icon name="tabler:arrow-right" class="h-5 w-5" />
+              </a>
+              <a
+                href="/research"
+                class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2f5f59]/30 px-5 py-3 font-semibold text-[#21443f] transition hover:bg-white"
+              >
+                Read some insights
+                <Icon name="tabler:book-2" class="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           <form
@@ -81,6 +126,7 @@ const metadata = {
                 type="text"
                 name="name"
                 autocomplete="name"
+                placeholder="Enter your full name"
                 required
                 aria-required="true"
                 class="h-11 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
@@ -93,6 +139,7 @@ const metadata = {
                 type="email"
                 name="email"
                 autocomplete="email"
+                placeholder="Enter your email address"
                 required
                 aria-required="true"
                 class="h-11 rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 text-base font-normal outline-none transition focus:border-[#2f5f59] focus:bg-white"
@@ -104,6 +151,7 @@ const metadata = {
               <textarea
                 name="message"
                 rows="5"
+                placeholder="Tell us what you need help with"
                 required
                 aria-required="true"
                 class="resize-y rounded-sm border border-[#141414]/15 bg-[#f7f4ee] px-4 py-3 text-base font-normal leading-7 outline-none transition focus:border-[#2f5f59] focus:bg-white"
@@ -128,9 +176,13 @@ const metadata = {
   <script is:inline data-astro-rerun>
     const contactForm = document.querySelector('[data-contact-form]');
     const successMessage = document.querySelector('[data-contact-success]');
+    const contactPanel = document.querySelector('[data-contact-panel]');
 
-    if (successMessage && new URLSearchParams(window.location.search).get('submitted') === 'true') {
+    if (successMessage && contactForm && new URLSearchParams(window.location.search).get('submitted') === 'true') {
       successMessage.classList.remove('hidden');
+      contactForm.classList.add('hidden');
+      contactPanel?.classList.remove('shadow-[0_24px_80px_rgba(20,20,20,0.08)]');
+      contactPanel?.classList.add('bg-white');
     }
 
     contactForm?.querySelector('[name="name"]')?.addEventListener('invalid', (event) => {

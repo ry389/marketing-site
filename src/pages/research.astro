@@ -4,12 +4,15 @@ import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
 import researchHeroSticker from '~/assets/images/research/research-hero-sticker.png?url';
+import Image from '~/components/common/Image.astro';
 import { fetchPosts } from '~/utils/blog';
+import { findImage } from '~/utils/images';
 import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
 import type { Taxonomy } from '~/types';
 
 const posts = await fetchPosts();
+const postsWithImages = await Promise.all(posts.map(async (post) => ({ post, image: await findImage(post.image) })));
 const filterOptions = Array.from(
   new Map(
     posts
@@ -31,15 +34,14 @@ const metadata = {
     <SiteHeader />
 
     <section class="border-b border-[#141414]/10">
-      <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_12rem] lg:items-end lg:px-8">
+      <div class="mx-auto grid max-w-5xl gap-8 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,48rem)_12rem] lg:items-end lg:px-8">
         <div class="max-w-3xl">
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Research</p>
           <h1 class="mt-5 text-5xl font-semibold leading-[1.02] tracking-normal sm:text-6xl">
-            Data stories, thinking, and evidence worth citing.
+            Data-led investigations
           </h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-[#454545] sm:text-xl">
-            Notes on research-led PR, search authority, thought leadership, and the ideas that help brands become
-            trusted sources.
+            Research, data stories, and evidence-led thinking from Cited Stories.
           </p>
         </div>
         <div class="flex justify-center self-end lg:justify-end">
@@ -80,31 +82,45 @@ const metadata = {
         {
           posts.length > 0 ? (
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <article
-                  class="flex min-h-full flex-col rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
+              {postsWithImages.map(({ post, image }) => (
+                <a
+                  href={getPermalink(post.permalink, 'post')}
+                  class="flex min-h-full flex-col overflow-hidden rounded-sm border border-[#141414]/10 bg-[#f7f4ee] text-[#141414] no-underline transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
                   data-list-item
                   data-search-index={`${post.title} ${post.excerpt || ''} ${post.category?.title || ''} ${(post.tags || []).map((tag) => tag.title).join(' ')}`.toLowerCase()}
                   data-filter-index={[post.category?.slug, ...(post.tags || []).map((tag) => tag.slug)].filter(Boolean).join(' ')}
                 >
-                  <div class="flex items-center gap-2 text-sm font-medium text-[#666]">
-                    <Icon name="tabler:calendar" class="h-4 w-4 text-[#2f5f59]" />
-                    <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
+                  <div class="aspect-[16/10] border-b border-[#141414]/10 bg-[#dce8d8]">
+                    {
+                      image && (
+                        <Image
+                          src={image}
+                          class="h-full w-full object-cover"
+                          widths={[400, 800]}
+                          width={800}
+                          sizes="(max-width: 900px) 100vw, 33vw"
+                          alt={post.title}
+                          aspectRatio="16:10"
+                          layout="cover"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )
+                    }
                   </div>
-                  <h2 class="mt-5 text-2xl font-semibold leading-tight tracking-normal">
-                    <a href={getPermalink(post.permalink, 'post')} class="hover:text-[#2f5f59]">
-                      {post.title}
-                    </a>
-                  </h2>
-                  {post.excerpt && <p class="mt-4 leading-7 text-[#555]">{post.excerpt}</p>}
-                  <a
-                    href={getPermalink(post.permalink, 'post')}
-                    class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]"
-                  >
-                    Read more
-                    <Icon name="tabler:arrow-right" class="h-5 w-5" />
-                  </a>
-                </article>
+                  <div class="flex flex-1 flex-col p-6">
+                    <div class="flex items-center gap-2 text-sm font-medium text-[#666]">
+                      <Icon name="tabler:calendar" class="h-4 w-4 text-[#2f5f59]" />
+                      <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
+                    </div>
+                    <h2 class="mt-5 text-2xl font-semibold leading-tight tracking-normal">{post.title}</h2>
+                    {post.excerpt && <p class="mt-4 leading-7 text-[#555]">{post.excerpt}</p>}
+                    <span class="mt-auto inline-flex items-center gap-2 pt-8 font-semibold text-[#141414]">
+                      Read more
+                      <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                    </span>
+                  </div>
+                </a>
               ))}
             </div>
           ) : (

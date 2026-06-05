@@ -5,7 +5,7 @@ import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
 import guinnessWorldRecordsPlaceholder from '~/assets/images/case-studies/hasbro-monopoly/guinness-world-records-placeholder.svg?url';
 import hasbroLogo from '~/assets/images/case-studies/hasbro-monopoly/hasbro-logo.png?url';
-import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.svg?url';
+import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.png?url';
 import telegraphMentionPlaceholder from '~/assets/images/case-studies/landlord-studio/telegraph-mention-placeholder.svg?url';
 import { getStaticPathsCaseStudy } from '~/utils/case-studies';
 import type { CaseStudy } from '~/types';
@@ -32,15 +32,57 @@ const mentionTextBySlug: Record<string, { alt: string; caption: string }> = {
     caption: 'Placeholder for the Monopoly mention in Guinness World Records.',
   },
   'landlord-studio': {
-    alt: 'Placeholder for The Telegraph mention',
-    caption: "Placeholder for the Landlord Studio mention in The Telegraph, one of the UK's biggest newspapers.",
+    alt: 'The Telegraph headline: Landlords face £7k fine if they fail to send key document this week',
+    caption: "Landlord Studio was referenced in The Telegraph, one of the UK's biggest newspapers.",
   },
 };
-const resultsMetrics = [
+const defaultResultsMetrics = [
   { label: 'Branded Mentions', value: 'TBC' },
   { label: 'Links', value: 'TBC' },
   { label: 'Impressions', value: 'TBC' },
 ];
+const landlordStudioBrandImpressions = [
+  118, 123, 160, 180, 197, 204, 213, 181, 195, 217, 223, 230, 225, 194, 154, 157, 154, 157, 178, 168, 163,
+  165, 148, 109, 112,
+];
+const chartWidth = 720;
+const chartHeight = 260;
+const chartPadding = { top: 18, right: 18, bottom: 34, left: 46 };
+const chartMin = Math.min(...landlordStudioBrandImpressions);
+const chartMax = Math.max(...landlordStudioBrandImpressions);
+const chartInnerWidth = chartWidth - chartPadding.left - chartPadding.right;
+const chartInnerHeight = chartHeight - chartPadding.top - chartPadding.bottom;
+const chartPoints = landlordStudioBrandImpressions.map((value, index) => {
+  const x = chartPadding.left + (index / (landlordStudioBrandImpressions.length - 1)) * chartInnerWidth;
+  const y = chartPadding.top + ((chartMax - value) / (chartMax - chartMin)) * chartInnerHeight;
+
+  return {
+    value,
+    x,
+    y,
+  };
+});
+const brandImpressionsLine = chartPoints.map((point) => `${point.x},${point.y}`).join(' ');
+const brandImpressionsArea = [
+  `${chartPadding.left},${chartHeight - chartPadding.bottom}`,
+  ...chartPoints.map((point) => `${point.x},${point.y}`),
+  `${chartWidth - chartPadding.right},${chartHeight - chartPadding.bottom}`,
+].join(' ');
+const brandImpressionsGrid = [100, 150, 200, 230].map((value) => ({
+  value,
+  y: chartPadding.top + ((chartMax - value) / (chartMax - chartMin)) * chartInnerHeight,
+}));
+const brandImpressionsPeak = chartPoints.reduce((highest, point) => (point.value > highest.value ? point : highest), chartPoints[0]);
+const brandImpressionsStart = chartPoints[0];
+const brandImpressionsEnd = chartPoints[chartPoints.length - 1];
+const showBrandImpressionsChart = caseStudy.slug === 'landlord-studio';
+const resultsMetrics = showBrandImpressionsChart
+  ? [
+      { label: 'Branded Mentions', value: 'TBC' },
+      { label: 'Links', value: 'TBC' },
+      { label: 'Brand Impressions', value: '94%' },
+    ]
+  : defaultResultsMetrics;
 const clientLogo = clientLogoBySlug[caseStudy.slug];
 const mentionImage = mentionImageBySlug[caseStudy.slug];
 const mentionText = mentionTextBySlug[caseStudy.slug];
@@ -120,7 +162,24 @@ const metadata = {
       </div>
     </section>
 
-    <section class="border-y border-[#141414]/10 bg-[#f7f4ee]">
+    {
+      caseStudy.storyWeTold && (
+        <section class="border-t border-[#141414]/10 bg-[#f7f4ee]">
+          <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.32fr_1fr] lg:px-8 lg:py-20">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">The story we told</p>
+            </div>
+            <div>
+              <p class="max-w-4xl text-2xl font-semibold leading-10 tracking-normal text-[#141414]">
+                {caseStudy.storyWeTold}
+              </p>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="border-y border-[#141414]/10 bg-white">
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 lg:grid-cols-[0.32fr_1fr] lg:px-8 lg:py-20">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#e2634f]">Results</p>
@@ -129,13 +188,94 @@ const metadata = {
           <div class="grid gap-4 md:grid-cols-3">
             {
               resultsMetrics.map((metric) => (
-                <article class="result-metric rounded-sm border border-[#141414]/10 bg-white p-6 opacity-0">
+                <article class="result-metric rounded-sm border border-[#141414]/10 bg-white p-6">
                   <p class="text-4xl font-semibold tracking-normal text-[#141414] sm:text-5xl">{metric.value}</p>
                   <p class="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{metric.label}</p>
                 </article>
               ))
             }
           </div>
+          {
+            showBrandImpressionsChart && (
+              <figure class="mt-8 rounded-sm border border-[#141414]/10 bg-white p-5 sm:p-6">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Brand impressions</p>
+                    <h2 class="mt-2 text-3xl font-semibold tracking-normal sm:text-4xl">118,000 to a 230,000 peak</h2>
+                  </div>
+                  <p class="text-sm leading-6 text-[#555]">Values shown in thousands.</p>
+                </div>
+                <div class="mt-6 overflow-x-auto">
+                  <svg
+                    viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+                    role="img"
+                    aria-label="Line graph showing Landlord Studio brand impressions rising from 118,000 to a peak of 230,000."
+                    class="min-w-[42rem] w-full"
+                  >
+                    <polygon points={brandImpressionsArea} fill="#dce8d8" opacity="0.78" />
+                    {
+                      brandImpressionsGrid.map((line) => (
+                        <>
+                          <line
+                            x1={chartPadding.left}
+                            x2={chartWidth - chartPadding.right}
+                            y1={line.y}
+                            y2={line.y}
+                            stroke="#141414"
+                            stroke-opacity="0.1"
+                          />
+                          <text x="8" y={line.y + 4} fill="#555" font-size="12" font-weight="600">
+                            {line.value}k
+                          </text>
+                        </>
+                      ))
+                    }
+                    <line
+                      x1={chartPadding.left}
+                      x2={chartWidth - chartPadding.right}
+                      y1={chartHeight - chartPadding.bottom}
+                      y2={chartHeight - chartPadding.bottom}
+                      stroke="#141414"
+                      stroke-opacity="0.18"
+                    />
+                    <polyline
+                      points={brandImpressionsLine}
+                      fill="none"
+                      stroke="#2f5f59"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="4"
+                    />
+                    <circle cx={brandImpressionsStart.x} cy={brandImpressionsStart.y} r="5" fill="#2f5f59" />
+                    <circle cx={brandImpressionsPeak.x} cy={brandImpressionsPeak.y} r="6" fill="#e2634f" />
+                    <circle cx={brandImpressionsEnd.x} cy={brandImpressionsEnd.y} r="5" fill="#2f5f59" />
+                    <text x={brandImpressionsStart.x - 18} y={brandImpressionsStart.y - 14} fill="#141414" font-size="13" font-weight="700">
+                      118k
+                    </text>
+                    <text x={brandImpressionsPeak.x - 20} y={brandImpressionsPeak.y - 14} fill="#141414" font-size="13" font-weight="700">
+                      230k
+                    </text>
+                    <text x={brandImpressionsEnd.x - 20} y={brandImpressionsEnd.y - 14} fill="#141414" font-size="13" font-weight="700">
+                      112k
+                    </text>
+                    <text x={chartPadding.left} y={chartHeight - 8} fill="#555" font-size="12" font-weight="600">
+                      Start
+                    </text>
+                    <text x={brandImpressionsPeak.x - 14} y={chartHeight - 8} fill="#555" font-size="12" font-weight="600">
+                      Peak
+                    </text>
+                    <text x={chartWidth - chartPadding.right - 22} y={chartHeight - 8} fill="#555" font-size="12" font-weight="600">
+                      End
+                    </text>
+                  </svg>
+                </div>
+                <figcaption class="mt-4 text-sm leading-6 text-[#555]">
+                  Brand impressions across 25 data points, beginning at 118,000, peaking at 230,000, and ending at
+                  112,000.
+                </figcaption>
+              </figure>
+            )
+          }
           {
             mentionImage && (
               <figure class="mt-8 overflow-hidden rounded-sm border border-[#141414]/10 bg-white">
@@ -197,7 +337,9 @@ const metadata = {
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.18em] text-[#f2c36b]">Start here</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to get cited?</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
+            Find your story to share with the world.
+          </h2>
         </div>
         <a
           href="/book-a-meeting"
@@ -213,51 +355,15 @@ const metadata = {
   </main>
 </Layout>
 
-<script>
-  const metricCards = document.querySelectorAll('.result-metric');
-
-  const revealMetrics = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-visible');
-      observer.unobserve(entry.target);
-    });
-  };
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(revealMetrics, { threshold: 0.28 });
-    metricCards.forEach((card) => observer.observe(card));
-  } else {
-    metricCards.forEach((card) => card.classList.add('is-visible'));
-  }
-</script>
-
 <style>
   .result-metric {
-    transform: translateY(18px);
     transition:
-      opacity 480ms ease,
-      transform 480ms ease;
+      border-color 180ms ease,
+      transform 180ms ease;
   }
 
-  .result-metric:nth-child(2) {
-    transition-delay: 120ms;
-  }
-
-  .result-metric:nth-child(3) {
-    transition-delay: 240ms;
-  }
-
-  .result-metric.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .result-metric {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+  .result-metric:hover {
+    border-color: rgb(47 95 89 / 0.4);
+    transform: translateY(-2px);
   }
 </style>

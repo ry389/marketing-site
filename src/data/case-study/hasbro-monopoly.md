@@ -6,6 +6,7 @@ client: Hasbro Monopoly
 campaignType: Research-led storytelling
 outcome: Placeholder case study details coming soon.
 project: We would identify a timely story rooted in culture, nostalgia, and useful public insight, then turn the findings into a clear media angle that helps Monopoly earn attention, relevance, and trusted visibility.
+storyWeTold: We would connect Monopoly's cultural nostalgia with fresh public insight, shaping a story that makes a household game feel current, useful, and worth referencing.
 excerpt: A placeholder example showing how Monopoly could turn cultural insight into a story people reference.
 category: Research-led storytelling
 tags:

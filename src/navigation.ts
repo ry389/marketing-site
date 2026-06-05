@@ -94,11 +94,7 @@ export const headerData = {
         },
         {
           text: 'Article',
-          href: getPermalink('get-started-website-with-astro-tailwind-css', 'post'),
-        },
-        {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
+          href: getPermalink('research/do-brand-mentions-shape-visibility'),
         },
         {
           text: 'Category Page',

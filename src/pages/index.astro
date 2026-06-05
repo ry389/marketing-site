@@ -4,7 +4,7 @@ import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
 import hasbroLogo from '~/assets/images/case-studies/hasbro-monopoly/hasbro-logo.png?url';
-import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.svg?url';
+import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.png?url';
 import createSomethingUsefulIcon from '~/assets/images/home/create-something-useful.png?url';
 import earnTrustedVisibilityIcon from '~/assets/images/home/earn-trusted-visibility.png?url';
 import findWhatMattersIcon from '~/assets/images/home/find-what-matters.png?url';
@@ -204,7 +204,10 @@ const caseStudyLogoBySlug: Record<string, string> = {
             need more than generic content. They need original insights, credible data, and stories people want to
             share.
           </p>
-          <a href="#" class="mt-6 inline-flex font-semibold text-[#141414] underline decoration-[#e2634f] decoration-2 underline-offset-4 hover:text-[#2f5f59]">
+          <a
+            href="/research/do-brand-mentions-shape-visibility"
+            class="mt-6 inline-flex font-semibold text-[#141414] underline decoration-[#e2634f] decoration-2 underline-offset-4 hover:text-[#2f5f59]"
+          >
             See how brand mentions shape visibility
           </a>
         </div>
@@ -257,15 +260,18 @@ const caseStudyLogoBySlug: Record<string, string> = {
 
     <section id="examples" class="border-b border-[#141414]/10 bg-white">
       <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div class="mx-auto max-w-3xl text-center">
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">
+        <div class="mx-auto max-w-5xl text-center">
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal md:whitespace-nowrap sm:text-5xl">
             Data-led stories we've helped tell
           </h2>
         </div>
         <div class="mt-10 grid gap-4 md:grid-cols-3">
           {
             caseStudies.map((item) => (
-              <article class="rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6">
+              <a
+                href={item.permalink}
+                class="block rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 text-[#141414] no-underline transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
+              >
                 <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.client}</p>
                 <div class="mt-5 flex h-24 items-center text-sm font-semibold tracking-normal text-[#777]">
                   {
@@ -282,13 +288,22 @@ const caseStudyLogoBySlug: Record<string, string> = {
                   }
                 </div>
                 <h3 class="mt-5 text-xl font-semibold leading-7">{item.title}</h3>
-                <a href={item.permalink} class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
+                <span class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414]">
                   Read more
                   <Icon name="tabler:arrow-right" class="h-5 w-5" />
-                </a>
-              </article>
+                </span>
+              </a>
             ))
           }
+        </div>
+        <div class="mt-10 text-center">
+          <a
+            href="/case-studies"
+            class="inline-flex items-center gap-2 font-semibold text-[#141414] underline decoration-[#f2c36b] decoration-2 underline-offset-4 hover:text-[#2f5f59]"
+          >
+            View all case studies
+            <Icon name="tabler:arrow-right" class="h-5 w-5" />
+          </a>
         </div>
       </div>
     </section>
@@ -296,7 +311,7 @@ const caseStudyLogoBySlug: Record<string, string> = {
     <section id="contact" class="bg-[#141414] text-white">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to shape the conversation?</h2>
+          <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to share your stories?</h2>
           <p class="mt-4 max-w-2xl text-lg leading-8 text-white/70">
             Let us map the research angles, proof points, and stories your category can own.
           </p>

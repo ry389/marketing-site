@@ -6,6 +6,7 @@ client: Ferg Burger
 campaignType: Research-led storytelling
 outcome: Case study details coming soon.
 project: We identified a story angle that connected a local icon to a broader tourism conversation, helping the brand move from local recognition to wider relevance.
+storyWeTold: We connected a beloved local food brand to a wider tourism angle, turning local fame into a story with broader cultural and travel relevance.
 excerpt: A local icon became part of a broader tourism story with national relevance.
 category: Research-led storytelling
 tags:

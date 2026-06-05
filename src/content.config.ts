@@ -78,6 +78,7 @@ const caseStudyCollection = defineCollection({
     campaignType: z.string(),
     outcome: z.string(),
     project: z.string(),
+    storyWeTold: z.string().optional(),
     excerpt: z.string().optional(),
     image: z.string().optional(),
     category: z.string().optional(),
