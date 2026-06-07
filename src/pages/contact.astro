@@ -92,11 +92,11 @@ const metadata = {
                 <Icon name="tabler:arrow-right" class="h-5 w-5" />
               </a>
               <a
-                href="/research"
+                href="/contact"
                 class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#2f5f59]/30 px-5 py-3 font-semibold text-[#21443f] transition hover:bg-white"
               >
-                Read some insights
-                <Icon name="tabler:book-2" class="h-5 w-5" />
+                Contact us
+                <Icon name="tabler:calendar-event" class="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -177,12 +177,62 @@ const metadata = {
     const contactForm = document.querySelector('[data-contact-form]');
     const successMessage = document.querySelector('[data-contact-success]');
     const contactPanel = document.querySelector('[data-contact-panel]');
+    const contactSubmitted = new URLSearchParams(window.location.search).get('submitted') === 'true';
 
-    if (successMessage && contactForm && new URLSearchParams(window.location.search).get('submitted') === 'true') {
+    const getSessionValue = (key) => {
+      try {
+        return sessionStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    };
+
+    const setSessionValue = (key, value) => {
+      try {
+        sessionStorage.setItem(key, value);
+      } catch {}
+    };
+
+    const removeSessionValue = (key) => {
+      try {
+        sessionStorage.removeItem(key);
+      } catch {}
+    };
+
+    const trackContactSubmission = () => {
+      const pendingKey = 'citedStoriesContactSubmissionPending';
+      const sentKey = 'citedStoriesContactSubmissionTracked';
+
+      if (getSessionValue(pendingKey) !== 'true' || getSessionValue(sentKey) === 'true') return;
+
+      const eventParams = {
+        event_category: 'lead',
+        event_label: 'Contact form',
+        form_name: 'contact',
+        form_destination: 'hello@citedstories.com',
+        conversion_page: '/contact',
+      };
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'contact_form_submitted',
+        ...eventParams,
+      });
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'contact_form_submitted', eventParams);
+      }
+
+      setSessionValue(sentKey, 'true');
+      removeSessionValue(pendingKey);
+    };
+
+    if (successMessage && contactForm && contactSubmitted) {
       successMessage.classList.remove('hidden');
       contactForm.classList.add('hidden');
       contactPanel?.classList.remove('shadow-[0_24px_80px_rgba(20,20,20,0.08)]');
       contactPanel?.classList.add('bg-white');
+      trackContactSubmission();
     }
 
     contactForm?.querySelector('[name="name"]')?.addEventListener('invalid', (event) => {
@@ -207,6 +257,8 @@ const metadata = {
 
       event.preventDefault();
       contactForm.dataset.conversionSent = 'true';
+      setSessionValue('citedStoriesContactSubmissionPending', 'true');
+      removeSessionValue('citedStoriesContactSubmissionTracked');
 
       let hasSubmitted = false;
       const submitForm = () => {
@@ -214,22 +266,8 @@ const metadata = {
         hasSubmitted = true;
         HTMLFormElement.prototype.submit.call(contactForm);
       };
-      const fallback = window.setTimeout(submitForm, 900);
 
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'contact_form_submit', {
-          event_category: 'lead',
-          event_label: 'Contact form',
-          form_destination: 'hello@citedstories.com',
-          event_callback: () => {
-            window.clearTimeout(fallback);
-            submitForm();
-          },
-        });
-      } else {
-        window.clearTimeout(fallback);
-        submitForm();
-      }
+      submitForm();
     });
   </script>
 </Layout>

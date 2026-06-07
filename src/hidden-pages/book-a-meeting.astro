@@ -558,6 +558,10 @@ const discussionPoints = [
         const result = await response.json();
 
         if (response.ok && result.confirmationPath) {
+          try {
+            sessionStorage.setItem('citedStoriesBookingConversionPending', 'true');
+            sessionStorage.removeItem('citedStoriesBookingConversionTracked');
+          } catch {}
           window.location.href = result.confirmationPath;
           return;
         }

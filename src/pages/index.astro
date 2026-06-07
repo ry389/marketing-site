@@ -3,13 +3,10 @@ import { Icon } from 'astro-icon/components';
 import SiteFooter from '~/components/SiteFooter.astro';
 import SiteHeader from '~/components/SiteHeader.astro';
 import Layout from '~/layouts/Layout.astro';
-import hasbroLogo from '~/assets/images/case-studies/hasbro-monopoly/hasbro-logo.png?url';
-import landlordStudioLogo from '~/assets/images/case-studies/landlord-studio/logo.png?url';
 import createSomethingUsefulIcon from '~/assets/images/home/create-something-useful.png?url';
 import earnTrustedVisibilityIcon from '~/assets/images/home/earn-trusted-visibility.png?url';
 import findWhatMattersIcon from '~/assets/images/home/find-what-matters.png?url';
 import visibilityShiftSticker from '~/assets/images/home/visibility-shift-sticker.png?url';
-import { fetchCaseStudies } from '~/utils/case-studies';
 
 const metadata = {
   title: 'Building the world\'s thought-leading brands',
@@ -56,11 +53,6 @@ const methods = [
   },
 ];
 
-const caseStudies = (await fetchCaseStudies()).slice(0, 3);
-const caseStudyLogoBySlug: Record<string, string> = {
-  'hasbro-monopoly': hasbroLogo,
-  'landlord-studio': landlordStudioLogo,
-};
 ---
 
 <Layout metadata={metadata}>
@@ -80,18 +72,11 @@ const caseStudyLogoBySlug: Record<string, string> = {
           </p>
           <div class="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href="/book-a-meeting"
+              href="/contact"
               class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#2f5f59]"
             >
-              Book a discovery call
+              Contact us
               <Icon name="tabler:calendar-event" class="h-5 w-5" />
-            </a>
-            <a
-              href="/the-value-of-citations"
-              class="inline-flex items-center justify-center gap-2 rounded-sm border border-[#141414]/20 bg-white/60 px-6 py-3.5 text-base font-semibold text-[#141414] transition hover:border-[#141414]/40 hover:bg-white"
-            >
-              See how it works
-              <Icon name="tabler:arrow-right" class="h-5 w-5" />
             </a>
           </div>
         </div>
@@ -197,19 +182,13 @@ const caseStudyLogoBySlug: Record<string, string> = {
         </div>
         <div class="lg:self-center">
           <h2 class="mt-5 text-3xl font-bold tracking-normal text-[#141414] sm:text-5xl">
-            AI content is creating noise, but underdelivering.
+            AI content is easier to produce, but harder to make perform.
           </h2>
           <p class="mt-6 max-w-3xl text-lg leading-8 text-[#454545]">
-            Organic visibility is changing. To stand out across search, media, AI, and industry conversations, brands
-            need more than generic content. They need original insights, credible data, and stories people want to
-            share.
+            AI Overviews are cutting clicks by up to 58%, putting teams under pressure to prove visibility beyond
+            traditional SEO. The next era of organic content won’t be won by publishing more generic articles, but by
+            creating original insights, credible data, and stories that earn attention.
           </p>
-          <a
-            href="/research/do-brand-mentions-shape-visibility"
-            class="mt-6 inline-flex font-semibold text-[#141414] underline decoration-[#e2634f] decoration-2 underline-offset-4 hover:text-[#2f5f59]"
-          >
-            See how brand mentions shape visibility
-          </a>
         </div>
       </div>
     </section>
@@ -258,78 +237,21 @@ const caseStudyLogoBySlug: Record<string, string> = {
       </div>
     </section>
 
-    <section id="examples" class="border-b border-[#141414]/10 bg-white">
-      <div class="mx-auto max-w-7xl px-5 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div class="mx-auto max-w-5xl text-center">
-          <h2 class="mt-4 text-3xl font-semibold tracking-normal md:whitespace-nowrap sm:text-5xl">
-            Data-led stories we've helped tell
-          </h2>
-        </div>
-        <div class="mt-10 grid gap-4 md:grid-cols-3">
-          {
-            caseStudies.map((item) => (
-              <a
-                href={item.permalink}
-                class="block rounded-sm border border-[#141414]/10 bg-[#f7f4ee] p-6 text-[#141414] no-underline transition hover:-translate-y-1 hover:border-[#2f5f59]/40 hover:bg-white"
-              >
-                <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">{item.client}</p>
-                <div class="mt-5 flex h-24 items-center text-sm font-semibold tracking-normal text-[#777]">
-                  {
-                    caseStudyLogoBySlug[item.slug] ? (
-                      <img
-                        src={caseStudyLogoBySlug[item.slug]}
-                        alt={`${item.client} logo`}
-                        class="max-h-20 max-w-48 object-contain"
-                        loading="lazy"
-                      />
-                    ) : (
-                      'Logo'
-                    )
-                  }
-                </div>
-                <h3 class="mt-5 text-xl font-semibold leading-7">{item.title}</h3>
-                <span class="mt-8 inline-flex items-center gap-2 font-semibold text-[#141414]">
-                  Read more
-                  <Icon name="tabler:arrow-right" class="h-5 w-5" />
-                </span>
-              </a>
-            ))
-          }
-        </div>
-        <div class="mt-10 text-center">
-          <a
-            href="/case-studies"
-            class="inline-flex items-center gap-2 font-semibold text-[#141414] underline decoration-[#f2c36b] decoration-2 underline-offset-4 hover:text-[#2f5f59]"
-          >
-            View all case studies
-            <Icon name="tabler:arrow-right" class="h-5 w-5" />
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="bg-[#141414] text-white">
+    <section id="contact" class="border-b border-[#141414]/10 bg-white text-[#141414]">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-6 lg:grid-cols-[1fr_auto] lg:items-center lg:px-8">
         <div>
           <h2 class="mt-4 text-3xl font-semibold tracking-normal sm:text-5xl">Ready to share your stories?</h2>
-          <p class="mt-4 max-w-2xl text-lg leading-8 text-white/70">
+          <p class="mt-4 max-w-2xl text-lg leading-8 text-[#555]">
             Let us map the research angles, proof points, and stories your category can own.
           </p>
         </div>
         <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
           <a
-            href="/book-a-meeting"
-            class="inline-flex items-center justify-center gap-2 rounded-sm bg-white px-6 py-3.5 font-semibold text-[#141414] transition hover:bg-[#f2c36b]"
+            href="/contact"
+            class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-6 py-3.5 font-semibold text-white transition hover:bg-[#2f5f59]"
           >
-            Book a discovery call
+            Contact us
             <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
-          </a>
-          <a
-            href="#examples"
-            class="inline-flex items-center justify-center gap-2 rounded-sm border border-white/20 px-6 py-3.5 font-semibold text-white transition hover:bg-white/10"
-          >
-            View case studies
-            <Icon name="tabler:layout-grid" class="h-5 w-5" />
           </a>
         </div>
       </div>

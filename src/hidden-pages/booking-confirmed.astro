@@ -157,10 +157,34 @@ const metadata = {
       googleCalendarLink.classList.add('inline-flex');
     }
 
-    if (bookingStatus === 'confirmed') {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'discovery_call_booked',
+    const getSessionValue = (key) => {
+      try {
+        return sessionStorage.getItem(key);
+      } catch {
+        return null;
+      }
+    };
+
+    const setSessionValue = (key, value) => {
+      try {
+        sessionStorage.setItem(key, value);
+      } catch {}
+    };
+
+    const removeSessionValue = (key) => {
+      try {
+        sessionStorage.removeItem(key);
+      } catch {}
+    };
+
+    if (
+      bookingStatus === 'confirmed' &&
+      getSessionValue('citedStoriesBookingConversionPending') === 'true' &&
+      getSessionValue('citedStoriesBookingConversionTracked') !== 'true'
+    ) {
+      const eventParams = {
+        event_category: 'lead',
+        event_label: 'Discovery call',
         conversion_page: '/booking-confirmed',
         booking_status: bookingStatus,
         meeting_type: meetingType,
@@ -168,7 +192,20 @@ const metadata = {
         meeting_time: meetingTime,
         meeting_timezone: timezone,
         meeting_duration_minutes: meetingDuration,
+      };
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'discovery_call_booked',
+        ...eventParams,
       });
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'discovery_call_booked', eventParams);
+      }
+
+      setSessionValue('citedStoriesBookingConversionTracked', 'true');
+      removeSessionValue('citedStoriesBookingConversionPending');
     }
   </script>
 </Layout>

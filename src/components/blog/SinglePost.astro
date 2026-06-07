@@ -23,9 +23,9 @@ const authorUrl = post.author ? authorUrlByName[post.author] : undefined;
   <article>
     <header>
       <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <a href="/research" class="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#2f5f59] hover:text-[#141414]">
+        <a href="/" class="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#2f5f59] hover:text-[#141414]">
           <Icon name="tabler:arrow-left" class="h-4 w-4" />
-          Research
+          Home
         </a>
         <div class="max-w-4xl">
           <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-[#666]">
@@ -101,15 +101,15 @@ const authorUrl = post.author ? authorUrlByName[post.author] : undefined;
       <slot />
     </div>
     <div class="mx-auto flex max-w-3xl flex-col gap-4 px-5 pb-16 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:pb-20">
-      <a href="/research" class="inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
+      <a href="/" class="inline-flex items-center gap-2 font-semibold text-[#141414] hover:text-[#2f5f59]">
         <Icon name="tabler:arrow-left" class="h-5 w-5" />
-        Back to research
+        Back home
       </a>
       <a
-        href="/book-a-meeting"
+        href="/contact"
         class="inline-flex items-center justify-center gap-2 rounded-sm bg-[#141414] px-5 py-3 font-semibold text-white transition hover:bg-[#2f5f59]"
       >
-        Book a discovery call
+        Contact us
         <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
       </a>
     </div>

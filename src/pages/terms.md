@@ -1,5 +1,6 @@
 ---
 title: 'Terms'
+description: 'The terms that apply when using the Cited Stories website and contacting us about our services.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
@@ -17,15 +18,15 @@ We aim to keep the site accurate and useful, but we do not guarantee that every 
 
 You should not treat website content as legal, financial, or professional advice for your specific situation.
 
-## Enquiries and booking calls
+## Enquiries
 
-When you submit a booking form or enquiry, you agree to provide accurate information. We may use the details you provide to schedule a meeting, contact you about your enquiry, and prepare for the conversation.
+When you submit a contact form or email enquiry, you agree to provide accurate information. We may use the details you provide to contact you about your enquiry and prepare for the conversation.
 
-Submitting a form or booking a call does not create a client relationship or guarantee that we will provide services.
+Submitting a form or email enquiry does not create a client relationship or guarantee that we will provide services.
 
 ## External services
 
-The site may use third-party services such as Google Analytics, Google Calendar, Google Meet, content management tools, hosting providers, and other operational services.
+The site may use third-party services such as Google Analytics, email tools, content management tools, hosting providers, and other operational services.
 
 Those services may have their own terms and privacy practices. We are not responsible for third-party websites or services we do not control.
 

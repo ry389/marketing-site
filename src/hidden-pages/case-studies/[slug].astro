@@ -47,7 +47,7 @@ const landlordStudioBrandImpressions = [
 ];
 const chartWidth = 720;
 const chartHeight = 260;
-const chartPadding = { top: 18, right: 18, bottom: 34, left: 46 };
+const chartPadding = { top: 36, right: 18, bottom: 34, left: 46 };
 const chartMin = Math.min(...landlordStudioBrandImpressions);
 const chartMax = Math.max(...landlordStudioBrandImpressions);
 const chartInnerWidth = chartWidth - chartPadding.left - chartPadding.right;
@@ -78,8 +78,8 @@ const brandImpressionsEnd = chartPoints[chartPoints.length - 1];
 const showBrandImpressionsChart = caseStudy.slug === 'landlord-studio';
 const resultsMetrics = showBrandImpressionsChart
   ? [
-      { label: 'Branded Mentions', value: 'TBC' },
-      { label: 'Links', value: 'TBC' },
+      { label: 'Branded Mentions', value: '17' },
+      { label: 'Links', value: '4' },
       { label: 'Brand Impressions', value: '94%' },
     ]
   : defaultResultsMetrics;
@@ -198,12 +198,8 @@ const metadata = {
           {
             showBrandImpressionsChart && (
               <figure class="mt-8 rounded-sm border border-[#141414]/10 bg-white p-5 sm:p-6">
-                <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p class="text-sm font-semibold uppercase tracking-[0.16em] text-[#2f5f59]">Brand impressions</p>
-                    <h2 class="mt-2 text-3xl font-semibold tracking-normal sm:text-4xl">118,000 to a 230,000 peak</h2>
-                  </div>
-                  <p class="text-sm leading-6 text-[#555]">Values shown in thousands.</p>
+                <div>
+                  <h2 class="text-3xl font-semibold tracking-normal sm:text-4xl">Brand Impressions</h2>
                 </div>
                 <div class="mt-6 overflow-x-auto">
                   <svg

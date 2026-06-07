@@ -1,5 +1,6 @@
 ---
 title: 'Privacy Policy'
+description: 'How Cited Stories collects, uses, and protects information submitted through this website.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
@@ -9,7 +10,7 @@ Cited Stories respects your privacy. This policy explains what information we co
 
 ## Information we collect
 
-We may collect information you choose to send us, including your name, email address, company, meeting preferences, and any context you add to the booking form.
+We may collect information you choose to send us, including your name, email address, company, and any context you include in a contact form or email.
 
 We also collect basic website usage information through analytics tools, such as pages visited, approximate location, device and browser information, referral source, and interaction events.
 
@@ -19,25 +20,22 @@ Our main tracking tool is Google Analytics 4. GA4 helps us understand how people
 
 Google may process analytics data in accordance with its own policies. You can control cookies and tracking through your browser settings and Google’s available privacy controls.
 
-## Booking data
+## Enquiry data
 
-When you book a discovery call, the information you submit is used to create and manage the meeting. Booking details may be stored or processed with Google services, including Google Calendar and Google Meet, so the meeting can be scheduled and joined.
-
-We use booking information only to manage the call, follow up on your enquiry, and understand the context you shared with us.
+When you contact us, the information you submit is used to reply to your enquiry and understand the context you shared with us.
 
 ## How we use information
 
 We use information to:
 
 - operate and improve the website
-- respond to enquiries and meeting requests
-- schedule and manage discovery calls
+- respond to enquiries
 - understand which content and pages are useful
 - protect the site from spam, misuse, and technical issues
 
 ## Sharing information
 
-We do not sell your personal information. We may share information with service providers that help us operate the site, analytics, email, calendar, and booking workflows.
+We do not sell your personal information. We may share information with service providers that help us operate the site, analytics, email, and contact workflows.
 
 We may also disclose information if required by law or if needed to protect our rights, users, or services.
 
